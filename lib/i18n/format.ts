@@ -50,3 +50,15 @@ export function date(value: string | Date, lang: Locale): string {
 export function t(template: string, vars: Record<string, string | number> = {}): string {
   return template.replace(/\{(\w+)\}/g, (match, key: string) => (key in vars ? String(vars[key]) : match));
 }
+
+/** Count of items (products) with plural agreement. */
+export function items(n: number, lang: Locale): string {
+  if (lang === "ar") {
+    if (n === 1) return "قطعة واحدة";
+    if (n === 2) return "قطعتان";
+    if (n >= 3 && n <= 10) return `${num(n, lang)} قطع`;
+    return `${num(n, lang)} قطعة`;
+  }
+  if (lang === "he") return n === 1 ? "פריט אחד" : `${n} פריטים`;
+  return n === 1 ? "1 item" : `${n} items`;
+}

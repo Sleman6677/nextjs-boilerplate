@@ -163,3 +163,12 @@ export function Mobile(props: P) {
     </svg>
   );
 }
+
+export function User(props: P) {
+  return (
+    <svg viewBox="0 0 24 24" width="20" height="20" {...base} {...props}>
+      <circle cx="12" cy="8.5" r="3.75" />
+      <path d="M4.75 20c.9-3.6 3.8-5.5 7.25-5.5s6.35 1.9 7.25 5.5" />
+    </svg>
+  );
+}

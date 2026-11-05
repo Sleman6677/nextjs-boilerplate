@@ -11,6 +11,7 @@
  *   PAYPLUS_API_BASE           optional override of the API base URL (used for local testing)
  */
 
+import { createHmac, timingSafeEqual } from "node:crypto";
 import { lashBoxes, shop } from "./site";
 
 const BASES = {
@@ -137,4 +138,92 @@ export async function createPaymentLink(order: Order, origin: string, lang = "ar
     throw new Error("payment_link_failed");
   }
   return url.toString();
+}
+
+/* ───────────── Orders from the database ───────────── */
+
+
+export type OnlineMethod = "card" | "bit" | "apple_pay";
+
+/** Which methods go through the PayPlus page (PAYPLUS_METHODS, default all three). Others fall back. */
+export function payplusMethods(): OnlineMethod[] {
+  if (!payplusConfigured()) return [];
+  const raw = (process.env.PAYPLUS_METHODS ?? "card,bit,apple_pay").split(",").map((m) => m.trim());
+  return (["card", "bit", "apple_pay"] as const).filter((m) => raw.includes(m));
+}
+
+const CHARGE_DEFAULT: Record<OnlineMethod, string> = { card: "credit-card", bit: "bit", apple_pay: "apple-pay" };
+
+export type PaymentLinkInput = {
+  orderId: string;
+  number: number;
+  total: number;
+  method: OnlineMethod;
+  lang: string;
+  origin: string;
+  customer: { name: string; email: string; phone: string; address: string };
+  items: { name: string; quantity: number; price: number }[];
+};
+
+/** One-time PayPlus page for an order. more_info carries the order id for the callback. */
+export async function createOrderPaymentLink(input: PaymentLinkInput): Promise<{ url: string; pageRequestUid: string | null }> {
+  const res = await fetch(`${apiBase()}/PaymentPages/generateLink`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "api-key": process.env.PAYPLUS_API_KEY ?? "", "secret-key": process.env.PAYPLUS_SECRET_KEY ?? "" },
+    body: JSON.stringify({
+      payment_page_uid: process.env.PAYPLUS_PAYMENT_PAGE_UID,
+      amount: input.total,
+      currency_code: "ILS",
+      charge_method: 1,
+      charge_default: CHARGE_DEFAULT[input.method],
+      sendEmailApproval: true,
+      sendEmailFailure: false,
+      refURL_success: `${input.origin}/${input.lang}/account/orders/${input.number}?paid=1`,
+      refURL_failure: `${input.origin}/${input.lang}/account/orders/${input.number}?failed=1`,
+      refURL_cancel: `${input.origin}/${input.lang}/account/orders/${input.number}`,
+      refURL_callback: `${input.origin}/api/payplus/callback`,
+      more_info: input.orderId,
+      more_info_2: `#${input.number}`,
+      customer: { customer_name: input.customer.name, email: input.customer.email, phone: input.customer.phone, address: input.customer.address },
+      items: input.items,
+    }),
+    signal: AbortSignal.timeout(15000),
+    cache: "no-store",
+  });
+  const text = await res.text();
+  let data: { results?: { status?: string }; data?: { payment_page_link?: string; page_request_uid?: string } } = {};
+  try {
+    data = JSON.parse(text);
+  } catch {
+    /* handled below */
+  }
+  const link = data.data?.payment_page_link;
+  if (!res.ok || data.results?.status !== "success" || !link) {
+    console.error("PayPlus generateLink failed", res.status, data.results ?? text.slice(0, 200));
+    throw new Error("payment_link_failed");
+  }
+  const url = new URL(link);
+  if (url.protocol !== "https:" || !(url.hostname === "payplus.co.il" || url.hostname.endsWith(".payplus.co.il"))) throw new Error("payment_link_failed");
+  return { url: url.toString(), pageRequestUid: data.data?.page_request_uid ?? null };
+}
+
+/**
+ * Verifies a PayPlus callback: HMAC-SHA256 of the body with the secret key, base64, in the
+ * "hash" header (docs: validate-requests-received-from-payplus). The docs sign JSON.stringify of
+ * the parsed body, so both the raw body and its re-serialised form are accepted.
+ */
+export function verifyPayplusSignature(rawBody: string, hashHeader: string | null): boolean {
+  const secret = process.env.PAYPLUS_SECRET_KEY;
+  if (!secret || !hashHeader) return false;
+  const candidates = [rawBody];
+  try {
+    candidates.push(JSON.stringify(JSON.parse(rawBody)));
+  } catch {
+    return false;
+  }
+  const given = Buffer.from(hashHeader);
+  return candidates.some((message) => {
+    const expected = Buffer.from(createHmac("sha256", secret).update(message).digest("base64"));
+    return expected.length === given.length && timingSafeEqual(expected, given);
+  });
 }

@@ -10,10 +10,15 @@ import { ButtonLink, Marquee } from "@/components/ui";
 import { href, isLocale } from "@/lib/i18n/config";
 import { money, num, t } from "@/lib/i18n/format";
 import { getDictionary } from "@/lib/i18n";
+import { getCatalog } from "@/lib/catalog";
 import { payplusConfigured } from "@/lib/payplus";
+import { accountsEnabled } from "@/lib/supabase/config";
 import { shop, whatsappLink } from "@/lib/site";
 
 const v = (vars: Record<string, string | number>) => vars as CSSProperties;
+
+// Re-generated at most every minute; admin changes revalidate it immediately.
+export const revalidate = 60;
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/shop">): Promise<Metadata> {
   const { lang } = await params;
@@ -27,7 +32,9 @@ export default async function ShopPage({ params }: PageProps<"/[lang]/shop">) {
   if (!isLocale(lang)) notFound();
   const dict = getDictionary(lang);
   const s = dict.shop;
-  const price = money(shop.boxPrice, lang, shop.currency);
+  const categories = await getCatalog();
+  const prices = categories.flatMap((c) => c.products.map((p) => p.price));
+  const price = money(prices.length ? Math.min(...prices) : shop.boxPrice, lang, shop.currency);
 
   return (
     <div className="bg-petal">
@@ -124,7 +131,7 @@ export default async function ShopPage({ params }: PageProps<"/[lang]/shop">) {
           </header>
 
           <div className="mt-20">
-            <ShopCatalog onlinePayments={payplusConfigured()} />
+            <ShopCatalog categories={categories} accounts={accountsEnabled()} onlinePayments={payplusConfigured()} />
           </div>
         </div>
       </section>

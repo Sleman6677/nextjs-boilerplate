@@ -6,6 +6,7 @@ import { Header } from "@/components/header";
 import { I18nProvider } from "@/components/i18n-provider";
 import { dir, isLocale, locales } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n";
+import { accountsEnabled } from "@/lib/supabase/config";
 import "../globals.css";
 
 const cormorant = Cormorant_Garamond({ variable: "--font-cormorant", subsets: ["latin"], weight: ["300", "400", "500", "600"], style: ["normal", "italic"], display: "swap" });
@@ -62,7 +63,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
           </a>
           <div className="scroll-progress fixed inset-x-0 top-0 z-[70] h-[2px] bg-gradient-to-l from-gold-soft via-gold to-gold-deep" aria-hidden="true" />
           <AnnouncementBar lang={lang} />
-          <Header />
+          <Header accounts={accountsEnabled()} />
           <main id="main">{children}</main>
           <Footer lang={lang} />
           <WhatsAppFloat lang={lang} />

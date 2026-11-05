@@ -7,7 +7,9 @@ import { href, localeNames, locales, localeShort, switchLocalePath } from "@/lib
 import { navItems, site, whatsappLink } from "@/lib/site";
 import { Wordmark } from "./art";
 import { useI18n } from "./i18n-provider";
-import { ArrowForward, Close, Instagram, Menu, WhatsApp } from "./icons";
+import { useCartCount } from "./cart-store";
+import { ArrowForward, Bag, Close, Instagram, Menu, User, WhatsApp } from "./icons";
+import { num, t } from "@/lib/i18n/format";
 
 function LanguageSwitcher({ className }: { className?: string }) {
   const { lang, dict } = useI18n();
@@ -32,8 +34,9 @@ function LanguageSwitcher({ className }: { className?: string }) {
   );
 }
 
-export function Header() {
+export function Header({ accounts = false }: { accounts?: boolean }) {
   const { lang, dict } = useI18n();
+  const count = useCartCount();
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
@@ -99,6 +102,19 @@ export function Header() {
 
           <div className="flex items-center gap-2">
             <LanguageSwitcher className="hidden md:flex" />
+            {accounts ? (
+              <Link href={href(lang, "/account")} aria-label={dict.nav.account} className="hidden h-11 w-11 place-items-center rounded-full border border-gold/30 text-ivory transition-colors duration-200 hover:border-gold sm:grid">
+                <User />
+              </Link>
+            ) : null}
+            <Link href={href(lang, "/cart")} aria-label={t(dict.cart.label, { count: num(count, lang) })} className="relative grid h-11 w-11 place-items-center rounded-full border border-gold/30 text-ivory transition-colors duration-200 hover:border-gold">
+              <Bag className="h-5 w-5" />
+              {count > 0 ? (
+                <span key={count} className="pop absolute -top-1 -end-1 grid h-5 min-w-5 place-items-center rounded-full bg-gold px-1 text-[0.7rem] font-bold text-ink">
+                  {num(count, lang)}
+                </span>
+              ) : null}
+            </Link>
             <Link href={href(lang, "/booking")} className="btn btn-gold hidden min-h-11 px-6 py-2 text-sm sm:inline-flex">
               {dict.nav.book}
             </Link>
@@ -133,7 +149,7 @@ export function Header() {
         </div>
         <nav aria-label={dict.nav.mobileNav} className="relative flex flex-1 flex-col justify-center px-8">
           <ul className="space-y-2">
-            {[...links, { path: "/booking", label: dict.nav.book }].map((item, i) => (
+            {[...links, ...(accounts ? [{ path: "/account", label: dict.nav.account }] : []), { path: "/booking", label: dict.nav.book }].map((item, i) => (
               <li
                 key={item.path}
                 className={`transition-all duration-700 ease-[var(--ease-expo)] ${open ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}

@@ -1,8 +1,9 @@
-import { dbConfigured, n, sql } from "./db";
+import { n, sql } from "./db";
 import type { Locale } from "./i18n/config";
 import { getDictionary } from "./i18n";
 import type { LashMap, LashStyle } from "./lash";
 import { lashBoxes, shop, type LashBox } from "./site";
+import { accountsEnabled } from "./supabase/config";
 
 export type L3 = Record<Locale, string>;
 export type BoxTone = LashBox["tone"];
@@ -59,7 +60,7 @@ function staticCatalog(): Category[] {
 
 /** Active categories (in order) with their active products; empty categories are hidden. */
 export async function getCatalog(): Promise<Category[]> {
-  if (!dbConfigured()) return staticCatalog();
+  if (!accountsEnabled()) return staticCatalog();
   const db = sql();
   const [cats, prods] = await Promise.all([
     db`select * from categories where active order by sort, name_en`,
@@ -74,7 +75,7 @@ export async function getCatalog(): Promise<Category[]> {
 /** Active products by id (server-side pricing never trusts client prices). */
 export async function getProducts(ids: string[]): Promise<Product[]> {
   if (ids.length === 0) return [];
-  if (!dbConfigured()) return staticCatalog()[0].products.filter((p) => ids.includes(p.id));
+  if (!accountsEnabled()) return staticCatalog()[0].products.filter((p) => ids.includes(p.id));
   const rows = await sql()`select * from products where active and id::text in ${sql()(ids)}`;
   return rows.map(productFromRow);
 }

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { CSSProperties } from "react";
 import type { LashMap, LashStyle } from "@/lib/lash";
 import type { LashBox } from "@/lib/site";
@@ -60,8 +61,18 @@ const tones: Record<LashBox["tone"], { box: string; tray: string; lashes: string
 };
 
 /** Product visual: a lash box whose lid lifts on hover/focus. */
-export function BoxVisual({ item, index = 0 }: { item: LashBox; index?: number }) {
-  const t = tones[item.tone];
+export function BoxVisual({
+  art,
+  label,
+  imageUrl,
+  index = 0,
+}: {
+  art: { style: LashStyle; map: LashMap; tone: LashBox["tone"] };
+  label: string;
+  imageUrl?: string | null;
+  index?: number;
+}) {
+  const t = tones[art.tone];
   return (
     <div className={`relative aspect-[4/5] overflow-hidden rounded-[2rem] ${t.box}`}>
       {[
@@ -77,7 +88,13 @@ export function BoxVisual({ item, index = 0 }: { item: LashBox; index?: number }
       ))}
 
       <div className={`absolute inset-x-6 top-[32%] bottom-[17%] grid place-items-center rounded-[1.4rem] ${t.tray} shadow-[inset_0_2px_14px_rgba(75,21,48,0.12)]`}>
-        <LashPair style={item.style} map={item.map} seed={index + 3} className={`card-lashes w-[86%] ${t.lashes}`} />
+        {imageUrl ? (
+          <span className="card-lashes absolute inset-2 overflow-hidden rounded-[1.1rem]">
+            <Image src={imageUrl} alt="" fill unoptimized sizes="(min-width:1024px) 30vw, 90vw" className="object-cover" />
+          </span>
+        ) : (
+          <LashPair style={art.style} map={art.map} seed={index + 3} className={`card-lashes w-[86%] ${t.lashes}`} />
+        )}
       </div>
 
       <div className={`card-lid absolute inset-x-4 top-4 flex h-[23%] flex-col items-center justify-center rounded-[1.4rem] shadow-[0_14px_30px_-16px_rgba(44,13,28,0.55)] ${t.lid}`}>
@@ -90,7 +107,7 @@ export function BoxVisual({ item, index = 0 }: { item: LashBox; index?: number }
       </div>
 
       <span className={`font-display absolute inset-x-0 bottom-5 text-center text-sm tracking-[0.3em] ${t.label}`} dir="ltr">
-        {item.latin.toUpperCase()}
+        {label.toUpperCase()}
       </span>
     </div>
   );
