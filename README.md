@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Serag Lashes · سراج لاشز
 
-## Getting Started
+موقع استوديو رموش فاخر متعدد الصفحات، مبني بـ Next.js 16 (App Router) وTailwind CSS v4، باللغة العربية واتجاه من اليمين لليسار.
 
-First, run the development server:
+## الصفحات
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+| المسار | الصفحة |
+|---|---|
+| `/` | الرئيسية: الواجهة، الأنماط المميزة، «صمّمي نظرتك»، الرحلة، قبل وبعد، عرض الزيارة الأولى |
+| `/services` | الخدمات والأسعار، التعبئة، خرائط الرموش، الأسئلة الشائعة |
+| `/gallery` | المعرض مع التصفية حسب النمط، قبل وبعد |
+| `/about` | قصة العلامة، القيم، معايير التعقيم |
+| `/booking` | نموذج حجز يجهّز رسالة واتساب (يقبل `?service=hybrid` لاختيار الخدمة مسبقًا) |
+
+## قبل النشر: عدّلي بياناتكِ
+
+كل المحتوى في ملف واحد: `lib/site.ts`. القيم المعلَّمة بـ `TODO` مؤقتة ويجب استبدالها:
+
+- `whatsapp`: رقم واتساب بالصيغة الدولية، أرقام فقط (مثال `9665XXXXXXXX`). نموذج الحجز وكل أزرار واتساب تستخدمه.
+- `phoneDisplay`, `instagram`, `tiktok`: الرقم الظاهر وأسماء الحسابات.
+- `hours`, `currency`, وأسعار `services` و`extras`.
+- `offer`: نص عرض الزيارة الأولى ورمزه. العداد ينتهي تلقائيًا بنهاية كل شهر.
+
+### صور أعمالكِ الحقيقية
+
+الرسومات الحالية رسوم SVG مولّدة من خرائط الرموش (`lib/lash.ts`). لعرض صوركِ في المعرض، ضعيها في `public/gallery/` ثم أضيفي الحقل `image` للعنصر في `gallery` داخل `lib/site.ts`:
+
+```ts
+{ id: "g1", style: "hybrid", map: "squirrel", title: "هايبرد ناعم", caption: "…", tone: "ink", image: "/gallery/hybrid-01.jpg" },
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## التشغيل
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+npm run dev     # http://localhost:3000
+npm run build   # بناء الإنتاج
+npm run lint
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ملاحظات تقنية
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- الخطوط عبر `next/font`: ‏Cormorant Garamond للاتيني، Amiri للعناوين العربية، Noto Sans Arabic للنصوص، Aref Ruqaa للمسات الخط اليدوي.
+- كل الحركات (الظهور عند التمرير، رسم الرموش، الشريط المتحرك، شريط التقدّم) تُعطَّل تلقائيًا عند تفعيل «تقليل الحركة» في جهاز الزائرة.
+- لا يوجد خادم أو قاعدة بيانات: الحجز يُرسل عبر واتساب.
