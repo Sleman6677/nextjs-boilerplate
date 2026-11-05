@@ -1,24 +1,34 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { LashEye } from "@/components/art";
 import { BeforeAfter } from "@/components/before-after";
 import { GalleryGrid } from "@/components/gallery-grid";
 import { Instagram } from "@/components/icons";
 import { Reveal } from "@/components/reveal";
 import { ButtonLink, PageHero, SectionHeading } from "@/components/ui";
+import { href, isLocale } from "@/lib/i18n/config";
+import { getDictionary } from "@/lib/i18n";
 import { site } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "المعرض",
-  description: "معرض أنماط وخرائط الرموش في سراج لاشز: كلاسيك، هايبرد، فوليوم، ميغا، ويت لوك ورفع الرموش.",
-};
+export async function generateMetadata({ params }: PageProps<"/[lang]/gallery">): Promise<Metadata> {
+  const { lang } = await params;
+  if (!isLocale(lang)) return {};
+  const d = getDictionary(lang).gallery;
+  return { title: d.metaTitle, description: d.metaDesc };
+}
 
-export default function GalleryPage() {
+export default async function GalleryPage({ params }: PageProps<"/[lang]/gallery">) {
+  const { lang } = await params;
+  if (!isLocale(lang)) notFound();
+  const dict = getDictionary(lang);
+  const d = dict.gallery;
+
   return (
     <>
       <PageHero
         eyebrow="Portfolio"
-        title="معرضٌ من النظرات"
-        lead="كل إطلالة هنا مرسومة على خريطة مختلفة. تصفّحي حسب النمط، واحفظي ما يشبهكِ لنتحدث عنه في الاستشارة."
+        title={d.title}
+        lead={d.lead}
         art={
           <div className="grid grid-cols-2 gap-4">
             {(["classic", "volume", "hybrid", "mega"] as const).map((st, i) => (
@@ -40,7 +50,7 @@ export default function GalleryPage() {
 
       <section className="bg-ivory py-24 sm:py-32">
         <div className="mx-auto max-w-5xl px-5 sm:px-8">
-          <SectionHeading align="center" eyebrow="Before · After" title="قبل وبعد" lead="رموش طبيعية خفيفة، ثم فوليوم بخريطة عين القطة." />
+          <SectionHeading align="center" eyebrow="Before · After" title={d.baTitle} lead={d.baLead} />
           <Reveal variant="mask" className="mt-14">
             <BeforeAfter />
           </Reveal>
@@ -54,17 +64,17 @@ export default function GalleryPage() {
             <Instagram className="h-7 w-7" />
           </Reveal>
           <Reveal as="h2" delay={80} className="font-display mt-8 text-4xl leading-[1.35] sm:text-5xl">
-            أحدث أعمالنا كل أسبوع على إنستغرام
+            {d.igTitle}
           </Reveal>
           <Reveal as="p" delay={160} className="mt-5 text-lg text-ivory/75">
-            تابعينا لتري الإطلالات الحقيقية، العروض الخاصة، ونصائح العناية.
+            {d.igLead}
           </Reveal>
           <Reveal delay={240} className="mt-10 flex flex-wrap justify-center gap-3">
             <ButtonLink href={`https://instagram.com/${site.instagram}`} external>
               <span dir="ltr">@{site.instagram}</span>
             </ButtonLink>
-            <ButtonLink href="/booking" variant="ghost-light" arrow={false}>
-              احجزي موعدك
+            <ButtonLink href={href(lang, "/booking")} variant="ghost-light" arrow={false}>
+              {dict.nav.book}
             </ButtonLink>
           </Reveal>
         </div>

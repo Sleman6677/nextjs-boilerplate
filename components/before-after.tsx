@@ -1,10 +1,13 @@
 "use client";
 
 import { useId, useState } from "react";
-import { arDigits } from "@/lib/site";
+import { num, t } from "@/lib/i18n/format";
+import { useI18n } from "./i18n-provider";
 import { LashEye } from "./art";
 
 export function BeforeAfter({ className }: { className?: string }) {
+  const { lang, dict } = useI18n();
+  const b = dict.beforeAfter;
   const [value, setValue] = useState(50);
   const id = useId();
 
@@ -28,7 +31,7 @@ export function BeforeAfter({ className }: { className?: string }) {
         </div>
 
         <label htmlFor={id} className="sr-only">
-          اسحبي للمقارنة بين الرموش الطبيعية والرموش بعد التركيب
+          {b.label}
         </label>
         <input
           id={id}
@@ -37,12 +40,12 @@ export function BeforeAfter({ className }: { className?: string }) {
           max={100}
           value={value}
           onChange={(e) => setValue(Number(e.target.value))}
-          aria-valuetext={`${arDigits(value)}٪ قبل`}
+          aria-valuetext={t(b.value, { value: num(value, lang) })}
           className="compare-range peer absolute inset-0 h-full w-full cursor-ew-resize opacity-0"
         />
 
-        <span className="eyebrow pointer-events-none absolute top-5 left-5 rounded-full bg-ink/70 px-3 py-1 text-ivory/80">Before · قبل</span>
-        <span className="eyebrow pointer-events-none absolute top-5 right-5 rounded-full bg-gold/90 px-3 py-1 text-ink">After · بعد</span>
+        <span className="eyebrow pointer-events-none absolute top-5 left-5 rounded-full bg-ink/70 px-3 py-1 text-ivory/80">{b.before}</span>
+        <span className="eyebrow pointer-events-none absolute top-5 right-5 rounded-full bg-gold/90 px-3 py-1 text-ink">{b.after}</span>
 
         {/* Handle (follows the input so it can react to keyboard focus) */}
         <div
@@ -58,7 +61,7 @@ export function BeforeAfter({ className }: { className?: string }) {
         </div>
       </div>
       <p className="mt-4 text-center text-sm text-taupe">
-        رسم توضيحي: رموش طبيعية خفيفة مقابل فوليوم بخريطة عين القطة. اسحبي الخط أو استخدمي الأسهم.
+        {b.caption}
       </p>
     </div>
   );

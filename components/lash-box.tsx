@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
 import type { LashMap, LashStyle } from "@/lib/lash";
-import { arDigits, shop, type LashBox } from "@/lib/site";
+import type { LashBox } from "@/lib/site";
 import { LashEye, Monogram } from "./art";
 import { Sparkle } from "./icons";
 
@@ -105,7 +105,7 @@ const heroSparkles = [
 ];
 
 /** Signature hero animation: the box lid opens, lashes rise, the price tag swings in. */
-export function HeroBox() {
+export function HeroBox({ label, tag, price }: { label: string; tag: string; price: string }) {
   return (
     <div className="relative mx-auto w-full max-w-[26rem]">
       <div className="glow-pink box-glow absolute inset-[-18%] opacity-90" aria-hidden="true" />
@@ -118,7 +118,7 @@ export function HeroBox() {
         />
       ))}
 
-      <div className="box-scene relative aspect-[5/4.4]" role="img" aria-label="علبة رموش يومية من سراج لاشز تنفتح ويظهر منها زوج رموش">
+      <div className="box-scene relative aspect-[5/4.4]" role="img" aria-label={label}>
         {/* Base */}
         <div className="absolute inset-x-0 bottom-0 h-[62%] rounded-[1.8rem] bg-gradient-to-b from-pink-soft via-pink to-pink-deep p-[5%] shadow-[0_40px_80px_-30px_rgba(20,4,12,0.8)]">
           <div className="grid h-full place-items-center rounded-[1.3rem] bg-petal shadow-[inset_0_4px_20px_rgba(75,21,48,0.18)]">
@@ -142,13 +142,13 @@ export function HeroBox() {
       </div>
 
       {/* Price tag */}
-      <div className="price-tag absolute -bottom-[14%] -left-4 flex flex-col items-center sm:-left-10" aria-hidden="true">
+      <div className="price-tag absolute -end-4 -bottom-[14%] flex flex-col items-center sm:-end-10" aria-hidden="true">
         <span className="h-12 w-px bg-pink-soft/60" />
         <span className="relative rounded-2xl bg-ivory px-5 pt-5 pb-3 text-center shadow-[0_20px_40px_-20px_rgba(0,0,0,0.6)]">
           <span className="absolute top-2 left-1/2 h-2 w-2 -translate-x-1/2 rounded-full bg-pink-deep/50" />
-          <span className="block text-xs text-berry">العلبة</span>
+          <span className="block text-xs text-berry">{tag}</span>
           <span className="font-display block text-3xl leading-tight text-plum">
-            {arDigits(shop.boxPrice)} <span className="text-xl">{shop.currency}</span>
+            {price}
           </span>
         </span>
       </div>

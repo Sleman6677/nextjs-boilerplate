@@ -1,7 +1,8 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import { arDigits } from "@/lib/site";
+import { num } from "@/lib/i18n/format";
+import { useI18n } from "./i18n-provider";
 
 function subscribe(onTick: () => void) {
   const id = window.setInterval(onTick, 1000);
@@ -27,32 +28,36 @@ function parts(total: number) {
   };
 }
 
-const pad = (n: number) => arDigits(String(n).padStart(2, "0"));
 
 /** Compact inline version for the announcement bar. */
 export function CountdownInline() {
+  const { lang, dict } = useI18n();
+  const pad = (n: number) => num(String(n).padStart(2, "0"), lang);
+  const c = dict.countdown;
   const now = useSyncExternalStore(subscribe, nowSeconds, serverSnapshot);
   if (now === null) return <span className="tabular-nums opacity-60">—</span>;
   const p = parts(remaining(now));
   return (
     <span className="tabular-nums" aria-live="off">
-      {pad(p.days)}ي : {pad(p.hours)}س : {pad(p.minutes)}د : {pad(p.seconds)}ث
+      {pad(p.days)}{c.d} : {pad(p.hours)}{c.h} : {pad(p.minutes)}{c.m} : {pad(p.seconds)}{c.s}
     </span>
   );
 }
 
 /** Large version for the offer section. */
 export function CountdownBlocks() {
+  const { lang, dict } = useI18n();
+  const pad = (n: number) => num(String(n).padStart(2, "0"), lang);
   const now = useSyncExternalStore(subscribe, nowSeconds, serverSnapshot);
   const p = now === null ? null : parts(remaining(now));
   const cells: { label: string; value: number | undefined }[] = [
-    { label: "يوم", value: p?.days },
-    { label: "ساعة", value: p?.hours },
-    { label: "دقيقة", value: p?.minutes },
-    { label: "ثانية", value: p?.seconds },
+    { label: dict.countdown.days, value: p?.days },
+    { label: dict.countdown.hours, value: p?.hours },
+    { label: dict.countdown.minutes, value: p?.minutes },
+    { label: dict.countdown.seconds, value: p?.seconds },
   ];
   return (
-    <div className="flex gap-3 sm:gap-4" role="timer" aria-label="الوقت المتبقي على انتهاء العرض">
+    <div className="flex gap-3 sm:gap-4" role="timer" aria-label={dict.countdown.timer}>
       {cells.map((c) => (
         <div
           key={c.label}

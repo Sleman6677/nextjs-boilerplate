@@ -37,7 +37,7 @@
 @theme inline {
   --font-display: var(--font-cormorant), var(--font-amiri), var(--font-frank), "Times New Roman", serif;
   --font-naskh: var(--font-amiri), var(--font-frank), serif;
-  --font-sans: var(--font-noto-arabic), var(--font-frank), system-ui, sans-serif;
+  --font-sans: var(--font-noto-arabic), var(--font-heebo), var(--font-frank), system-ui, sans-serif;
   --font-script: var(--font-ruqaa), var(--font-amiri), var(--font-frank), serif;
 }
 
@@ -45,6 +45,8 @@
   /* ───────────────────────── Base ───────────────────────── */
   html {
     background: var(--color-ink);
+    /* Cormorant defaults to old-style figures ("2oo"); prices and counters read better as lining figures */
+    font-variant-numeric: lining-nums;
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
   }
@@ -351,17 +353,50 @@ html[data-motion="on"] [data-reveal].is-in {
   .marquee:hover .marquee-track {
     animation-play-state: paused;
   }
+
+  [dir="ltr"] .marquee-track {
+    animation-name: marquee-ltr;
+  }
+}
+
+/* ───────────────────────── Language & direction ───────────────────────── */
+/* Hebrew: Frank Ruhl Libre for display/script words; English: Cormorant italic instead of Arabic calligraphy. */
+html:lang(he) .font-naskh,
+html:lang(he) .font-script {
+  font-family: var(--font-frank), var(--font-cormorant), serif;
+}
+
+html:lang(en) .font-naskh {
+  font-family: var(--font-cormorant), serif;
+}
+
+html:lang(en) .font-script {
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+}
+
+/* "Forward" arrows point left in RTL and right in LTR */
+[dir="ltr"] .arrow-fwd {
+  transform: scaleX(-1);
+}
+
+[dir="ltr"] .link-line {
+  background-position: left bottom;
 }
 
 /* Scroll-driven extras: progressive enhancement, no JavaScript */
 .scroll-progress {
   transform: scaleX(0);
+  transform-origin: right;
+}
+
+[dir="ltr"] .scroll-progress {
+  transform-origin: left;
 }
 
 @supports (animation-timeline: scroll()) {
   @media (prefers-reduced-motion: no-preference) {
     .scroll-progress {
-      transform-origin: right;
       animation: grow-x linear both;
       animation-timeline: scroll(root);
     }
@@ -419,6 +454,12 @@ html[data-motion="on"] [data-reveal].is-in {
 @keyframes marquee {
   to {
     transform: translateX(50%);
+  }
+}
+
+@keyframes marquee-ltr {
+  to {
+    transform: translateX(-50%);
   }
 }
 

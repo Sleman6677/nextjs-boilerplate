@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { arDigits } from "@/lib/site";
+import { num } from "@/lib/i18n/format";
+import { useI18n } from "./i18n-provider";
 
 /**
  * Renders the final number on the server (readable without JS),
@@ -9,6 +10,7 @@ import { arDigits } from "@/lib/site";
  */
 export function Counter({ value, suffix = "" }: { value: number; suffix?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
+  const { lang } = useI18n();
 
   useEffect(() => {
     const el = ref.current;
@@ -16,7 +18,7 @@ export function Counter({ value, suffix = "" }: { value: number; suffix?: string
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     let frame = 0;
-    el.textContent = arDigits(0) + suffix;
+    el.textContent = num(0, lang) + suffix;
     const io = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return;
@@ -26,7 +28,7 @@ export function Counter({ value, suffix = "" }: { value: number; suffix?: string
         const tick = (now: number) => {
           const t = Math.min(1, (now - start) / duration);
           const eased = 1 - Math.pow(1 - t, 4);
-          el.textContent = arDigits(Math.round(value * eased)) + suffix;
+          el.textContent = num(Math.round(value * eased), lang) + suffix;
           if (t < 1) frame = requestAnimationFrame(tick);
         };
         frame = requestAnimationFrame(tick);
@@ -37,13 +39,13 @@ export function Counter({ value, suffix = "" }: { value: number; suffix?: string
     return () => {
       io.disconnect();
       cancelAnimationFrame(frame);
-      el.textContent = arDigits(value) + suffix;
+      el.textContent = num(value, lang) + suffix;
     };
-  }, [value, suffix]);
+  }, [value, suffix, lang]);
 
   return (
     <span ref={ref} className="tabular-nums">
-      {arDigits(value)}
+      {num(value, lang)}
       {suffix}
     </span>
   );

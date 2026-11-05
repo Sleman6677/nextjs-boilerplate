@@ -12,9 +12,9 @@ const base = {
 };
 
 /** Points toward reading direction "forward" in RTL (i.e. to the left). */
-export function ArrowForward(props: P) {
+export function ArrowForward({ className, ...props }: P) {
   return (
-    <svg viewBox="0 0 24 24" width="18" height="18" {...base} {...props}>
+    <svg viewBox="0 0 24 24" width="18" height="18" {...base} {...props} className={`arrow-fwd ${className ?? ""}`}>
       <path d="M19 12H5" />
       <path d="M11 6l-6 6 6 6" />
     </svg>

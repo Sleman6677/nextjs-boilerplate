@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import type { LashMap, LashStyle } from "@/lib/lash";
-import { lashMaps, styleLabel } from "@/lib/site";
+import { t } from "@/lib/i18n/format";
+import { lashMapIds } from "@/lib/site";
+import { useI18n } from "./i18n-provider";
 import { LashEye } from "./art";
 
 const styles: LashStyle[] = ["classic", "hybrid", "volume", "mega"];
@@ -11,13 +13,15 @@ const styles: LashStyle[] = ["classic", "hybrid", "volume", "mega"];
 export function LashDesigner() {
   const [style, setStyle] = useState<LashStyle>("hybrid");
   const [map, setMap] = useState<LashMap>("cat");
-  const current = lashMaps.find((m) => m.id === map)!;
+  const { dict } = useI18n();
+  const styleLabel = dict.styles;
+  const current = { ...lashMapIds.find((m) => m.id === map)!, ...dict.maps[map] };
 
   return (
     <div className="grid items-center gap-10 lg:grid-cols-[1fr_1.1fr]">
       <div className="space-y-8">
         <fieldset>
-          <legend className="mb-3 text-sm font-semibold text-ivory/80">١. النمط</legend>
+          <legend className="mb-3 text-sm font-semibold text-ivory/80">{dict.designer.style}</legend>
           <div className="flex flex-wrap gap-2">
             {styles.map((s) => (
               <label key={s} className="relative">
@@ -38,9 +42,9 @@ export function LashDesigner() {
         </fieldset>
 
         <fieldset>
-          <legend className="mb-3 text-sm font-semibold text-ivory/80">٢. خريطة الرموش</legend>
+          <legend className="mb-3 text-sm font-semibold text-ivory/80">{dict.designer.map}</legend>
           <div className="grid grid-cols-2 gap-2">
-            {lashMaps.map((m) => (
+            {lashMapIds.map((m) => (
               <label key={m.id} className="relative">
                 <input
                   type="radio"
@@ -51,7 +55,7 @@ export function LashDesigner() {
                   className="peer sr-only"
                 />
                 <span className="flex min-h-14 flex-col justify-center rounded-2xl border border-gold/20 px-4 py-3 transition-colors duration-200 peer-checked:border-gold peer-checked:bg-gold/10 peer-focus-visible:ring-2 peer-focus-visible:ring-gold-soft hover:border-gold/50">
-                  <span className="text-ivory">{m.name}</span>
+                  <span className="text-ivory">{dict.maps[m.id].name}</span>
                   <span className="font-display text-sm text-gold-soft/80" dir="ltr">
                     {m.latin}
                   </span>
@@ -78,7 +82,7 @@ export function LashDesigner() {
               draw
               baseDelay={0}
               className="w-full"
-              label={`رسم لعين بنمط ${styleLabel[style]} وخريطة ${current.name}`}
+              label={t(dict.designer.art, { style: styleLabel[style], map: current.name })}
             />
           </div>
           <p className="font-display absolute inset-x-0 bottom-8 text-center text-sm tracking-[0.3em] text-gold/80" dir="ltr">

@@ -1,3 +1,4 @@
+import { isLocale } from "@/lib/i18n/config";
 import { buildOrder, createPaymentLink, OrderError, payplusConfigured } from "@/lib/payplus";
 
 /** Creates a PayPlus payment page for the posted cart and returns its URL. */
@@ -23,7 +24,9 @@ export async function POST(request: Request) {
 
   try {
     const origin = new URL(request.url).origin;
-    const url = await createPaymentLink(order, origin);
+    const requested = (input as { lang?: unknown })?.lang;
+    const lang = typeof requested === "string" && isLocale(requested) ? requested : "ar";
+    const url = await createPaymentLink(order, origin, lang);
     return Response.json({ url, ref: order.ref, total: order.total });
   } catch {
     return Response.json({ error: "تعذّر فتح صفحة الدفع الآن، حاولي مجددًا أو ادفعي عبر Bit" }, { status: 502 });

@@ -94,7 +94,7 @@ export function ButtonLink({
   const content = (
     <>
       <span>{children}</span>
-      {arrow ? <ArrowForward className="transition-transform duration-300 group-hover:-translate-x-1" /> : null}
+      {arrow ? <ArrowForward className="transition-transform duration-300 group-hover:-translate-x-1 ltr:group-hover:translate-x-1" /> : null}
     </>
   );
   if (external) {

@@ -58,7 +58,7 @@ export function buildOrder(input: unknown): Order {
       throw new OrderError("أحد المنتجات في السلة غير صالح");
     }
     seen.add(box.id);
-    return { id: box.id, name: `${box.name} (${box.latin})`, qty, price: shop.boxPrice };
+    return { id: box.id, name: box.latin, qty, price: shop.boxPrice };
   });
 
   const c = (body.customer ?? {}) as Partial<OrderInput["customer"]>;
@@ -82,7 +82,7 @@ export function buildOrder(input: unknown): Order {
 }
 
 /** Asks PayPlus for a one-time payment page for this exact order. Returns the page URL. */
-export async function createPaymentLink(order: Order, origin: string): Promise<string> {
+export async function createPaymentLink(order: Order, origin: string, lang = "ar"): Promise<string> {
   const summary = order.lines.map((l) => `${l.name}×${l.qty}`).join("، ");
   const moreInfo = `${order.ref} | ${summary} | ${order.customer.address}${order.customer.notes ? ` | ${order.customer.notes}` : ""}`;
 
@@ -100,9 +100,9 @@ export async function createPaymentLink(order: Order, origin: string): Promise<s
       charge_method: 1, // J4: immediate charge
       sendEmailApproval: true,
       sendEmailFailure: false,
-      refURL_success: `${origin}/shop/success`,
-      refURL_failure: `${origin}/shop/failure`,
-      refURL_cancel: `${origin}/shop`,
+      refURL_success: `${origin}/${lang}/shop/success`,
+      refURL_failure: `${origin}/${lang}/shop/failure`,
+      refURL_cancel: `${origin}/${lang}/shop`,
       more_info: moreInfo.slice(0, 250),
       customer: {
         customer_name: order.customer.name,

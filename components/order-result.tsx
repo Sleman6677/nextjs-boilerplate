@@ -2,7 +2,10 @@
 
 import Link from "next/link";
 import { useMemo, useSyncExternalStore } from "react";
-import { arDigits, payments, shop, site, whatsappLink } from "@/lib/site";
+import { href } from "@/lib/i18n/config";
+import { money as fmtMoney, num, t } from "@/lib/i18n/format";
+import { payments, shop, whatsappLink } from "@/lib/site";
+import { useI18n } from "./i18n-provider";
 import { ORDER_STORAGE_KEY, type SavedOrder } from "./checkout";
 import { Check, Close, WhatsApp } from "./icons";
 
@@ -19,10 +22,13 @@ function readStorage(): string | null {
   }
 }
 
-const money = (n: number) => `${arDigits(n)} ${shop.currency}`;
 
 /** Shown after returning from the PayPlus payment page. */
 export function OrderResult({ kind }: { kind: "success" | "failure" }) {
+  const { lang, dict } = useI18n();
+  const r = dict.orderResult;
+  const m = dict.checkout.msg;
+  const money = (n: number) => fmtMoney(n, lang, shop.currency);
   const raw = useSyncExternalStore(subscribe, readStorage, () => null);
   const order = useMemo<SavedOrder | null>(() => {
     try {
@@ -34,20 +40,20 @@ export function OrderResult({ kind }: { kind: "success" | "failure" }) {
 
   const details = order
     ? [
-        order.ref ? `رقم الطلب: ${order.ref}` : null,
+        order.ref ? `${r.orderNo}: ${order.ref}` : null,
         ...order.lines.map((l) => `• ${l.name} × ${l.qty}`),
-        `المجموع: ${order.total} ${shop.currency}`,
-        `الاسم: ${order.name}`,
-        `الهاتف: ${order.phone}`,
-        `العنوان: ${order.address}`,
+        `${m.total}: ${order.total} ${shop.currency}`,
+        `${m.name}: ${order.name}`,
+        `${m.phone}: ${order.phone}`,
+        `${m.address}: ${order.address}`,
       ].filter((l) => l !== null)
     : [];
 
   const success = kind === "success";
   const whatsappText = success
-    ? [`مرحبًا ${site.nameAr}، أتممتُ الدفع عبر PayPlus.`, ...details].join("\n")
+    ? [t(r.msgSuccess, { brand: dict.brand }), ...details].join("\n")
     : [
-        `مرحبًا ${site.nameAr}، لم يكتمل الدفع بالبطاقة، أودّ الدفع عبر Bit إلى ${payments.bit.display}.`,
+        t(r.msgFail, { brand: dict.brand, phone: payments.bit.display }),
         ...details,
       ].join("\n");
 
@@ -57,19 +63,19 @@ export function OrderResult({ kind }: { kind: "success" | "failure" }) {
         {success ? <Check className="h-9 w-9" /> : <Close className="h-9 w-9" />}
       </span>
       <h1 className="font-display mt-8 text-4xl leading-snug text-ivory sm:text-5xl">
-        {success ? (order?.name ? `شكرًا لكِ يا ${order.name}` : "شكرًا لكِ") : "لم يكتمل الدفع"}
+        {success ? (order?.name ? t(r.successName, { name: order.name }) : r.success) : r.fail}
       </h1>
       <p className="mt-5 text-lg leading-8 text-ivory/80">
         {success
-          ? "وصلنا طلبكِ. أرسلي لنا تأكيدًا عبر واتساب لنرتّب معكِ التوصيل."
-          : "يمكنكِ المحاولة مجددًا بالبطاقة، أو إكمال الطلب نفسه بالدفع عبر Bit."}
+          ? r.successLead
+          : r.failLead}
       </p>
 
       {order ? (
         <div className="mt-10 rounded-[1.75rem] bg-ivory p-6 text-start text-plum">
           {order.ref ? (
             <p className="text-sm text-berry-deep/70">
-              رقم الطلب{" "}
+              {r.orderNo}{" "}
               <span className="font-semibold text-plum" dir="ltr">
                 {order.ref}
               </span>
@@ -79,12 +85,12 @@ export function OrderResult({ kind }: { kind: "success" | "failure" }) {
             {order.lines.map((l) => (
               <li key={l.name} className="flex justify-between gap-3">
                 <span>{l.name}</span>
-                <span className="text-berry-deep/70">× {arDigits(l.qty)}</span>
+                <span className="text-berry-deep/70">× {num(l.qty, lang)}</span>
               </li>
             ))}
           </ul>
           <p className="mt-4 flex justify-between border-t border-berry/10 pt-4 font-semibold">
-            <span>المجموع</span>
+            <span>{r.total}</span>
             <span className="font-display text-2xl">{money(order.total)}</span>
           </p>
         </div>
@@ -93,10 +99,10 @@ export function OrderResult({ kind }: { kind: "success" | "failure" }) {
       <div className="mt-10 flex flex-wrap justify-center gap-3">
         <a href={whatsappLink(whatsappText)} target="_blank" rel="noopener noreferrer" className="btn btn-pink">
           <WhatsApp className="h-5 w-5" />
-          {success ? "أرسلي تأكيد الطلب" : "الدفع عبر Bit"}
+          {success ? r.confirm : r.payBit}
         </a>
-        <Link href="/shop#collection" className="btn btn-ghost-light">
-          {success ? "متابعة التسوق" : "المحاولة مجددًا"}
+        <Link href={href(lang, "/shop#collection")} className="btn btn-ghost-light">
+          {success ? r.continue : r.retry}
         </Link>
       </div>
     </div>
