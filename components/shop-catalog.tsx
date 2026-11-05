@@ -19,7 +19,7 @@ function boxes(n: number) {
   return `${arDigits(n)} علبة`;
 }
 
-export function ShopCatalog() {
+export function ShopCatalog({ onlinePayments = false }: { onlinePayments?: boolean }) {
   const [cart, setCart] = useState<Cart>({});
   const [toast, setToast] = useState<{ key: number; text: string } | null>(null);
   const [openBox, setOpenBox] = useState<string | null>(null);
@@ -149,7 +149,7 @@ export function ShopCatalog() {
         </div>
       ) : null}
 
-      {checkoutOpen && lines.length > 0 ? <Checkout lines={lines} onClose={closeCheckout} onSent={finishOrder} /> : null}
+      {checkoutOpen && lines.length > 0 ? <Checkout lines={lines} onClose={closeCheckout} onSent={finishOrder} onlineReady={onlinePayments} /> : null}
     </>
   );
 }

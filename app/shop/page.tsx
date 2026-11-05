@@ -6,6 +6,7 @@ import { LashPair } from "@/components/lash-box";
 import { Reveal } from "@/components/reveal";
 import { HeroBoxPlayer, ShopCatalog } from "@/components/shop-catalog";
 import { ButtonLink, Marquee } from "@/components/ui";
+import { payplusConfigured } from "@/lib/payplus";
 import { applySteps, arDigits, shop, site, whatsappLink } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -115,7 +116,7 @@ export default function ShopPage() {
           </header>
 
           <div className="mt-20">
-            <ShopCatalog />
+            <ShopCatalog onlinePayments={payplusConfigured()} />
           </div>
         </div>
       </section>
