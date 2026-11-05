@@ -86,7 +86,7 @@ export default function ShopPage() {
       <section aria-label="مزايا الرموش اليومية" className="bg-pink py-5 text-plum">
         <Marquee
           className="font-display text-2xl sm:text-3xl"
-          items={["Daily Lashes · رموش يومية", `${arDigits(shop.boxPrice)} ${shop.currency} للعلبة`, "Serag Lashes", "ستة تصاميم", "ضعيها في دقائق", "اطلبي عبر واتساب"]}
+          items={["Daily Lashes · رموش يومية", `${arDigits(shop.boxPrice)} ${shop.currency} للعلبة`, "Serag Lashes", "ستة تصاميم", "ضعيها في دقائق", "ادفعي عبر Bit"]}
         />
       </section>
 
@@ -104,7 +104,7 @@ export default function ShopPage() {
               اختاري نظرتكِ <span className="font-script text-rose-ink">اليومية</span>
             </Reveal>
             <Reveal as="p" delay={160} className="mt-5 text-lg leading-8 text-berry-deep/80">
-              أضيفي ما يعجبكِ إلى السلة، ثم أرسلي الطلب عبر واتساب ونرتب معكِ التوصيل.
+              أضيفي ما يعجبكِ إلى السلة، وادفعي عبر Bit، ونرتب معكِ التوصيل.
             </Reveal>
             <Reveal as="p" delay={200} className="mt-3 text-sm text-rose-ink">
               اضغطي على أي علبة لفتحها

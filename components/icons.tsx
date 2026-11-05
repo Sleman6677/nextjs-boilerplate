@@ -136,3 +136,30 @@ export function Minus(props: P) {
     </svg>
   );
 }
+
+export function Copy(props: P) {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" {...base} {...props}>
+      <rect x="8.5" y="8.5" width="11" height="11" rx="2.5" />
+      <path d="M15.5 8.5V6.5a2 2 0 00-2-2h-7a2 2 0 00-2 2v7a2 2 0 002 2h2" />
+    </svg>
+  );
+}
+
+export function CardIcon(props: P) {
+  return (
+    <svg viewBox="0 0 24 24" width="22" height="22" {...base} {...props}>
+      <rect x="2.75" y="5.5" width="18.5" height="13" rx="2.5" />
+      <path d="M2.75 10h18.5M6.5 15h3" />
+    </svg>
+  );
+}
+
+export function Mobile(props: P) {
+  return (
+    <svg viewBox="0 0 24 24" width="22" height="22" {...base} {...props}>
+      <rect x="6.5" y="2.75" width="11" height="18.5" rx="2.5" />
+      <path d="M10.5 18h3" />
+    </svg>
+  );
+}

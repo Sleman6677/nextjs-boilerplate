@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { arDigits, lashBoxes, shop, site, whatsappLink } from "@/lib/site";
-import { Bag, Minus, Plus, WhatsApp } from "./icons";
+import { useCallback, useEffect, useState } from "react";
+import { arDigits, lashBoxes, shop } from "@/lib/site";
+import { Checkout } from "./checkout";
+import { ArrowForward, Bag, Minus, Plus } from "./icons";
 import { BoxVisual, HeroBox } from "./lash-box";
 import { Reveal } from "./reveal";
 
@@ -22,6 +23,7 @@ export function ShopCatalog() {
   const [cart, setCart] = useState<Cart>({});
   const [toast, setToast] = useState<{ key: number; text: string } | null>(null);
   const [openBox, setOpenBox] = useState<string | null>(null);
+  const [checkoutOpen, setCheckoutOpen] = useState(false);
 
   const count = Object.values(cart).reduce((a, b) => a + b, 0);
   const total = count * shop.boxPrice;
@@ -44,15 +46,12 @@ export function ShopCatalog() {
     }
   }
 
-  function order() {
-    const lines = [
-      `مرحبًا ${site.nameAr}، أودّ طلب رموش يومية:`,
-      ...lashBoxes.filter((b) => cart[b.id]).map((b) => `• ${b.name} (${b.latin}) × ${cart[b.id]}`),
-      `عدد العلب: ${count}`,
-      `المجموع: ${total} ${shop.currency}`,
-    ];
-    window.open(whatsappLink(lines.join("\n")), "_blank", "noopener,noreferrer");
-  }
+  const closeCheckout = useCallback(() => setCheckoutOpen(false), []);
+  const finishOrder = useCallback(() => {
+    setCheckoutOpen(false);
+    setCart({});
+  }, []);
+  const lines = lashBoxes.filter((b) => cart[b.id]).map((box) => ({ box, qty: cart[box.id] }));
 
   return (
     <>
@@ -141,14 +140,16 @@ export function ShopCatalog() {
               <span className="block text-xs text-pink-soft/80">{boxes(count)} في السلة</span>
               <span className="font-display block text-xl">{price(total)}</span>
             </span>
-            <button type="button" onClick={order} className="btn btn-pink min-h-11 shrink-0 px-4 text-sm">
-              <WhatsApp className="h-5 w-5" />
-              <span className="hidden sm:inline">اطلبي عبر واتساب</span>
-              <span className="sm:hidden">اطلبي</span>
+            <button type="button" onClick={() => setCheckoutOpen(true)} className="btn btn-pink group min-h-11 shrink-0 px-4 text-sm">
+              <span className="hidden sm:inline">إتمام الطلب</span>
+              <span className="sm:hidden">الدفع</span>
+              <ArrowForward className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1" />
             </button>
           </div>
         </div>
       ) : null}
+
+      {checkoutOpen && lines.length > 0 ? <Checkout lines={lines} onClose={closeCheckout} onSent={finishOrder} /> : null}
     </>
   );
 }
