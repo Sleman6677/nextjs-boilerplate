@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { arDigits, lashBoxes, shop, site, whatsappLink } from "@/lib/site";
 import { Bag, Minus, Plus, WhatsApp } from "./icons";
-import { BoxVisual } from "./lash-box";
+import { BoxVisual, HeroBox } from "./lash-box";
 import { Reveal } from "./reveal";
 
 type Cart = Record<string, number>;
@@ -21,6 +21,7 @@ function boxes(n: number) {
 export function ShopCatalog() {
   const [cart, setCart] = useState<Cart>({});
   const [toast, setToast] = useState<{ key: number; text: string } | null>(null);
+  const [openBox, setOpenBox] = useState<string | null>(null);
 
   const count = Object.values(cart).reduce((a, b) => a + b, 0);
   const total = count * shop.boxPrice;
@@ -59,9 +60,22 @@ export function ShopCatalog() {
         {lashBoxes.map((item, i) => {
           const qty = cart[item.id] ?? 0;
           return (
-            <Reveal as="li" key={item.id} delay={(i % 3) * 110} className={`box-card ${i % 3 === 1 ? "lg:mt-12" : ""}`}>
+            <Reveal
+              as="li"
+              key={item.id}
+              delay={(i % 3) * 110}
+              className={`box-card ${openBox === item.id ? "is-open" : ""} ${i % 3 === 1 ? "lg:mt-12" : ""}`}
+            >
               <div className="relative">
-                <BoxVisual item={item} index={i} />
+                <button
+                  type="button"
+                  onClick={() => setOpenBox((o) => (o === item.id ? null : item.id))}
+                  aria-pressed={openBox === item.id}
+                  aria-label={`${openBox === item.id ? "أغلقي" : "افتحي"} علبة ${item.name}`}
+                  className="block w-full touch-manipulation rounded-[2rem] [-webkit-tap-highlight-color:transparent]"
+                >
+                  <BoxVisual item={item} index={i} />
+                </button>
                 {item.tag ? (
                   <span className="absolute -top-3 right-6 rounded-full bg-berry px-3 py-1 text-xs font-semibold text-ivory shadow-lg">{item.tag}</span>
                 ) : null}
@@ -136,5 +150,20 @@ export function ShopCatalog() {
         </div>
       ) : null}
     </>
+  );
+}
+
+/** Hero box you can tap to close and re-open (replays the unboxing animation). */
+export function HeroBoxPlayer() {
+  const [round, setRound] = useState(0);
+  return (
+    <button
+      type="button"
+      onClick={() => setRound((r) => r + 1)}
+      aria-label="أعيدي فتح العلبة"
+      className="block w-full touch-manipulation rounded-[2rem] [-webkit-tap-highlight-color:transparent]"
+    >
+      <HeroBox key={round} />
+    </button>
   );
 }

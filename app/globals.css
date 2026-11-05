@@ -637,19 +637,28 @@ details[open] .faq-icon {
     transition: transform 600ms var(--ease-expo);
   }
 
-  .box-card:hover .card-lid,
-  .box-card:focus-within .card-lid {
-    transform: translateY(-16px) rotate(-4deg);
-  }
-
   .box-card .card-lashes {
     transition: transform 700ms var(--ease-expo);
   }
+}
 
-  .box-card:hover .card-lashes,
-  .box-card:focus-within .card-lashes {
+/* Lid lift: hover only on devices with a real pointer; tap/keyboard toggles .is-open (works on phones). */
+@media (hover: hover) {
+  .box-card:hover .card-lid {
+    transform: translateY(-16px) rotate(-4deg);
+  }
+
+  .box-card:hover .card-lashes {
     transform: translateY(-6px) scale(1.06);
   }
+}
+
+.box-card.is-open .card-lid {
+  transform: translateY(-30px) rotate(-6deg);
+}
+
+.box-card.is-open .card-lashes {
+  transform: translateY(-8px) scale(1.1);
 }
 
 @keyframes lid-open {

@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import type { CSSProperties } from "react";
 import { LashDivider } from "@/components/art";
 import { Check, WhatsApp } from "@/components/icons";
-import { HeroBox, LashPair } from "@/components/lash-box";
+import { LashPair } from "@/components/lash-box";
 import { Reveal } from "@/components/reveal";
-import { ShopCatalog } from "@/components/shop-catalog";
+import { HeroBoxPlayer, ShopCatalog } from "@/components/shop-catalog";
 import { ButtonLink, Marquee } from "@/components/ui";
 import { applySteps, arDigits, shop, site, whatsappLink } from "@/lib/site";
 
@@ -77,7 +77,7 @@ export default function ShopPage() {
           </div>
 
           <div className="px-8 sm:px-12">
-            <HeroBox />
+            <HeroBoxPlayer />
           </div>
         </div>
       </section>
@@ -105,6 +105,9 @@ export default function ShopPage() {
             </Reveal>
             <Reveal as="p" delay={160} className="mt-5 text-lg leading-8 text-berry-deep/80">
               أضيفي ما يعجبكِ إلى السلة، ثم أرسلي الطلب عبر واتساب ونرتب معكِ التوصيل.
+            </Reveal>
+            <Reveal as="p" delay={200} className="mt-3 text-sm text-rose-ink">
+              اضغطي على أي علبة لفتحها
             </Reveal>
             <Reveal delay={220}>
               <LashDivider className="mx-auto mt-8 w-48 text-pink-deep" />
