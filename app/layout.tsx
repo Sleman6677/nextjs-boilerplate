@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Amiri, Aref_Ruqaa, Cormorant_Garamond, Noto_Sans_Arabic } from "next/font/google";
+import { Amiri, Aref_Ruqaa, Cormorant_Garamond, Frank_Ruhl_Libre, Noto_Sans_Arabic } from "next/font/google";
 import { AnnouncementBar, Footer, WhatsAppFloat } from "@/components/chrome";
 import { Header } from "@/components/header";
 import { site } from "@/lib/site";
@@ -33,6 +33,15 @@ const ruqaa = Aref_Ruqaa({
   display: "swap",
 });
 
+// Fallback for the shekel sign (₪), which the brand fonts lack. Only downloaded where ₪ appears.
+const frank = Frank_Ruhl_Libre({
+  variable: "--font-frank",
+  subsets: ["hebrew"],
+  weight: ["400", "500"],
+  display: "swap",
+  preload: false,
+});
+
 export const metadata: Metadata = {
   title: {
     template: `%s | ${site.name} · ${site.nameAr}`,
@@ -62,7 +71,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       dir="rtl"
       data-scroll-behavior="smooth"
       suppressHydrationWarning
-      className={`${cormorant.variable} ${amiri.variable} ${notoArabic.variable} ${ruqaa.variable}`}
+      className={`${cormorant.variable} ${amiri.variable} ${notoArabic.variable} ${ruqaa.variable} ${frank.variable}`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: motionScript }} />

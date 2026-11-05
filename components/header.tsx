@@ -58,7 +58,7 @@ export function Header() {
           </Link>
 
           <nav aria-label="التنقل الرئيسي" className="hidden lg:block">
-            <ul className="flex items-center gap-9 text-[0.95rem] text-ivory/85">
+            <ul className="flex items-center gap-6 text-[0.95rem] text-ivory/85 xl:gap-9">
               {nav.map((item) => (
                 <li key={item.href}>
                   <Link

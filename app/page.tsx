@@ -18,7 +18,7 @@ export default function Home() {
   return (
     <>
       {/* ───────────── Hero ───────────── */}
-      <section className="relative isolate overflow-hidden bg-ink text-ivory">
+      <section className="relative isolate overflow-clip bg-ink text-ivory">
         <div className="glow pointer-events-none absolute -top-48 left-[-12%] -z-10 h-[42rem] w-[42rem] opacity-70" aria-hidden="true" />
         <div className="glow-rose pointer-events-none absolute right-[-10%] bottom-[-20%] -z-10 h-[30rem] w-[30rem] opacity-25" aria-hidden="true" />
         <p
@@ -121,7 +121,7 @@ export default function Home() {
       </section>
 
       {/* ───────────── Manifesto ───────────── */}
-      <section id="manifesto" className="relative scroll-mt-24 overflow-hidden py-28 sm:py-36">
+      <section id="manifesto" className="relative scroll-mt-24 overflow-clip py-28 sm:py-36">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <div className="grid gap-12 lg:grid-cols-[14rem_1fr]">
             <Reveal as="p" className="eyebrow flex items-center gap-3 text-gold-deep lg:flex-col lg:items-start">
@@ -213,7 +213,7 @@ export default function Home() {
       </section>
 
       {/* ───────────── Design your look ───────────── */}
-      <section className="relative overflow-hidden bg-ink py-28 text-ivory sm:py-36">
+      <section className="relative overflow-clip bg-ink py-28 text-ivory sm:py-36">
         <div className="glow pointer-events-none absolute top-1/3 -right-40 h-[34rem] w-[34rem] opacity-40" aria-hidden="true" />
         <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
           <SectionHeading
@@ -299,7 +299,7 @@ export default function Home() {
       </section>
 
       {/* ───────────── Offer ───────────── */}
-      <section className="relative overflow-hidden bg-ink py-24 text-ivory sm:py-32">
+      <section className="relative overflow-clip bg-ink py-24 text-ivory sm:py-32">
         <div className="glow pointer-events-none absolute top-10 -left-24 h-[38rem] w-[38rem] opacity-40" aria-hidden="true" />
         <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-5 sm:px-8 lg:grid-cols-[1.2fr_1fr]">
           <div>
@@ -351,7 +351,7 @@ export default function Home() {
       </section>
 
       {/* ───────────── Final CTA ───────────── */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-blush to-cream py-28 sm:py-36">
+      <section className="relative overflow-clip bg-gradient-to-b from-blush to-cream py-28 sm:py-36">
         <div className="arch pointer-events-none absolute -bottom-40 left-1/2 h-[34rem] w-[26rem] -translate-x-1/2 border border-rosewood/15" aria-hidden="true" />
         <div className="arch pointer-events-none absolute -bottom-40 left-1/2 h-[40rem] w-[34rem] -translate-x-1/2 border border-rosewood/10" aria-hidden="true" />
         <div className="relative mx-auto max-w-3xl px-5 text-center sm:px-8">

@@ -119,3 +119,20 @@ export function WhatsApp(props: P) {
     </svg>
   );
 }
+
+export function Bag(props: P) {
+  return (
+    <svg viewBox="0 0 24 24" width="22" height="22" {...base} {...props}>
+      <path d="M5.5 8h13l-1 12.5h-11z" />
+      <path d="M9 10.5V7a3 3 0 016 0v3.5" />
+    </svg>
+  );
+}
+
+export function Minus(props: P) {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" {...base} {...props}>
+      <path d="M5 12h14" />
+    </svg>
+  );
+}

@@ -124,7 +124,7 @@ export function PageHero({
   art?: ReactNode;
 }) {
   return (
-    <section className="relative overflow-hidden bg-ink pt-40 pb-20 text-ivory sm:pt-48 sm:pb-28">
+    <section className="relative overflow-clip bg-ink pt-40 pb-20 text-ivory sm:pt-48 sm:pb-28">
       <div className="glow pointer-events-none absolute -top-40 left-[-10%] h-[36rem] w-[36rem] opacity-60" aria-hidden="true" />
       <div className="relative mx-auto grid max-w-7xl items-end gap-12 px-5 sm:px-8 lg:grid-cols-[1.2fr_1fr]">
         <div>

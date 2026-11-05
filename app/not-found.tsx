@@ -3,7 +3,7 @@ import { ButtonLink } from "@/components/ui";
 
 export default function NotFound() {
   return (
-    <section className="relative flex min-h-[90svh] items-center overflow-hidden bg-ink pt-32 pb-20 text-ivory">
+    <section className="relative flex min-h-[90svh] items-center overflow-clip bg-ink pt-32 pb-20 text-ivory">
       <div className="glow pointer-events-none absolute top-1/4 left-1/2 h-[34rem] w-[34rem] -translate-x-1/2 opacity-50" aria-hidden="true" />
       <div className="relative mx-auto max-w-2xl px-5 text-center">
         <div className="mx-auto w-56 text-gold-soft">

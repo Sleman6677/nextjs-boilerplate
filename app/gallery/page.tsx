@@ -47,7 +47,7 @@ export default function GalleryPage() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-ink py-24 text-ivory sm:py-28">
+      <section className="relative overflow-clip bg-ink py-24 text-ivory sm:py-28">
         <div className="glow pointer-events-none absolute -bottom-40 left-1/2 h-[30rem] w-[30rem] -translate-x-1/2 opacity-50" aria-hidden="true" />
         <div className="relative mx-auto flex max-w-4xl flex-col items-center px-5 text-center sm:px-8">
           <Reveal className="grid h-16 w-16 place-items-center rounded-full border border-gold/40 text-gold-soft">

@@ -42,7 +42,7 @@ export function WhatsAppFloat() {
 export function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer className="relative overflow-hidden bg-ink text-ivory">
+    <footer className="relative overflow-clip bg-ink text-ivory">
       <div className="glow pointer-events-none absolute -bottom-60 right-1/2 h-[40rem] w-[40rem] translate-x-1/2 opacity-40" aria-hidden="true" />
 
       <div className="relative mx-auto max-w-7xl px-5 pt-24 sm:px-8">

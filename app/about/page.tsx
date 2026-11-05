@@ -75,7 +75,7 @@ export default function AboutPage() {
       </section>
 
       {/* Values */}
-      <section className="relative overflow-hidden bg-ink py-24 text-ivory sm:py-32">
+      <section className="relative overflow-clip bg-ink py-24 text-ivory sm:py-32">
         <div className="glow pointer-events-none absolute top-0 left-1/2 h-[28rem] w-[50rem] -translate-x-1/2 opacity-30" aria-hidden="true" />
         <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
           <SectionHeading tone="light" align="center" eyebrow="What We Believe" title="ثلاث كلمات نعمل بها" />

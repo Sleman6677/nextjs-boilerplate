@@ -122,7 +122,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Lash maps */}
-      <section className="relative overflow-hidden bg-ink py-24 text-ivory sm:py-32">
+      <section className="relative overflow-clip bg-ink py-24 text-ivory sm:py-32">
         <div className="glow pointer-events-none absolute -top-40 right-1/3 h-[30rem] w-[30rem] opacity-40" aria-hidden="true" />
         <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
           <SectionHeading

@@ -43,6 +43,7 @@ export const nav = [
   { href: "/", label: "الرئيسية" },
   { href: "/services", label: "الخدمات والأسعار" },
   { href: "/gallery", label: "المعرض" },
+  { href: "/shop", label: "المتجر" },
   { href: "/about", label: "قصتنا" },
 ] as const;
 
@@ -216,6 +217,42 @@ export const gallery: GalleryItem[] = [
   { id: "g7", style: "volume", map: "doll", title: "فوليوم مستدير", caption: "عين الدمية · مراوح ٣D", tone: "sand" },
   { id: "g8", style: "hybrid", map: "cat", title: "هايبرد مسحوب", caption: "عين القطة · ١٠–١٣ ملم", tone: "blush" },
   { id: "g9", style: "classic", map: "squirrel", title: "كلاسيك برفعة", caption: "خريطة السنجاب · ٩–١٢ ملم", tone: "ink" },
+];
+
+/* ───────────── Shop: daily strip lashes ───────────── */
+
+export const shop = {
+  currency: "₪",
+  /** سعر العلبة الواحدة بالشيكل */
+  boxPrice: 200,
+};
+
+export type LashBox = {
+  id: string;
+  name: string;
+  latin: string;
+  style: LashStyle;
+  map: LashMap;
+  /** TODO: راجعي وصف كل تصميم ليطابق المنتج الحقيقي */
+  look: string;
+  tone: "petal" | "rose" | "blush" | "berry";
+  tag?: string;
+};
+
+export const lashBoxes: LashBox[] = [
+  { id: "daily-natural", name: "يومي ناعم", latin: "Daily Natural", style: "classic", map: "natural", look: "خفيفة كأنها رموشكِ، للدوام والجامعة والمشاوير.", tone: "petal", tag: "مفضّلتنا" },
+  { id: "wispy", name: "ويسبي", latin: "Wispy", style: "wet", map: "squirrel", look: "أطراف متفرّقة بلمسة عصرية ونظرة مرتفعة بنعومة.", tone: "rose" },
+  { id: "doll", name: "عين الدمية", latin: "Doll Eye", style: "hybrid", map: "doll", look: "تفتح العين وتمنحها استدارة بريئة ولافتة.", tone: "blush" },
+  { id: "cat", name: "عين القطة", latin: "Cat Eye", style: "hybrid", map: "cat", look: "تسحب النظرة نحو الأعلى، للإطلالات الأنيقة.", tone: "berry" },
+  { id: "soft-volume", name: "فوليوم ناعم", latin: "Soft Volume", style: "volume", map: "squirrel", look: "كثافة مخملية للعزائم والمناسبات الهادئة.", tone: "rose" },
+  { id: "glam", name: "سهرة", latin: "Glam Night", style: "mega", map: "doll", look: "حضور كامل للسهرات وجلسات التصوير.", tone: "petal", tag: "للمناسبات" },
+];
+
+export const applySteps = [
+  { title: "قيسي", text: "ضعي الشريط على جفنكِ وقصّي الزائد من الطرف الخارجي فقط." },
+  { title: "ضعي اللاصق", text: "طبقة رفيعة على الشريط، ثم انتظري نحو ٣٠ ثانية حتى يصبح لزجًا." },
+  { title: "ثبّتي", text: "ابدئي من منتصف خط الرموش ثم الأطراف، واضغطي بلطف لثوانٍ." },
+  { title: "احفظيها", text: "انزعيها من الطرف الخارجي بهدوء، ونظّفي الشريط وأعيديها إلى علبتها." },
 ];
 
 export const styleLabel: Record<LashStyle, string> = {
