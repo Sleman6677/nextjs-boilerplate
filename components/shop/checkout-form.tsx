@@ -6,7 +6,7 @@ import { checkout, getQuote } from "@/app/actions/shop";
 import type { Address } from "@/lib/account";
 import type { Product } from "@/lib/catalog";
 import { href } from "@/lib/i18n/config";
-import { money, num, points as pointsLabel, t } from "@/lib/i18n/format";
+import { localized, money, num, points as pointsLabel, t } from "@/lib/i18n/format";
 import type { QuoteResult } from "@/lib/orders";
 import { shop } from "@/lib/site";
 import { cart, useCart } from "../cart-store";
@@ -282,7 +282,7 @@ export function CheckoutForm({
             return (
               <li key={l.id} className="flex justify-between gap-3">
                 <span>
-                  {prod.name[lang] || prod.name.en} <span className="text-pink-soft/70">× {num(l.qty, lang)}</span>
+                  {localized(prod.name, lang)} <span className="text-pink-soft/70">× {num(l.qty, lang)}</span>
                 </span>
                 <span className="tabular-nums">{fmt(prod.price * l.qty)}</span>
               </li>
@@ -295,11 +295,11 @@ export function CheckoutForm({
             {quote.discountAmount > 0 ? (
               <div className="flex justify-between text-pink-soft">
                 <dt>{quote.discountKind === "coupon" ? t(o.discountCoupon, { code: quote.discountCode ?? "" }) : t(o.discountFirst, { pct: num(quote.discountPct ?? 0, lang) })}</dt>
-                <dd>−{fmt(quote.discountAmount)}</dd>
+                <dd dir="ltr">−{fmt(quote.discountAmount)}</dd>
               </div>
             ) : null}
             {quote.pointsUsed > 0 ? (
-              <div className="flex justify-between text-pink-soft"><dt>{t(o.pointsUsed, { points: num(quote.pointsUsed, lang) })}</dt><dd>−{fmt(quote.pointsValue)}</dd></div>
+              <div className="flex justify-between text-pink-soft"><dt>{t(o.pointsUsed, { points: num(quote.pointsUsed, lang) })}</dt><dd dir="ltr">−{fmt(quote.pointsValue)}</dd></div>
             ) : null}
             <div className="flex justify-between"><dt>{o.shipping}</dt><dd>{quote.shippingFee === 0 ? o.free : fmt(quote.shippingFee)}</dd></div>
             {quote.freeShippingRemaining ? <p className="text-xs text-pink-soft">{t(dict.cart.freeLeft, { amount: fmt(quote.freeShippingRemaining) })}</p> : null}

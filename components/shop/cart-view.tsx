@@ -3,7 +3,7 @@
 import Link from "next/link";
 import type { Product } from "@/lib/catalog";
 import { href } from "@/lib/i18n/config";
-import { money, num, t } from "@/lib/i18n/format";
+import { localized, money, num, t } from "@/lib/i18n/format";
 import { shop } from "@/lib/site";
 import { cart, useCart } from "../cart-store";
 import { useI18n } from "../i18n-provider";
@@ -35,11 +35,11 @@ export function CartView({ products, accounts, freeShippingThreshold }: { produc
     <div className="grid gap-8 lg:grid-cols-[1.6fr_1fr]">
       <ul className="space-y-4">
         {lines.map(({ product: p, qty }, i) => {
-          const name = p.name[lang] || p.name.en;
+          const name = localized(p.name, lang);
           return (
             <li key={p.id} className="flex items-center gap-4 rounded-[1.5rem] border border-berry/10 bg-ivory p-3 sm:gap-6 sm:p-4">
               <div className="w-24 shrink-0 sm:w-28">
-                <BoxVisual art={p.art} label={p.name.en} imageUrl={p.imageUrl} index={i} />
+                <BoxVisual art={p.art} label={p.name.en || "Serag"} imageUrl={p.imageUrl} index={i} />
               </div>
               <div className="min-w-0 flex-1">
                 <p className="font-naskh truncate text-xl text-plum">{name}</p>

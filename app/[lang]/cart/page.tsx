@@ -1,14 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { connection } from "next/server";
 import { CartView } from "@/components/shop/cart-view";
 import { getCatalog } from "@/lib/catalog";
 import { isLocale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n";
 import { getSettings } from "@/lib/orders";
 import { accountsEnabled } from "@/lib/supabase/config";
-
-// Product list is refreshed at most every minute (admin changes revalidate it immediately).
-export const revalidate = 60;
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/cart">): Promise<Metadata> {
   const { lang } = await params;
@@ -20,6 +18,8 @@ export default async function CartPage({ params }: PageProps<"/[lang]/cart">) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const dict = getDictionary(lang);
+  // Rendered per visit so owner changes (products, prices, settings) show at once.
+  await connection();
   const accounts = accountsEnabled();
   const [categories, settings] = await Promise.all([getCatalog(), accounts ? getSettings() : Promise.resolve(null)]);
 

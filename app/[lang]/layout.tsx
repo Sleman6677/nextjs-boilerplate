@@ -1,21 +1,13 @@
 import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
-import { Amiri, Aref_Ruqaa, Cormorant_Garamond, Frank_Ruhl_Libre, Heebo, Noto_Sans_Arabic } from "next/font/google";
 import { AnnouncementBar, Footer, WhatsAppFloat } from "@/components/chrome";
 import { Header } from "@/components/header";
 import { I18nProvider } from "@/components/i18n-provider";
 import { dir, isLocale, locales } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n";
 import { accountsEnabled } from "@/lib/supabase/config";
+import { fontVariables } from "../fonts";
 import "../globals.css";
-
-const cormorant = Cormorant_Garamond({ variable: "--font-cormorant", subsets: ["latin"], weight: ["300", "400", "500", "600"], style: ["normal", "italic"], display: "swap" });
-const amiri = Amiri({ variable: "--font-amiri", subsets: ["arabic"], weight: ["400", "700"], display: "swap" });
-const notoArabic = Noto_Sans_Arabic({ variable: "--font-noto-arabic", subsets: ["arabic", "latin"], display: "swap" });
-const ruqaa = Aref_Ruqaa({ variable: "--font-ruqaa", subsets: ["arabic"], weight: ["400", "700"], display: "swap" });
-// Hebrew: Frank Ruhl Libre (display) and Heebo (body). Also provide the ₪ glyph the other fonts lack.
-const frank = Frank_Ruhl_Libre({ variable: "--font-frank", subsets: ["hebrew"], weight: ["400", "500"], display: "swap", preload: false });
-const heebo = Heebo({ variable: "--font-heebo", subsets: ["hebrew"], weight: ["400", "500", "600", "700"], display: "swap", preload: false });
 
 export const dynamicParams = false;
 
@@ -51,7 +43,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
       dir={dir(lang)}
       data-scroll-behavior="smooth"
       suppressHydrationWarning
-      className={`${cormorant.variable} ${amiri.variable} ${notoArabic.variable} ${ruqaa.variable} ${frank.variable} ${heebo.variable}`}
+      className={fontVariables}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: motionScript }} />

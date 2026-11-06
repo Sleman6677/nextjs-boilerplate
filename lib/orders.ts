@@ -2,13 +2,12 @@ import type postgres from "postgres";
 import { productFromRow, type Product } from "./catalog";
 import { n, sql } from "./db";
 import type { Locale } from "./i18n/config";
+import { localized } from "./i18n/format";
 import { quote, type CouponRule, type Quote, type Settings } from "./pricing";
 
-export const ORDER_STATUSES = ["awaiting_payment", "received", "preparing", "shipped", "delivered", "cancelled"] as const;
-export type OrderStatus = (typeof ORDER_STATUSES)[number];
-export const PAYMENT_METHODS = ["card", "bit", "apple_pay", "cash"] as const;
-export type PaymentMethod = (typeof PAYMENT_METHODS)[number];
-export const ACTIVE_STATUSES: OrderStatus[] = ["awaiting_payment", "received", "preparing", "shipped"];
+import { ORDER_STATUSES, PAYMENT_METHODS, type OrderStatus, type PaymentMethod } from "./order-status";
+
+export { ACTIVE_STATUSES, ORDER_STATUSES, PAYMENT_METHODS, type OrderStatus, type PaymentMethod } from "./order-status";
 
 type Tx = postgres.TransactionSql | postgres.Sql;
 type Row = Record<string, unknown>;
@@ -157,7 +156,7 @@ export async function placeOrder(input: PlaceOrderInput): Promise<{ id: string; 
     for (const l of lines) {
       await tx`
         insert into order_items (order_id, product_id, name, unit_price, quantity, line_total)
-        values (${orderId}, ${l.product.id}, ${l.product.name[input.lang] || l.product.name.en}, ${l.product.price}, ${l.qty}, ${l.product.price * l.qty})`;
+        values (${orderId}, ${l.product.id}, ${localized(l.product.name, input.lang)}, ${l.product.price}, ${l.qty}, ${l.product.price * l.qty})`;
     }
     await tx`insert into order_events (order_id, status) values (${orderId}, ${status})`;
 
@@ -213,6 +212,11 @@ export async function setOrderStatus(orderId: string, status: OrderStatus, note?
       }
       const redeemed = await tx`delete from coupon_redemptions where order_id = ${orderId} returning coupon_id`;
       for (const r of redeemed) await tx`update coupons set used_count = greatest(used_count - 1, 0) where id = ${r.coupon_id as string}`;
+    }
+
+    // Cash is collected on delivery.
+    if (status === "delivered" && o.payment_method === "cash" && o.payment_status === "pending") {
+      await tx`update orders set payment_status = 'paid' where id = ${orderId}`;
     }
 
     await tx`update orders set status = ${status}, updated_at = now() where id = ${orderId}`;

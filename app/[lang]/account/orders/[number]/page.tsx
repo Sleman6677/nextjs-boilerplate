@@ -104,11 +104,11 @@ export default async function OrderPage({ params, searchParams }: PageProps<"/[l
             {order.discountAmount > 0 ? (
               <div className="flex justify-between text-gold-deep">
                 <dt>{order.discountKind === "coupon" ? t(o.discountCoupon, { code: order.discountCode ?? "" }) : t(o.discountFirst, { pct: num(Math.round((order.discountAmount / order.subtotal) * 100), lang) })}</dt>
-                <dd>−{fmt(order.discountAmount)}</dd>
+                <dd dir="ltr">−{fmt(order.discountAmount)}</dd>
               </div>
             ) : null}
             {order.pointsUsed > 0 ? (
-              <div className="flex justify-between text-gold-deep"><dt>{t(o.pointsUsed, { points: num(order.pointsUsed, lang) })}</dt><dd>−{fmt(order.pointsValue)}</dd></div>
+              <div className="flex justify-between text-gold-deep"><dt>{t(o.pointsUsed, { points: num(order.pointsUsed, lang) })}</dt><dd dir="ltr">−{fmt(order.pointsValue)}</dd></div>
             ) : null}
             <div className="flex justify-between"><dt>{o.shipping}</dt><dd>{order.shippingFee === 0 ? o.free : fmt(order.shippingFee)}</dd></div>
             <div className="flex items-baseline justify-between border-t border-cocoa/10 pt-3 text-base">

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Category, Product } from "@/lib/catalog";
 import { href } from "@/lib/i18n/config";
-import { boxes, money, num, t } from "@/lib/i18n/format";
+import { boxes, localized, money, num, t } from "@/lib/i18n/format";
 import { lashBoxes, shop } from "@/lib/site";
 import { cart, useCart } from "./cart-store";
 import { Checkout } from "./checkout";
@@ -30,7 +30,7 @@ export function ShopCatalog({ categories, accounts = false, onlinePayments = fal
   const count = inCart.reduce((a, i) => a + i.qty, 0);
   const total = inCart.reduce((a, i) => a + i.qty * byId.get(i.id)!.price, 0);
   const shown = filter === "all" ? products : (categories.find((c) => c.id === filter)?.products ?? []);
-  const name = (p: Product) => p.name[lang] || p.name.en;
+  const name = (p: Product) => localized(p.name, lang);
 
   useEffect(() => {
     if (!toast) return;
@@ -56,7 +56,7 @@ export function ShopCatalog({ categories, accounts = false, onlinePayments = fal
     <>
       {categories.length > 1 ? (
         <div className="mb-14 flex flex-wrap justify-center gap-2" role="group" aria-label={dict.shop.marqueeLabel}>
-          {[{ id: "all", label: dict.gallery.all }, ...categories.map((c) => ({ id: c.id, label: c.name[lang] || c.name.en }))].map((c) => (
+          {[{ id: "all", label: dict.gallery.all }, ...categories.map((c) => ({ id: c.id, label: localized(c.name, lang) }))].map((c) => (
             <button
               key={c.id}
               type="button"
@@ -85,20 +85,20 @@ export function ShopCatalog({ categories, accounts = false, onlinePayments = fal
                   aria-label={t(isOpen ? s.close : s.open, { name: name(p) })}
                   className="block w-full touch-manipulation rounded-[2rem] [-webkit-tap-highlight-color:transparent]"
                 >
-                  <BoxVisual art={p.art} label={p.name.en} imageUrl={p.imageUrl} index={i} />
+                  <BoxVisual art={p.art} label={p.name.en || "Serag"} imageUrl={p.imageUrl} index={i} />
                 </button>
                 {tag ? <span className="absolute -top-3 start-6 rounded-full bg-berry px-3 py-1 text-xs font-semibold text-ivory shadow-lg">{tag}</span> : null}
               </div>
 
               <div className="mt-6 flex items-baseline justify-between gap-3">
                 <h3 className="font-naskh text-2xl text-plum">{name(p)}</h3>
-                {name(p) !== p.name.en ? (
+                {p.name.en && name(p) !== p.name.en ? (
                   <span className="font-display text-lg text-berry italic" dir="ltr">
                     {p.name.en}
                   </span>
                 ) : null}
               </div>
-              <p className="mt-2 min-h-14 text-[0.95rem] leading-7 text-berry-deep/80">{p.description[lang] || p.description.en}</p>
+              <p className="mt-2 min-h-14 text-[0.95rem] leading-7 text-berry-deep/80">{localized(p.description, lang)}</p>
 
               <div className="mt-5 flex items-center justify-between gap-4 border-t border-berry/15 pt-5">
                 <span className="font-display text-3xl text-plum">{money(p.price, lang, shop.currency)}</span>

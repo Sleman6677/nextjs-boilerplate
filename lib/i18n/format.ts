@@ -62,3 +62,8 @@ export function items(n: number, lang: Locale): string {
   if (lang === "he") return n === 1 ? "פריט אחד" : `${n} פריטים`;
   return n === 1 ? "1 item" : `${n} items`;
 }
+
+/** Text in the visitor's language, falling back to Arabic, then English, then Hebrew. */
+export function localized(text: Record<Locale, string>, lang: Locale): string {
+  return text[lang] || text.ar || text.en || text.he;
+}

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { connection } from "next/server";
 import type { CSSProperties } from "react";
 import { LashDivider } from "@/components/art";
 import { Check, WhatsApp } from "@/components/icons";
@@ -17,9 +18,6 @@ import { shop, whatsappLink } from "@/lib/site";
 
 const v = (vars: Record<string, string | number>) => vars as CSSProperties;
 
-// Re-generated at most every minute; admin changes revalidate it immediately.
-export const revalidate = 60;
-
 export async function generateMetadata({ params }: PageProps<"/[lang]/shop">): Promise<Metadata> {
   const { lang } = await params;
   if (!isLocale(lang)) return {};
@@ -32,6 +30,8 @@ export default async function ShopPage({ params }: PageProps<"/[lang]/shop">) {
   if (!isLocale(lang)) notFound();
   const dict = getDictionary(lang);
   const s = dict.shop;
+  // Rendered per visit so owner changes (products, prices, settings) show at once.
+  await connection();
   const categories = await getCatalog();
   const prices = categories.flatMap((c) => c.products.map((p) => p.price));
   const price = money(prices.length ? Math.min(...prices) : shop.boxPrice, lang, shop.currency);
