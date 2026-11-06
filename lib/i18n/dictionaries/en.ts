@@ -4,7 +4,7 @@ const en: Dictionary = {
   meta: {
     title: "Serag Lashes — Lashes that light up your gaze",
     template: "%s | Serag Lashes",
-    description: "Serag Lashes is a luxury lash studio: classic, hybrid, volume and lash lifts, each mapped to the shape of your eyes.",
+    description: "The Serag Lashes shop: everyday and occasion lashes, care tools and gift cards. Delivery across Israel, points on every order, and payment by card, Apple Pay, Bit or cash.",
   },
   brand: "Serag Lashes",
   nav: {

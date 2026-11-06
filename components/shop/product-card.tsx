@@ -8,6 +8,7 @@ import { localized, money, num, t } from "@/lib/i18n/format";
 import { optimizable } from "@/lib/media";
 import { offersFor } from "@/lib/pricing";
 import { stockStatus } from "@/lib/stock";
+import { trackAddToCart } from "@/lib/track";
 import { cart } from "../cart-store";
 import { useI18n } from "../i18n-provider";
 import { Heart, Plus, Star } from "../icons";
@@ -149,6 +150,7 @@ export function ProductCard({ p, offers, isNew = false, best = false, index = 0 
               type="button"
               onClick={() => {
                 cart.add(p.id);
+                trackAddToCart({ id: p.id, name: p.name.en || name, price: p.displayPrice });
                 toast(t(s.product.added, { name }));
               }}
               aria-label={`${s.product.add}: ${name}`}

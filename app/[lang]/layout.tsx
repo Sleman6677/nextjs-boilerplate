@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
+import { Analytics } from "@/components/analytics";
 import { AnnouncementBar, Footer, WhatsAppFloat } from "@/components/chrome";
 import { Header } from "@/components/header";
 import { StoreProvider } from "@/components/shop/store-provider";
@@ -7,6 +8,7 @@ import { Toaster } from "@/components/shop/toast";
 import { I18nProvider } from "@/components/i18n-provider";
 import { dir, isLocale, locales } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n";
+import { siteUrl } from "@/lib/site-url";
 import { getStoreInfo } from "@/lib/social";
 import { accountsEnabled } from "@/lib/supabase/config";
 import { fontVariables } from "../fonts";
@@ -23,6 +25,7 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
   if (!isLocale(lang)) return {};
   const dict = getDictionary(lang);
   return {
+    metadataBase: new URL(siteUrl()),
     title: { template: dict.meta.template, default: dict.meta.title },
     description: dict.meta.description,
     alternates: { languages: { ar: "/ar", he: "/he", en: "/en" } },
@@ -66,6 +69,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
           <Footer lang={lang} info={info} />
           <WhatsAppFloat lang={lang} info={info} />
           <Toaster />
+          <Analytics />
           </StoreProvider>
         </I18nProvider>
       </body>

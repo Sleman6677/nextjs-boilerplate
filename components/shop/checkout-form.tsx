@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState, type FormEvent, type ReactNode } from "react";
+import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
 import { checkout } from "@/app/actions/shop";
 import type { Address } from "@/lib/account";
 import type { Product } from "@/lib/catalog";
@@ -10,6 +10,7 @@ import { href } from "@/lib/i18n/config";
 import { localized, money, num, points as pointsLabel, t } from "@/lib/i18n/format";
 import type { Zone } from "@/lib/orders";
 import { normalizePhone } from "@/lib/phone";
+import { trackBeginCheckout, trackPurchase } from "@/lib/track";
 import { cart, cartExtras, lineKey, useCart, useCartExtras } from "../cart-store";
 import { useI18n } from "../i18n-provider";
 import { CardIcon, Mobile, Sparkle } from "../icons";
@@ -62,6 +63,18 @@ export function CheckoutForm({
     { cart: lines.map((l) => ({ id: l.id, variantId: l.variantId, qty: l.qty })), couponCode: extras.couponCode, giftCardCode: extras.giftCardCode, usePoints: extras.usePoints, zoneId: extras.zoneId || null, phone: phoneNorm ?? undefined },
     lines.length > 0,
   );
+  const tracked = useRef(false);
+  const trackItems = () =>
+    (quote?.items ?? []).map((it) => {
+      const pl = quote?.lines.find((l) => l.key === it.key);
+      return { id: it.productId, name: it.name.en || it.name.ar, price: pl ? pl.lineTotal / pl.qty : 0, quantity: pl?.qty ?? 1, variant: it.variantName?.en || it.variantName?.ar };
+    });
+  useEffect(() => {
+    if (!quote || tracked.current) return;
+    tracked.current = true;
+    trackBeginCheckout(trackItems(), quote.total);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- once, when the first quote arrives
+  }, [quote]);
   const zone = zones.find((z) => z.id === extras.zoneId) ?? null;
   const needsShipping = quote ? quote.needsShipping : lines.some((l) => byId.get(l.id)?.kind !== "gift_card");
   const paidInFull = quote !== null && quote.total === 0;
@@ -116,6 +129,7 @@ export function CheckoutForm({
       setFormError(t(msg, { name: res.detail ?? "" }));
       return;
     }
+    if (quote && !res.payUrl) trackPurchase(res.number, trackItems(), quote.total);
     cart.clear();
     if (res.payUrl) window.location.assign(res.payUrl);
     else router.push(`${res.orderPath}&new=1${res.paymentError ? "&payerror=1" : ""}`);

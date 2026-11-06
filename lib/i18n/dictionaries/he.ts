@@ -5,7 +5,7 @@ const he: Dictionary = {
   meta: {
     title: "Serag Lashes · סראג' לאשז — ריסים שמאירים את המבט",
     template: "%s | Serag Lashes",
-    description: "סטודיו Serag Lashes להארכת ריסים יוקרתית: קלאסי, היבריד, ווליום והרמת ריסים, בעיצוב שמותאם למבנה העין שלך.",
+    description: "החנות של Serag Lashes: ריסים יומיים ולאירועים, כלי טיפוח וכרטיסי מתנה. משלוח לכל הארץ, נקודות על כל הזמנה, ותשלום באשראי, Apple Pay, Bit או מזומן.",
   },
   brand: "Serag Lashes",
   nav: {

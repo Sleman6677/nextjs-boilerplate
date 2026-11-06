@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { requestStockAlert } from "@/app/actions/account";
 import type { OfferInfo, Product } from "@/lib/catalog";
 import { href } from "@/lib/i18n/config";
@@ -10,6 +10,7 @@ import { localized, money, num, t } from "@/lib/i18n/format";
 import { optimizable } from "@/lib/media";
 import { displayPrice, offersFor, round2 } from "@/lib/pricing";
 import { maxQty, stockStatus } from "@/lib/stock";
+import { trackAddToCart, trackViewItem } from "@/lib/track";
 import { cart } from "../cart-store";
 import { useI18n } from "../i18n-provider";
 import { Check, Minus, Plus } from "../icons";
@@ -105,9 +106,14 @@ export function ProductView({ p, offers, addons, gift }: { p: Product; offers: O
   const qtyOffers = offersFor({ productId: p.id, categoryId: p.categoryId }, offers).filter((o) => o.minQty > 1);
   const remaining = variant ? variant.stock : p.stock;
 
+  useEffect(() => {
+    trackViewItem({ id: p.id, name: p.name.en || p.name.ar, price: p.displayPrice });
+  }, [p.id, p.name.en, p.name.ar, p.displayPrice]);
+
   function add() {
     if (needsChoice || status === "out") return;
     cart.add(p.id, variantId, Math.min(qty, limit));
+    trackAddToCart({ id: p.id, name: p.name.en || p.name.ar, price: shown.price, quantity: Math.min(qty, limit), variant: variant?.name.en || variant?.name.ar });
     toast(t(s.added, { name: variant ? `${name} · ${localized(variant.name, lang)}` : name }));
   }
 

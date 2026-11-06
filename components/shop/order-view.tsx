@@ -9,6 +9,7 @@ import { getDictionary } from "@/lib/i18n";
 import type { OrderDetail } from "@/lib/orders";
 import { payplusMethods, type OnlineMethod } from "@/lib/payplus";
 import { payments, whatsappLink } from "@/lib/site";
+import { PurchaseTracker } from "./purchase-tracker";
 import { ReorderButton } from "./reorder-button";
 
 type Flags = { isNew?: boolean; paid?: boolean; failed?: boolean; payError?: boolean };
@@ -27,6 +28,7 @@ export function OrderView({ order, lang, token = null, flags = {}, signedIn = fa
 
   return (
     <div className="space-y-8">
+      {flags.paid ? <PurchaseTracker number={order.number} total={order.total} items={order.items.map((i) => ({ id: i.productId ?? i.name, name: i.name, price: i.unitPrice, quantity: i.quantity }))} /> : null}
       {flags.isNew || flags.paid ? (
         <div className="flex items-start gap-3 rounded-2xl bg-gold/15 p-5 text-cocoa" role="status">
           <Check className="mt-0.5 h-5 w-5 shrink-0 text-gold-deep" />
