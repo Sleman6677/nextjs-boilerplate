@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
-import { Analytics } from "@/components/analytics";
+import { Analytics, AnalyticsHead } from "@/components/analytics";
 import { AnnouncementBar, Footer, WhatsAppFloat } from "@/components/chrome";
 import { Header } from "@/components/header";
 import { StoreProvider } from "@/components/shop/store-provider";
@@ -55,6 +55,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: motionScript }} />
+        <AnalyticsHead />
       </head>
       <body className="min-h-dvh">
         <I18nProvider lang={lang} dict={dict}>
