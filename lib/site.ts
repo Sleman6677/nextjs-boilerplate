@@ -20,8 +20,6 @@ export const site = {
 
 export const navItems = [
   { href: "/", key: "home" },
-  { href: "/services", key: "services" },
-  { href: "/gallery", key: "gallery" },
   { href: "/shop", key: "shop" },
   { href: "/about", key: "about" },
 ] as const;
@@ -106,7 +104,7 @@ export const lashBoxes: LashBox[] = [
   { id: "glam", latin: "Glam Night", style: "mega", map: "doll", tone: "petal" },
 ];
 
-export function whatsappLink(text?: string): string {
-  const base = `https://wa.me/${site.whatsapp}`;
+export function whatsappLink(text?: string, number: string = site.whatsapp): string {
+  const base = `https://wa.me/${number}`;
   return text ? `${base}?text=${encodeURIComponent(text)}` : base;
 }

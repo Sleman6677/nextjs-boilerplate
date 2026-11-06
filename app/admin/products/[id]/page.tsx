@@ -23,7 +23,7 @@ export default async function EditProduct({ params }: PageProps<"/admin/products
           name: p.name,
           description: p.description,
           price: p.price,
-          categoryId: p.categoryId,
+          categoryId: p.categoryId ?? "",
           imageUrl: p.imageUrl ?? "",
           art: p.art,
           sort: p.sort,

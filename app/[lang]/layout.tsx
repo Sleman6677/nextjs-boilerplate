@@ -2,9 +2,12 @@ import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 import { AnnouncementBar, Footer, WhatsAppFloat } from "@/components/chrome";
 import { Header } from "@/components/header";
+import { StoreProvider } from "@/components/shop/store-provider";
+import { Toaster } from "@/components/shop/toast";
 import { I18nProvider } from "@/components/i18n-provider";
 import { dir, isLocale, locales } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n";
+import { getStoreInfo } from "@/lib/social";
 import { accountsEnabled } from "@/lib/supabase/config";
 import { fontVariables } from "../fonts";
 import "../globals.css";
@@ -36,6 +39,8 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const dict = getDictionary(lang);
+  const info = await getStoreInfo();
+  const accounts = accountsEnabled();
 
   return (
     <html
@@ -50,15 +55,18 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
       </head>
       <body className="min-h-dvh">
         <I18nProvider lang={lang} dict={dict}>
+          <StoreProvider lang={lang} enabled={accounts}>
           <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:start-3 focus:z-[70] focus:rounded-full focus:bg-gold focus:px-5 focus:py-3 focus:text-ink">
             {dict.nav.skip}
           </a>
           <div className="scroll-progress fixed inset-x-0 top-0 z-[70] h-[2px] bg-gradient-to-l from-gold-soft via-gold to-gold-deep" aria-hidden="true" />
-          <AnnouncementBar lang={lang} />
-          <Header accounts={accountsEnabled()} />
+          <AnnouncementBar lang={lang} info={info} />
+          <Header accounts={accounts} social={{ instagram: info.instagram, tiktok: info.tiktok, whatsapp: info.whatsapp }} />
           <main id="main">{children}</main>
-          <Footer lang={lang} />
-          <WhatsAppFloat lang={lang} />
+          <Footer lang={lang} info={info} />
+          <WhatsAppFloat lang={lang} info={info} />
+          <Toaster />
+          </StoreProvider>
         </I18nProvider>
       </body>
     </html>

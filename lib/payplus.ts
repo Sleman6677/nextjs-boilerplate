@@ -12,7 +12,6 @@
  */
 
 import { createHmac, timingSafeEqual } from "node:crypto";
-import { lashBoxes, shop } from "./site";
 
 const BASES = {
   production: "https://restapi.payplus.co.il/api/v1.0",
@@ -28,120 +27,7 @@ function apiBase(): string {
   return process.env.PAYPLUS_ENV === "staging" ? BASES.staging : BASES.production;
 }
 
-export type OrderInput = {
-  items: { id: string; qty: number }[];
-  customer: { name: string; phone: string; email: string; address: string; notes?: string };
-};
-
-export type Order = {
-  ref: string;
-  lines: { id: string; name: string; qty: number; price: number }[];
-  total: number;
-  customer: OrderInput["customer"];
-};
-
-export class OrderError extends Error {}
-
-const clean = (v: unknown, max: number) => (typeof v === "string" ? v.trim().slice(0, max) : "");
-
-/** Validates the cart and recomputes every price on the server; client totals are never trusted. */
-export function buildOrder(input: unknown): Order {
-  const body = (input ?? {}) as Partial<OrderInput>;
-  if (!Array.isArray(body.items) || body.items.length === 0 || body.items.length > lashBoxes.length) {
-    throw new OrderError("السلة فارغة أو غير صالحة");
-  }
-
-  const seen = new Set<string>();
-  const lines = body.items.map((item) => {
-    const box = lashBoxes.find((b) => b.id === item?.id);
-    const qty = Number(item?.qty);
-    if (!box || seen.has(box.id) || !Number.isInteger(qty) || qty < 1 || qty > 20) {
-      throw new OrderError("أحد المنتجات في السلة غير صالح");
-    }
-    seen.add(box.id);
-    return { id: box.id, name: box.latin, qty, price: shop.boxPrice };
-  });
-
-  const c = (body.customer ?? {}) as Partial<OrderInput["customer"]>;
-  const customer = {
-    name: clean(c.name, 80),
-    phone: clean(c.phone, 30),
-    email: clean(c.email, 120),
-    address: clean(c.address, 200),
-    notes: clean(c.notes, 200),
-  };
-  if (customer.name.length < 2 || customer.phone.replace(/\D/g, "").length < 7 || customer.address.length < 3) {
-    throw new OrderError("بيانات التوصيل غير مكتملة");
-  }
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customer.email)) {
-    throw new OrderError("البريد الإلكتروني غير صالح");
-  }
-
-  const total = lines.reduce((sum, l) => sum + l.qty * l.price, 0);
-  const ref = `SL-${Date.now().toString(36).toUpperCase()}`;
-  return { ref, lines, total, customer };
-}
-
-/** Asks PayPlus for a one-time payment page for this exact order. Returns the page URL. */
-export async function createPaymentLink(order: Order, origin: string, lang = "ar"): Promise<string> {
-  const summary = order.lines.map((l) => `${l.name}×${l.qty}`).join("، ");
-  const moreInfo = `${order.ref} | ${summary} | ${order.customer.address}${order.customer.notes ? ` | ${order.customer.notes}` : ""}`;
-
-  const res = await fetch(`${apiBase()}/PaymentPages/generateLink`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "api-key": process.env.PAYPLUS_API_KEY ?? "",
-      "secret-key": process.env.PAYPLUS_SECRET_KEY ?? "",
-    },
-    body: JSON.stringify({
-      payment_page_uid: process.env.PAYPLUS_PAYMENT_PAGE_UID,
-      amount: order.total,
-      currency_code: "ILS",
-      charge_method: 1, // J4: immediate charge
-      sendEmailApproval: true,
-      sendEmailFailure: false,
-      refURL_success: `${origin}/${lang}/shop/success`,
-      refURL_failure: `${origin}/${lang}/shop/failure`,
-      refURL_cancel: `${origin}/${lang}/shop`,
-      more_info: moreInfo.slice(0, 250),
-      customer: {
-        customer_name: order.customer.name,
-        email: order.customer.email,
-        phone: order.customer.phone,
-        address: order.customer.address,
-      },
-      items: order.lines.map((l) => ({ name: l.name, quantity: l.qty, price: l.price })),
-    }),
-    signal: AbortSignal.timeout(15000),
-    cache: "no-store",
-  });
-
-  const text = await res.text();
-  let data: { results?: { status?: string; description?: string }; data?: { payment_page_link?: string } } = {};
-  try {
-    data = JSON.parse(text);
-  } catch {
-    /* non-JSON error body, handled below */
-  }
-
-  const link = data.data?.payment_page_link;
-  if (!res.ok || data.results?.status !== "success" || !link) {
-    // Log for the Vercel function logs; never log the keys.
-    console.error("PayPlus generateLink failed", res.status, data.results ?? text.slice(0, 200));
-    throw new Error("payment_link_failed");
-  }
-
-  const url = new URL(link);
-  if (url.protocol !== "https:" || !(url.hostname === "payplus.co.il" || url.hostname.endsWith(".payplus.co.il"))) {
-    console.error("PayPlus returned an unexpected payment link host", url.hostname);
-    throw new Error("payment_link_failed");
-  }
-  return url.toString();
-}
-
-/* ───────────── Orders from the database ───────────── */
-
+/* ───────────── Orders ───────────── */
 
 export type OnlineMethod = "card" | "bit" | "apple_pay";
 
@@ -161,7 +47,9 @@ export type PaymentLinkInput = {
   method: OnlineMethod;
   lang: string;
   origin: string;
-  customer: { name: string; email: string; phone: string; address: string };
+  /** Order page path with its access token, e.g. /ar/order/1001?t=… */
+  returnPath: string;
+  customer: { name: string; email?: string | null; phone: string; address: string };
   items: { name: string; quantity: number; price: number }[];
 };
 
@@ -178,13 +66,14 @@ export async function createOrderPaymentLink(input: PaymentLinkInput): Promise<{
       charge_default: CHARGE_DEFAULT[input.method],
       sendEmailApproval: true,
       sendEmailFailure: false,
-      refURL_success: `${input.origin}/${input.lang}/account/orders/${input.number}?paid=1`,
-      refURL_failure: `${input.origin}/${input.lang}/account/orders/${input.number}?failed=1`,
-      refURL_cancel: `${input.origin}/${input.lang}/account/orders/${input.number}`,
+      refURL_success: `${input.origin}${input.returnPath}&paid=1`,
+      refURL_failure: `${input.origin}${input.returnPath}&failed=1`,
+      refURL_cancel: `${input.origin}${input.returnPath}`,
       refURL_callback: `${input.origin}/api/payplus/callback`,
       more_info: input.orderId,
       more_info_2: `#${input.number}`,
-      customer: { customer_name: input.customer.name, email: input.customer.email, phone: input.customer.phone, address: input.customer.address },
+      // Invoice+ (if enabled on the payment page) issues the tax document from these details.
+      customer: { customer_name: input.customer.name, ...(input.customer.email ? { email: input.customer.email } : {}), phone: input.customer.phone, address: input.customer.address },
       items: input.items,
     }),
     signal: AbortSignal.timeout(15000),
@@ -226,4 +115,41 @@ export function verifyPayplusSignature(rawBody: string, hashHeader: string | nul
     const expected = Buffer.from(createHmac("sha256", secret).update(message).digest("base64"));
     return expected.length === given.length && timingSafeEqual(expected, given);
   });
+}
+
+/**
+ * Invoice+ document for an order paid outside PayPlus (cash): POST /books/docs/new/{docType}.
+ * Requires the Invoice+ service on the PayPlus account; test on staging first.
+ */
+export async function createCashInvoice(input: {
+  docType: "inv_tax_receipt" | "inv_receipt";
+  number: number;
+  total: number;
+  lang: string;
+  customer: { name: string; phone: string; email?: string | null };
+}): Promise<{ number: string | null; url: string | null }> {
+  const today = new Date().toISOString().slice(0, 10);
+  const res = await fetch(`${apiBase()}/books/docs/new/${input.docType}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "api-key": process.env.PAYPLUS_API_KEY ?? "", "secret-key": process.env.PAYPLUS_SECRET_KEY ?? "" },
+    body: JSON.stringify({
+      doc_date: today,
+      language: input.lang === "en" ? "en" : "he",
+      currency_code: "ILS",
+      more_info: `Serag Lashes #${input.number}`,
+      unique_identifier: `serag-order-${input.number}`,
+      ...(input.docType === "inv_tax_receipt" ? { vatType: "vat-type-included" } : {}),
+      customer: { name: input.customer.name, phone: input.customer.phone, ...(input.customer.email ? { email: input.customer.email } : {}), country_ISO: "IL" },
+      items: [{ name: `Serag Lashes #${input.number}`, price: input.total, quantity: 1 }],
+      payments: [{ payment_type: "cash", amount: input.total, payment_date: today }],
+    }),
+    signal: AbortSignal.timeout(15000),
+    cache: "no-store",
+  });
+  const data = (await res.json().catch(() => ({}))) as { number?: string; originalDocAddress?: string; validDocumentGenerated?: boolean };
+  if (!res.ok || !(data.number || data.originalDocAddress)) {
+    console.error("PayPlus invoice failed", res.status, JSON.stringify(data).slice(0, 300));
+    throw new Error("invoice_failed");
+  }
+  return { number: data.number ?? null, url: data.originalDocAddress ?? null };
 }

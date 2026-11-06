@@ -119,8 +119,8 @@ export default async function AboutPage({ params }: PageProps<"/[lang]/about">) 
             <LashDivider className="mx-auto mt-10 w-48 text-rosewood" />
           </Reveal>
           <Reveal delay={200} className="mt-12">
-            <ButtonLink href={href(lang, "/booking")} variant="ink">
-              {d.cta}
+            <ButtonLink href={href(lang, "/shop")} variant="ink">
+              {getDictionary(lang).store.home.cta}
             </ButtonLink>
           </Reveal>
         </div>

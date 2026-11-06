@@ -2,10 +2,11 @@ import { notFound, redirect } from "next/navigation";
 import { signOut } from "@/app/actions/auth";
 import { AccountNav } from "@/components/account/account-nav";
 import { getProfile } from "@/lib/account";
-import { currentUser, ensureProfile } from "@/lib/auth";
+import { currentUser } from "@/lib/auth";
 import { href, isLocale } from "@/lib/i18n/config";
 import { t } from "@/lib/i18n/format";
 import { getDictionary } from "@/lib/i18n";
+import { displayPhone } from "@/lib/phone";
 import { accountsEnabled } from "@/lib/supabase/config";
 
 export default async function AccountLayout({ children, params }: LayoutProps<"/[lang]/account">) {
@@ -21,9 +22,8 @@ export default async function AccountLayout({ children, params }: LayoutProps<"/
   }
   const user = await currentUser();
   if (!user) redirect(href(lang, `/login?next=/${lang}/account`));
-  await ensureProfile(user, lang);
   const profile = await getProfile(user.id);
-  const name = profile?.fullName || user.email.split("@")[0];
+  const name = profile?.fullName || user.email?.split("@")[0] || "";
   const signOutAction = signOut.bind(null, lang);
 
   return (
@@ -35,7 +35,7 @@ export default async function AccountLayout({ children, params }: LayoutProps<"/
             <div>
               <p className="eyebrow text-gold" dir="ltr">My Account</p>
               <h1 className="font-display mt-3 text-4xl sm:text-5xl">{t(dict.account.hello, { name })}</h1>
-              <p className="mt-2 text-sm text-ivory/60" dir="ltr">{user.email}</p>
+              <p className="mt-2 text-sm text-ivory/60" dir="ltr">{user.phone ? displayPhone(user.phone) : user.email}</p>
             </div>
             <form action={signOutAction}>
               <button type="submit" className="btn btn-ghost-light min-h-11 px-5 text-sm">

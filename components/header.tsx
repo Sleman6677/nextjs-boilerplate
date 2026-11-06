@@ -4,11 +4,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, type CSSProperties } from "react";
 import { href, localeNames, locales, localeShort, switchLocalePath } from "@/lib/i18n/config";
-import { navItems, site, whatsappLink } from "@/lib/site";
+import { navItems, whatsappLink } from "@/lib/site";
 import { Wordmark } from "./art";
 import { useI18n } from "./i18n-provider";
 import { useCartCount } from "./cart-store";
-import { ArrowForward, Bag, Close, Instagram, Menu, User, WhatsApp } from "./icons";
+import { ArrowForward, Bag, Close, Heart, Instagram, Menu, TikTok, User, WhatsApp } from "./icons";
 import { num, t } from "@/lib/i18n/format";
 
 function LanguageSwitcher({ className }: { className?: string }) {
@@ -34,7 +34,7 @@ function LanguageSwitcher({ className }: { className?: string }) {
   );
 }
 
-export function Header({ accounts = false }: { accounts?: boolean }) {
+export function Header({ accounts = false, social }: { accounts?: boolean; social: { instagram: string; tiktok: string; whatsapp: string } }) {
   const { lang, dict } = useI18n();
   const count = useCartCount();
   const pathname = usePathname();
@@ -102,6 +102,9 @@ export function Header({ accounts = false }: { accounts?: boolean }) {
 
           <div className="flex items-center gap-2">
             <LanguageSwitcher className="hidden md:flex" />
+            <Link href={href(lang, "/account/favorites")} aria-label={dict.store.nav.favorites} className="hidden h-11 w-11 place-items-center rounded-full border border-gold/30 text-ivory transition-colors duration-200 hover:border-gold sm:grid">
+              <Heart className="h-5 w-5" />
+            </Link>
             {accounts ? (
               <Link href={href(lang, "/account")} aria-label={dict.nav.account} className="hidden h-11 w-11 place-items-center rounded-full border border-gold/30 text-ivory transition-colors duration-200 hover:border-gold sm:grid">
                 <User />
@@ -115,8 +118,8 @@ export function Header({ accounts = false }: { accounts?: boolean }) {
                 </span>
               ) : null}
             </Link>
-            <Link href={href(lang, "/booking")} className="btn btn-gold hidden min-h-11 px-6 py-2 text-sm sm:inline-flex">
-              {dict.nav.book}
+            <Link href={href(lang, "/shop")} className="btn btn-gold hidden min-h-11 px-6 py-2 text-sm lg:inline-flex">
+              {dict.store.home.cta}
             </Link>
             <button
               type="button"
@@ -149,7 +152,7 @@ export function Header({ accounts = false }: { accounts?: boolean }) {
         </div>
         <nav aria-label={dict.nav.mobileNav} className="relative flex flex-1 flex-col justify-center px-8">
           <ul className="space-y-2">
-            {[...links, ...(accounts ? [{ path: "/account", label: dict.nav.account }] : []), { path: "/booking", label: dict.nav.book }].map((item, i) => (
+            {[...links, { path: "/account/favorites", label: dict.store.nav.favorites }, ...(accounts ? [{ path: "/account", label: dict.nav.account }] : [])].map((item, i) => (
               <li
                 key={item.path}
                 className={`transition-all duration-700 ease-[var(--ease-expo)] ${open ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}
@@ -169,12 +172,14 @@ export function Header({ accounts = false }: { accounts?: boolean }) {
         </nav>
         <div className="relative flex flex-wrap items-center gap-4 px-8 pb-10 text-gold-soft">
           <LanguageSwitcher />
-          <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="flex min-h-11 items-center gap-2">
+          <a href={whatsappLink(undefined, social.whatsapp)} target="_blank" rel="noopener noreferrer" className="flex min-h-11 items-center gap-2">
             <WhatsApp /> {dict.common.whatsapp}
           </a>
-          <span className="h-4 w-px bg-gold/30" aria-hidden="true" />
-          <a href={`https://instagram.com/${site.instagram}`} target="_blank" rel="noopener noreferrer" className="flex min-h-11 items-center gap-2">
+          <a href={`https://instagram.com/${social.instagram}`} target="_blank" rel="noopener noreferrer" className="flex min-h-11 items-center gap-2">
             <Instagram /> {dict.common.instagram}
+          </a>
+          <a href={`https://www.tiktok.com/@${social.tiktok}`} target="_blank" rel="noopener noreferrer" className="flex min-h-11 items-center gap-2">
+            <TikTok /> {dict.store.social.tiktok}
           </a>
         </div>
       </div>

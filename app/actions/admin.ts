@@ -4,7 +4,8 @@ import { randomUUID } from "node:crypto";
 import { createClient } from "@supabase/supabase-js";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { assertAdmin } from "@/lib/auth";
+import { assertAdmin, assertStaff } from "@/lib/auth";
+import { notifyGiftCards, notifyOrderReceived, notifyStatusChange } from "@/lib/notify";
 import { sql } from "@/lib/db";
 import { CheckoutError, markPaid, ORDER_STATUSES, setOrderStatus, type OrderStatus } from "@/lib/orders";
 import { supabaseUrl } from "@/lib/supabase/config";
@@ -30,22 +31,26 @@ function refreshStore() {
 /* ───────────── Orders ───────────── */
 
 export async function changeOrderStatus(orderId: string, status: string, note?: string): Promise<{ ok: boolean; error?: string }> {
-  await assertAdmin();
+  const staff = await assertStaff("orders");
   if (!(ORDER_STATUSES as readonly string[]).includes(status)) return { ok: false, error: "حالة غير معروفة" };
+  let change;
   try {
-    await setOrderStatus(orderId, status as OrderStatus, note?.trim().slice(0, 300) || undefined);
+    change = await setOrderStatus(orderId, status as OrderStatus, { note: note?.trim().slice(0, 300) || undefined, actor: staff.name });
   } catch (e) {
     if (e instanceof CheckoutError && e.code === "order_cancelled") return { ok: false, error: "الطلب ملغي ولا يمكن تغيير حالته." };
     throw e;
   }
+  await notifyStatusChange(change);
   revalidatePath("/admin", "layout");
   revalidatePath("/[lang]/account", "layout");
   return { ok: true };
 }
 
 export async function markOrderPaid(orderId: string): Promise<{ ok: boolean }> {
-  await assertAdmin();
-  await markPaid(orderId, null);
+  const staff = await assertStaff("orders");
+  const result = await markPaid(orderId, null, undefined, staff.name);
+  if (result?.wasAwaiting) await notifyOrderReceived(orderId);
+  if (result?.giftCards.length) await notifyGiftCards(orderId, result.giftCards);
   revalidatePath("/admin", "layout");
   revalidatePath("/[lang]/account", "layout");
   return { ok: true };

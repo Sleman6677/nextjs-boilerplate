@@ -1,8 +1,8 @@
 import type { Dictionary } from "@/lib/i18n";
-import type { OrderStatus } from "@/lib/orders";
+import type { OrderStatus } from "@/lib/order-status";
 import { Check, Close } from "../icons";
 
-const FLOW: OrderStatus[] = ["received", "preparing", "shipped", "delivered"];
+const FLOW: OrderStatus[] = ["received", "preparing", "shipped", "out_for_delivery", "delivered"];
 
 export function StatusBadge({ status, dict }: { status: OrderStatus; dict: Dictionary }) {
   const tone =
@@ -10,7 +10,7 @@ export function StatusBadge({ status, dict }: { status: OrderStatus; dict: Dicti
   return <span className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${tone}`}>{dict.order.statuses[status]}</span>;
 }
 
-/** Horizontal progress: received → preparing → shipped → delivered. */
+/** Horizontal progress: received → preparing → shipped → out for delivery → delivered. */
 export function StatusTracker({ status, dict }: { status: OrderStatus; dict: Dictionary }) {
   if (status === "cancelled") {
     return (
@@ -21,7 +21,7 @@ export function StatusTracker({ status, dict }: { status: OrderStatus; dict: Dic
   }
   const reached = status === "awaiting_payment" ? -1 : FLOW.indexOf(status);
   return (
-    <ol className="grid grid-cols-4 gap-2" aria-label={dict.account.timeline}>
+    <ol className="grid grid-cols-5 gap-1 sm:gap-2" aria-label={dict.account.timeline}>
       {FLOW.map((s, i) => {
         const done = i <= reached;
         return (

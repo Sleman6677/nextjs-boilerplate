@@ -6,7 +6,7 @@ import { signOut } from "@/app/actions/auth";
 import { AdminNav } from "@/components/admin/admin-nav";
 import { Wordmark } from "@/components/art";
 import { getDashboard } from "@/lib/admin";
-import { currentUser, isAdmin } from "@/lib/auth";
+import { currentUser, staffUser } from "@/lib/auth";
 import { accountsEnabled } from "@/lib/supabase/config";
 import { fontVariables } from "../fonts";
 import "../globals.css";
@@ -42,11 +42,12 @@ async function Shell({ children }: { children: ReactNode }) {
   }
   const user = await currentUser();
   if (!user) redirect("/ar/login?next=/admin");
-  if (!isAdmin(user)) {
+  const staff = await staffUser();
+  if (!staff) {
     return (
       <Gate title="لا توجد صلاحية دخول">
         <p>
-          الحساب <span dir="ltr">{user.email}</span> ليس من حسابات الإدارة. تُضاف حسابات الإدارة في المتغيّر <code dir="ltr">ADMIN_EMAILS</code>.
+          الحساب <span dir="ltr">{user.email ?? user.phone}</span> ليس من حسابات الطاقم. يضيفه صاحب المتجر من «الطاقم» في اللوحة.
         </p>
         <div className="mt-8 flex justify-center gap-3">
           <Link href="/ar" className="btn btn-ghost-light min-h-11 px-5 text-sm">
@@ -86,7 +87,7 @@ async function Shell({ children }: { children: ReactNode }) {
             عرض المتجر ↗
           </Link>
           <p className="mt-2 truncate text-xs text-ivory/50" dir="ltr">
-            {user.email}
+            {staff.name}
           </p>
           <form action={signOutAction} className="mt-3">
             <button type="submit" className="min-h-11 text-ivory/70 hover:text-ivory">

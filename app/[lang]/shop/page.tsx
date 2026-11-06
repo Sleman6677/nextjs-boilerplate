@@ -1,143 +1,90 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { connection } from "next/server";
-import type { CSSProperties } from "react";
 import { LashDivider } from "@/components/art";
-import { Check, WhatsApp } from "@/components/icons";
+import { Gift, WhatsApp } from "@/components/icons";
 import { LashPair } from "@/components/lash-box";
 import { Reveal } from "@/components/reveal";
-import { HeroBoxPlayer, ShopCatalog } from "@/components/shop-catalog";
-import { ButtonLink, Marquee } from "@/components/ui";
-import { href, isLocale } from "@/lib/i18n/config";
-import { money, num, t } from "@/lib/i18n/format";
+import { CatalogGrid } from "@/components/shop/catalog-grid";
+import { ProductCard } from "@/components/shop/product-card";
+import { getHome, isNewProduct } from "@/lib/catalog";
+import { isLocale } from "@/lib/i18n/config";
+import { num } from "@/lib/i18n/format";
 import { getDictionary } from "@/lib/i18n";
-import { getCatalog } from "@/lib/catalog";
-import { payplusConfigured } from "@/lib/payplus";
+import { whatsappLink } from "@/lib/site";
 import { accountsEnabled } from "@/lib/supabase/config";
-import { shop, whatsappLink } from "@/lib/site";
-
-const v = (vars: Record<string, string | number>) => vars as CSSProperties;
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/shop">): Promise<Metadata> {
   const { lang } = await params;
   if (!isLocale(lang)) return {};
-  const d = getDictionary(lang).shop;
-  return { title: d.metaTitle, description: d.metaDesc };
+  const d = getDictionary(lang);
+  return { title: d.store.nav.shop, description: d.shop.metaDesc, alternates: { canonical: `/${lang}/shop`, languages: { ar: "/ar/shop", he: "/he/shop", en: "/en/shop" } } };
 }
 
-export default async function ShopPage({ params }: PageProps<"/[lang]/shop">) {
+export default async function ShopPage({ params, searchParams }: PageProps<"/[lang]/shop">) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const dict = getDictionary(lang);
   const s = dict.shop;
-  // Rendered per visit so owner changes (products, prices, settings) show at once.
+  // Rendered per visit so owner changes (products, prices, stock) show at once.
   await connection();
-  const categories = await getCatalog();
-  const prices = categories.flatMap((c) => c.products.map((p) => p.price));
-  const price = money(prices.length ? Math.min(...prices) : shop.boxPrice, lang, shop.currency);
+  const sp = await searchParams;
+  const home = await getHome();
+  const all = home.categories.flatMap((c) => c.products);
 
   return (
     <div className="bg-petal">
-      {/* ───────────── Hero ───────────── */}
-      <section className="relative isolate overflow-clip bg-gradient-to-b from-plum via-berry-deep to-berry text-ivory">
-        <div className="glow-pink drift pointer-events-none absolute -top-32 right-[-10%] -z-10 h-[34rem] w-[34rem] opacity-60" aria-hidden="true" />
-        <div className="glow-pink drift pointer-events-none absolute bottom-[-20%] left-[-12%] -z-10 h-[30rem] w-[30rem] opacity-40" style={v({ "--d": "-6s" })} aria-hidden="true" />
-        <p
-          className="font-display pointer-events-none absolute -bottom-[0.2em] right-0 -z-10 text-[30vw] leading-none text-transparent italic select-none [-webkit-text-stroke:1px_rgba(248,215,223,0.14)] lg:text-[22rem]"
-          dir="ltr"
-          aria-hidden="true"
-        >
-          Daily
+      <section className="relative isolate overflow-clip bg-gradient-to-b from-plum via-berry-deep to-berry pt-36 pb-16 text-ivory sm:pt-40">
+        <div className="glow-pink drift pointer-events-none absolute -top-32 right-[-10%] -z-10 h-[30rem] w-[30rem] opacity-50" aria-hidden="true" />
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <p className="eyebrow flex items-center gap-3 text-pink">
+            <span className="h-px w-10 bg-current opacity-60" aria-hidden="true" />
+            <span>{dict.store.home.eyebrow}</span>
+          </p>
+          <h1 className="font-display mt-6 text-5xl sm:text-7xl">{dict.store.nav.shop}</h1>
+          <p className="mt-5 max-w-xl text-lg leading-8 text-ivory/80">{s.collLead}</p>
+        </div>
+      </section>
+
+      {!accountsEnabled() ? (
+        <p className="bg-pink px-5 py-4 text-center text-sm text-plum">
+          {dict.store.setup}{" "}
+          <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 font-semibold underline">
+            <WhatsApp className="h-4 w-4" /> {dict.store.orderOnWhatsapp}
+          </a>
         </p>
+      ) : null}
 
-        <div className="mx-auto grid min-h-[100svh] max-w-7xl items-center gap-20 px-5 pt-40 pb-28 sm:px-8 lg:grid-cols-[1.1fr_1fr] lg:gap-12 lg:pt-36">
-          <div>
-            <p className="eyebrow fade-in flex items-center gap-3 text-pink">
-              <span className="h-px w-10 bg-current opacity-60" aria-hidden="true" />
-              <span dir="ltr">Daily Lash Collection</span>
-            </p>
-            <h1 className="rise font-display mt-8 text-[3.2rem] leading-[1.3] sm:text-7xl lg:text-[5.6rem] lg:leading-[1.2]">
-              <span className="w">
-                <span style={v({ "--i": 0 })}>{s.h1[0]}</span>
-              </span>{" "}
-              <span className="w">
-                <span style={v({ "--i": 1 })}>{s.h1[1]}</span>
-              </span>
-              <br />
-              <span className="w">
-                <span style={v({ "--i": 2 })} className="font-script text-pink-grad">
-                  {s.h1[2]}
-                </span>
-              </span>{" "}
-              <span className="w">
-                <span style={v({ "--i": 3 })}>{s.h1[3]}</span>
-              </span>
-            </h1>
-            <p className="fade-in mt-8 max-w-lg text-lg leading-9 text-ivory/80" style={v({ "--d": "700ms" })}>
-              {s.lead}
-            </p>
-
-            <div className="fade-in mt-9 flex flex-wrap items-center gap-x-6 gap-y-3" style={v({ "--d": "850ms" })}>
-              <span className="font-display text-5xl text-pink-grad">{price}</span>
-              <span className="text-ivory/70">{s.perBox}</span>
-            </div>
-
-            <div className="fade-in mt-10 flex flex-wrap gap-3" style={v({ "--d": "1000ms" })}>
-              <a href="#collection" className="btn btn-pink group">
-                {s.shopCta}
-              </a>
-              <ButtonLink href={whatsappLink(t(s.askMsg, { brand: dict.brand }))} variant="ghost-light" arrow={false} external>
-                <span className="flex items-center gap-2">
-                  <WhatsApp className="h-5 w-5" /> {s.ask}
-                </span>
-              </ButtonLink>
-            </div>
-          </div>
-
-          <div className="px-8 sm:px-12">
-            <HeroBoxPlayer />
-          </div>
+      <section id="collection" className="relative scroll-mt-24 py-16 sm:py-24">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <CatalogGrid
+            categories={home.categories}
+            offers={home.offers}
+            newIds={all.filter(isNewProduct).map((p) => p.id)}
+            bestIds={home.bestSellers.slice(0, 3).map((p) => p.id)}
+            initial={typeof sp.c === "string" ? sp.c : "all"}
+          />
         </div>
       </section>
 
-      {/* ───────────── Marquee ───────────── */}
-      <section aria-label={s.marqueeLabel} className="bg-pink py-5 text-plum">
-        <Marquee className="font-display text-2xl sm:text-3xl" items={s.marquee.map((m) => t(m, { price }))} />
-      </section>
-
-      {/* ───────────── Collection ───────────── */}
-      <section id="collection" className="relative scroll-mt-24 overflow-clip py-28 sm:py-36">
-        <div className="glow-pink pointer-events-none absolute top-40 -left-40 h-[36rem] w-[36rem] opacity-70" aria-hidden="true" />
-        <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
-          <header className="mx-auto max-w-2xl text-center">
-            <Reveal as="p" className="eyebrow flex items-center justify-center gap-3 text-berry">
-              <span className="h-px w-10 bg-current opacity-60" aria-hidden="true" />
-              <span dir="ltr">The Collection</span>
-              <span className="h-px w-10 bg-current opacity-60" aria-hidden="true" />
-            </Reveal>
-            <Reveal as="h2" delay={80} className="font-display mt-5 text-[2.3rem] leading-[1.3] text-plum sm:text-6xl sm:leading-[1.25]">
-              {s.collA}
-              <span className="font-script text-rose-ink">{s.collEm}</span>
-            </Reveal>
-            <Reveal as="p" delay={160} className="mt-5 text-lg leading-8 text-berry-deep/80">
-              {s.collLead}
-            </Reveal>
-            <Reveal as="p" delay={200} className="mt-3 text-sm text-rose-ink">
-              {s.tapHint}
-            </Reveal>
-            <Reveal delay={220}>
-              <LashDivider className="mx-auto mt-8 w-48 text-pink-deep" />
-            </Reveal>
-          </header>
-
-          <div className="mt-20">
-            <ShopCatalog categories={categories} accounts={accountsEnabled()} onlinePayments={payplusConfigured()} />
+      {home.giftCards.length > 0 ? (
+        <section id="gift-cards" className="scroll-mt-24 bg-gradient-to-b from-pink-soft to-petal py-20" aria-labelledby="gift-title">
+          <div className="mx-auto max-w-7xl px-5 sm:px-8">
+            <h2 id="gift-title" className="font-display flex items-center gap-3 text-4xl text-plum">
+              <Gift className="h-8 w-8 text-berry" /> {dict.store.nav.giftCards}
+            </h2>
+            <ul className="mt-8 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 lg:grid-cols-4">
+              {home.giftCards.map((g, i) => (
+                <li key={g.id}>
+                  <ProductCard p={g} offers={home.offers} index={i} />
+                </li>
+              ))}
+            </ul>
           </div>
-        </div>
-      </section>
+        </section>
+      ) : null}
 
-      {/* ───────────── How to apply ───────────── */}
-      <section className="relative overflow-clip bg-gradient-to-b from-pink-soft to-petal py-28 sm:py-32">
+      <section className="relative overflow-clip py-24 sm:py-28">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <div className="grid items-end gap-10 lg:grid-cols-[1fr_1.2fr]">
             <div>
@@ -153,15 +100,9 @@ export default async function ShopPage({ params }: PageProps<"/[lang]/shop">) {
               <LashPair style="classic" map="cat" seed={2} className="mx-auto w-full max-w-md" />
             </Reveal>
           </div>
-
-          <ol className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <ol className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {s.steps.map((step, i) => (
-              <Reveal
-                as="li"
-                key={step.title}
-                delay={i * 110}
-                className="group relative overflow-hidden rounded-[1.75rem] border border-berry/10 bg-ivory/80 p-7 transition-transform duration-500 hover:-translate-y-1.5"
-              >
+              <Reveal as="li" key={step.title} delay={i * 110} className="group relative overflow-hidden rounded-[1.75rem] border border-berry/10 bg-ivory/80 p-7 transition-transform duration-500 hover:-translate-y-1.5">
                 <span className="font-display absolute -top-4 -end-1 text-[6.5rem] leading-none text-pink-soft transition-colors duration-500 group-hover:text-pink" aria-hidden="true">
                   {num(i + 1, lang)}
                 </span>
@@ -170,87 +111,12 @@ export default async function ShopPage({ params }: PageProps<"/[lang]/shop">) {
               </Reveal>
             ))}
           </ol>
-        </div>
-      </section>
-
-      {/* ───────────── Daily vs studio ───────────── */}
-      <section className="py-28 sm:py-32">
-        <div className="mx-auto max-w-6xl px-5 sm:px-8">
-          <Reveal as="h2" className="font-display text-center text-[2.2rem] leading-[1.3] text-plum sm:text-5xl">
-            {s.compareTitle}
-          </Reveal>
-          <Reveal as="p" delay={80} className="mx-auto mt-5 max-w-xl text-center text-lg text-berry-deep/80">
-            {s.compareLead}
-          </Reveal>
-
-          <div className="mt-14 grid gap-6 md:grid-cols-2">
-            <Reveal delay={120} className="rounded-[2rem] bg-gradient-to-br from-pink-soft to-pink p-8 text-plum sm:p-10">
-              <p className="font-display text-lg text-berry italic" dir="ltr">
-                Daily Lashes
-              </p>
-              <h3 className="font-naskh mt-2 text-3xl">{s.daily.title}</h3>
-              <ul className="mt-6 space-y-3">
-                {s.daily.items.map((item) => (
-                  <li key={item} className="flex items-center gap-3">
-                    <span className="grid h-6 w-6 place-items-center rounded-full bg-plum text-pink-soft">
-                      <Check className="h-3.5 w-3.5" />
-                    </span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <a href="#collection" className="btn btn-berry mt-8">
-                {s.daily.cta}
-              </a>
-            </Reveal>
-
-            <Reveal delay={200} className="rounded-[2rem] bg-ink p-8 text-ivory sm:p-10">
-              <p className="font-display text-lg text-gold-soft italic" dir="ltr">
-                Lash Extensions
-              </p>
-              <h3 className="font-naskh mt-2 text-3xl">{s.studio.title}</h3>
-              <ul className="mt-6 space-y-3">
-                {s.studio.items.map((item) => (
-                  <li key={item} className="flex items-center gap-3">
-                    <span className="grid h-6 w-6 place-items-center rounded-full bg-gold text-ink">
-                      <Check className="h-3.5 w-3.5" />
-                    </span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <ButtonLink href={href(lang, "/booking")} className="mt-8">
-                {s.studio.cta}
-              </ButtonLink>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* ───────────── Final CTA ───────────── */}
-      <section className="relative overflow-clip bg-gradient-to-b from-berry to-berry-deep py-24 text-center text-ivory sm:py-28">
-        <div className="glow-pink drift pointer-events-none absolute top-0 left-1/2 h-[30rem] w-[40rem] -translate-x-1/2 opacity-50" aria-hidden="true" />
-        <div className="relative mx-auto max-w-3xl px-5 sm:px-8">
-          <Reveal className="mx-auto w-56 text-pink-soft">
-            <LashPair style="volume" map="doll" seed={4} />
-          </Reveal>
-          <Reveal as="h2" delay={100} className="font-display mt-8 text-4xl leading-[1.35] sm:text-6xl sm:leading-[1.25]">
-            {s.finalA}
-            <span className="font-script text-pink-grad">{s.finalEm}</span>
-          </Reveal>
-          <Reveal as="p" delay={180} className="mx-auto mt-5 max-w-lg text-lg text-ivory/80">
-            {t(s.finalLead, { price })}
-          </Reveal>
-          <Reveal delay={260} className="mt-10 flex flex-wrap justify-center gap-3">
-            <a href="#collection" className="btn btn-pink">
-              {s.finalCta}
+          <LashDivider className="mx-auto mt-16 w-48 text-pink-deep" />
+          <p className="mt-6 text-center">
+            <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-berry hover:underline">
+              <WhatsApp className="h-5 w-5" /> {dict.store.social.chat}
             </a>
-            <ButtonLink href={whatsappLink(t(s.finalWaMsg, { brand: dict.brand }))} variant="ghost-light" arrow={false} external>
-              <span className="flex items-center gap-2">
-                <WhatsApp className="h-5 w-5" /> {s.finalWa}
-              </span>
-            </ButtonLink>
-          </Reveal>
+          </p>
         </div>
       </section>
     </div>

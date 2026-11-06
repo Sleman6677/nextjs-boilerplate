@@ -8,7 +8,8 @@ export const STATUS_LABEL: Record<OrderStatus, string> = {
   received: "جديد",
   preparing: "قيد التجهيز",
   shipped: "تم الشحن",
-  delivered: "تم التوصيل",
+  out_for_delivery: "في الطريق",
+  delivered: "تم التسليم",
   cancelled: "ملغي",
 };
 export const METHOD_LABEL: Record<PaymentMethod, string> = { card: "بطاقة ائتمان", bit: "Bit", apple_pay: "Apple Pay", cash: "نقدًا عند الاستلام" };
@@ -19,6 +20,7 @@ const STATUS_TONE: Record<OrderStatus, string> = {
   received: "bg-gold text-ink",
   preparing: "bg-gold/25 text-gold-deep",
   shipped: "bg-ink/10 text-cocoa",
+  out_for_delivery: "bg-ink text-gold-soft",
   delivered: "bg-emerald-700/10 text-emerald-800",
   cancelled: "bg-rosewood/10 text-rosewood line-through decoration-rosewood/40",
 };

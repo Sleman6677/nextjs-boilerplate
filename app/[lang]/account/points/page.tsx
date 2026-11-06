@@ -1,5 +1,5 @@
 import { notFound, redirect } from "next/navigation";
-import { pointsHistory } from "@/lib/account";
+import { nextExpiry, pointsHistory } from "@/lib/account";
 import { currentUser } from "@/lib/auth";
 import { href, isLocale } from "@/lib/i18n/config";
 import { date, money, num, t } from "@/lib/i18n/format";
@@ -14,7 +14,7 @@ export default async function PointsPage({ params }: PageProps<"/[lang]/account/
   if (!user) redirect(href(lang, `/login?next=/${lang}/account/points`));
   const dict = getDictionary(lang);
   const pt = dict.account.points;
-  const [history, balance, settings] = await Promise.all([pointsHistory(user.id), pointsBalance(user.id), getSettings()]);
+  const [history, balance, settings, expiry] = await Promise.all([pointsHistory(user.id), pointsBalance(user.id), getSettings(), nextExpiry(user.id)]);
   const fmt = (n: number) => money(n, lang, shop.currency);
 
   return (
@@ -24,6 +24,9 @@ export default async function PointsPage({ params }: PageProps<"/[lang]/account/
         <p className="font-display mt-2 text-6xl">{num(balance, lang)}</p>
         <p className="mt-2 text-sm">{t(dict.account.pointsWorth, { value: fmt(balance * settings.pointValue) })}</p>
         <p className="mt-5 text-sm leading-6">{t(pt.how, { pct: num(settings.pointsEarnPct, lang), value: fmt(settings.pointValue) })}</p>
+        <p className="mt-3 text-sm font-semibold">
+          {expiry ? t(dict.store.account.pointsExpire, { points: num(expiry.points, lang), date: date(expiry.date, lang) }) : settings.pointsExpiryMonths ? "" : dict.store.account.pointsNever}
+        </p>
       </aside>
       <div>
         <h2 className="font-naskh mb-4 text-2xl text-cocoa">{pt.history}</h2>

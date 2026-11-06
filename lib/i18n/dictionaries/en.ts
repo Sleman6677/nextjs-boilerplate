@@ -401,7 +401,7 @@ const en: Dictionary = {
     perks: ["Track every order", "Earn points on every order", "Save your addresses for next time"],
   },
   order: {
-    statuses: { awaiting_payment: "Awaiting payment", received: "Order received", preparing: "Being prepared", shipped: "On its way", delivered: "Delivered", cancelled: "Cancelled" },
+    statuses: { awaiting_payment: "Awaiting payment", received: "Order received", preparing: "Being prepared", shipped: "Shipped", out_for_delivery: "Out for delivery", delivered: "Delivered", cancelled: "Cancelled" },
     methods: { card: "Credit card", bit: "Bit", apple_pay: "Apple Pay", cash: "Cash on delivery" },
     payment: { pending: "Not paid yet", paid: "Paid", failed: "Payment failed", refunded: "Refunded" },
     number: "Order #{number}",
@@ -506,7 +506,7 @@ const en: Dictionary = {
       how: "You earn {pct}% of every order in points once it's delivered, and each point = {value}.",
       history: "Points history",
       empty: "No activity yet.",
-      reasons: { earned: "From order #{number}", redeemed: "Used on order #{number}", refund: "Returned from order #{number}", adjust: "Adjustment" },
+      reasons: { earned: "From order #{number}", redeemed: "Used on order #{number}", refund: "Returned from order #{number}", adjust: "Adjustment", expired: "Expired" },
     },
     errRequired: "Complete the required fields",
   },

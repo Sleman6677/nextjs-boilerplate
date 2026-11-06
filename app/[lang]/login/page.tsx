@@ -31,7 +31,7 @@ export default async function LoginPage({ params, searchParams }: PageProps<"/[l
             <span dir="ltr">My Account</span>
           </p>
           <h1 className="font-display mt-6 text-5xl leading-tight">{a.title}</h1>
-          <p className="mt-5 text-lg leading-8 text-ivory/75">{a.lead}</p>
+          <p className="mt-5 text-lg leading-8 text-ivory/75">{getDictionary(lang).store.login.text}</p>
           <ul className="mt-8 space-y-3 text-ivory/80">
             {a.perks.map((p) => (
               <li key={p} className="flex items-center gap-3">

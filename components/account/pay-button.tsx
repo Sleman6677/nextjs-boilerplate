@@ -5,7 +5,7 @@ import { payOrder } from "@/app/actions/shop";
 import { useI18n } from "../i18n-provider";
 import { CardIcon } from "../icons";
 
-export function PayButton({ number }: { number: number }) {
+export function PayButton({ number, token = null }: { number: number; token?: string | null }) {
   const { lang, dict } = useI18n();
   const [busy, setBusy] = useState(false);
   const [failed, setFailed] = useState(false);
@@ -17,7 +17,7 @@ export function PayButton({ number }: { number: number }) {
         onClick={async () => {
           setBusy(true);
           setFailed(false);
-          const res = await payOrder(number, lang);
+          const res = await payOrder(number, token, lang);
           if (res.ok) window.location.assign(res.payUrl);
           else {
             setBusy(false);

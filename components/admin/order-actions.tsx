@@ -8,7 +8,8 @@ import { field, STATUS_LABEL } from "./ui";
 const NEXT: Partial<Record<OrderStatus, { to: OrderStatus; label: string }>> = {
   received: { to: "preparing", label: "بدء التجهيز" },
   preparing: { to: "shipped", label: "تم الشحن" },
-  shipped: { to: "delivered", label: "تم التوصيل" },
+  shipped: { to: "out_for_delivery", label: "في الطريق للزبون" },
+  out_for_delivery: { to: "delivered", label: "تم التسليم" },
 };
 
 export function OrderActions({

@@ -11,6 +11,7 @@ export function AccountNav() {
   const n = dict.account.nav;
   const items = [
     { path: "/account", label: n.overview },
+    { path: "/account/favorites", label: dict.store.account.favorites },
     { path: "/account/addresses", label: n.addresses },
     { path: "/account/profile", label: n.profile },
     { path: "/account/points", label: n.points },

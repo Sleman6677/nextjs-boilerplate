@@ -402,7 +402,7 @@ const he: Dictionary = {
     perks: ["מעקב אחרי כל הזמנה", "צברי נקודות מכל הזמנה", "שמרי כתובות לפעם הבאה"],
   },
   order: {
-    statuses: { awaiting_payment: "ממתינה לתשלום", received: "ההזמנה התקבלה", preparing: "בהכנה", shipped: "בדרך אלייך", delivered: "נמסרה", cancelled: "בוטלה" },
+    statuses: { awaiting_payment: "ממתינה לתשלום", received: "ההזמנה התקבלה", preparing: "בהכנה", shipped: "נשלחה", out_for_delivery: "בדרך אלייך", delivered: "נמסרה", cancelled: "בוטלה" },
     methods: { card: "כרטיס אשראי", bit: "Bit", apple_pay: "Apple Pay", cash: "מזומן במסירה" },
     payment: { pending: "טרם שולם", paid: "שולם", failed: "התשלום נכשל", refunded: "הוחזר" },
     number: "הזמנה #{number}",
@@ -507,7 +507,7 @@ const he: Dictionary = {
       how: "על כל הזמנה מקבלים {pct}% מהסכום בנקודות כשהיא נמסרת, וכל נקודה = {value}.",
       history: "היסטוריית נקודות",
       empty: "אין תנועות עדיין.",
-      reasons: { earned: "מהזמנה #{number}", redeemed: "מומשו בהזמנה #{number}", refund: "הוחזרו מהזמנה #{number}", adjust: "התאמה" },
+      reasons: { earned: "מהזמנה #{number}", redeemed: "מומשו בהזמנה #{number}", refund: "הוחזרו מהזמנה #{number}", adjust: "התאמה", expired: "פג תוקף" },
     },
     errRequired: "השלימי את שדות החובה",
   },

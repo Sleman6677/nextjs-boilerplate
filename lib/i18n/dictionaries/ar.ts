@@ -400,7 +400,7 @@ const ar = {
     perks: ["تابعي حالة كل طلب", "اجمعي نقاطًا من كل طلب", "احفظي عناوينكِ للمرة القادمة"],
   },
   order: {
-    statuses: { awaiting_payment: "بانتظار الدفع", received: "تم استلام الطلب", preparing: "قيد التجهيز", shipped: "في الطريق إليكِ", delivered: "تم التوصيل", cancelled: "ملغي" },
+    statuses: { awaiting_payment: "بانتظار الدفع", received: "تم استلام الطلب", preparing: "قيد التجهيز", shipped: "تم الشحن", out_for_delivery: "في الطريق إليكِ", delivered: "تم التسليم", cancelled: "ملغي" },
     methods: { card: "بطاقة ائتمان", bit: "Bit", apple_pay: "Apple Pay", cash: "نقدًا عند الاستلام" },
     payment: { pending: "لم يُدفع بعد", paid: "مدفوع", failed: "فشل الدفع", refunded: "مُسترد" },
     number: "طلب #{number}",
@@ -505,7 +505,7 @@ const ar = {
       how: "تحصلين على {pct}٪ من قيمة كل طلب نقاطًا عند توصيله، وكل نقطة = {value}.",
       history: "سجل النقاط",
       empty: "لا توجد حركات بعد.",
-      reasons: { earned: "من طلب #{number}", redeemed: "استُعملت في طلب #{number}", refund: "أُعيدت من طلب #{number}", adjust: "تعديل" },
+      reasons: { earned: "من طلب #{number}", redeemed: "استُعملت في طلب #{number}", refund: "أُعيدت من طلب #{number}", adjust: "تعديل", expired: "انتهت صلاحيتها" },
     },
     errRequired: "أكملي الحقول المطلوبة",
   },
