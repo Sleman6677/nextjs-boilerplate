@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CategoryForm } from "@/components/admin/category-form";
-import { Card, PageHeader } from "@/components/admin/ui";
+import { Card, NoAccess, PageHeader } from "@/components/admin/ui";
 import { adminCategories } from "@/lib/admin";
-import { adminUser } from "@/lib/auth";
+import { staffUser } from "@/lib/auth";
 
 export const metadata: Metadata = { title: "المجموعات" };
 
 export default async function AdminCategories() {
-  if (!(await adminUser())) return null;
+  const staff = await staffUser();
+  if (!staff) return null;
+  if (!staff.permissions.includes("products")) return <NoAccess />;
   const categories = await adminCategories();
   return (
     <>

@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ProductToggle } from "@/components/admin/product-toggle";
-import { Empty, Notice, PageHeader } from "@/components/admin/ui";
+import { Empty, NoAccess, Notice, PageHeader } from "@/components/admin/ui";
 import { LashPair } from "@/components/lash-box";
 import { adminCategories, adminProducts, type AdminProduct } from "@/lib/admin";
 import { shekel } from "@/lib/admin-format";
-import { adminUser } from "@/lib/auth";
+import { staffUser } from "@/lib/auth";
 
 export const metadata: Metadata = { title: "المنتجات" };
 
@@ -21,13 +21,16 @@ function Thumb({ p }: { p: AdminProduct }) {
 }
 
 export default async function AdminProducts({ searchParams }: PageProps<"/admin/products">) {
-  if (!(await adminUser())) return null;
+  const staff = await staffUser();
+  if (!staff) return null;
+  if (!staff.permissions.includes("products")) return <NoAccess />;
   const sp = await searchParams;
   const [products, categories] = await Promise.all([adminProducts(), adminCategories()]);
   const groups = [
     ...categories.map((c) => ({ id: c.id, name: c.name.ar || c.name.en, active: c.active, items: products.filter((p) => p.categoryId === c.id) })),
-    { id: "none", name: "بدون مجموعة", active: false, items: products.filter((p) => !categories.some((c) => c.id === p.categoryId)) },
-  ].filter((g) => g.id !== "none" || g.items.length > 0);
+    { id: "gift", name: "بطاقات الهدية", active: true, items: products.filter((p) => p.kind === "gift_card") },
+    { id: "none", name: "بدون مجموعة", active: false, items: products.filter((p) => p.kind !== "gift_card" && !categories.some((c) => c.id === p.categoryId)) },
+  ].filter((g) => (g.id !== "none" && g.id !== "gift") || g.items.length > 0);
 
   return (
     <>
@@ -52,7 +55,7 @@ export default async function AdminProducts({ searchParams }: PageProps<"/admin/
               <h2 id={`g-${g.id}`} className="font-naskh text-2xl text-cocoa">
                 {g.name} <span className="font-sans text-sm text-taupe">({g.items.length})</span>
               </h2>
-              {g.id !== "none" && !g.active ? <span className="text-xs text-rosewood">المجموعة مخفية من المتجر</span> : null}
+              {g.id !== "none" && g.id !== "gift" && !g.active ? <span className="text-xs text-rosewood">المجموعة مخفية من المتجر</span> : null}
             </div>
             {g.items.length === 0 ? (
               <Empty>

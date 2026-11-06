@@ -70,8 +70,8 @@ async function Shell({ children }: { children: ReactNode }) {
       <a href="#admin-main" className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:start-3 focus:z-[70] focus:rounded-full focus:bg-gold focus:px-5 focus:py-3 focus:text-ink">
         تخطَّ إلى المحتوى
       </a>
-      <aside className="bg-ink px-4 pt-5 pb-4 text-ivory lg:sticky lg:top-0 lg:flex lg:h-dvh lg:flex-col lg:px-5 lg:py-8">
-        <div className="mb-5 flex items-center justify-between gap-3 lg:mb-10 lg:block">
+      <aside className="bg-ink px-4 pt-5 pb-4 text-ivory lg:sticky lg:top-0 lg:flex lg:h-dvh lg:flex-col lg:overflow-y-auto lg:px-5 lg:py-8">
+        <div className="mb-5 flex items-center justify-between gap-3 lg:mb-8 lg:block">
           <Link href="/admin" aria-label="نظرة عامة">
             <Wordmark />
           </Link>
@@ -81,7 +81,7 @@ async function Shell({ children }: { children: ReactNode }) {
             </button>
           </form>
         </div>
-        <AdminNav newOrders={stats.toPrepare} />
+        <AdminNav newOrders={stats.toPrepare} permissions={staff.permissions} />
         <div className="mt-auto hidden border-t border-gold/15 pt-5 text-sm lg:block">
           <Link href="/ar/shop" target="_blank" className="flex min-h-11 items-center text-gold-soft hover:text-gold">
             عرض المتجر ↗

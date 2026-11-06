@@ -1,7 +1,9 @@
 "use client";
 
 import { useActionState, useState } from "react";
-import { saveCoupon, type FormState } from "@/app/actions/admin";
+import type { FormState } from "@/app/actions/admin";
+import { saveCoupon } from "@/app/actions/admin-marketing";
+import { ScopePicker } from "./scope-picker";
 import { FormResult, SubmitButton, Toggle } from "./form-bits";
 import { field, hintClass, labelClass } from "./ui";
 
@@ -16,9 +18,15 @@ export type CouponFormValue = {
   endsAt: string;
   oncePerCustomer: boolean;
   active: boolean;
+  name: string;
+  source: string;
+  excludeSale: boolean;
+  scope: string;
+  productIds: string[];
+  categoryIds: string[];
 };
 
-export function CouponForm({ value }: { value: CouponFormValue }) {
+export function CouponForm({ value, products, categories }: { value: CouponFormValue; products: { id: string; name: string }[]; categories: { id: string; name: string }[] }) {
   const [state, action] = useActionState<FormState, FormData>(saveCoupon, { ok: false, error: null });
   const [kind, setKind] = useState(value.kind);
   return (
@@ -44,6 +52,20 @@ export function CouponForm({ value }: { value: CouponFormValue }) {
           className={`${field} font-semibold tracking-widest uppercase`}
         />
         <p className={hintClass}>أحرف إنجليزية وأرقام فقط. الزبون يكتبه في صفحة الدفع.</p>
+      </div>
+
+      <div>
+        <label htmlFor="name" className={labelClass}>
+          اسم داخلي
+        </label>
+        <input id="name" name="name" maxLength={80} defaultValue={value.name} placeholder="مثلًا: حملة العيد" className={field} />
+      </div>
+      <div>
+        <label htmlFor="source" className={labelClass}>
+          المصدر
+        </label>
+        <input id="source" name="source" maxLength={60} defaultValue={value.source} placeholder="instagram، tiktok، اسم المؤثرة…" dir="ltr" className={`${field} rtl:text-right`} />
+        <p className={hintClass}>كل طلب بهذا الكود يُحسب لهذا المصدر في «مصادر الطلبات».</p>
       </div>
 
       <fieldset className="sm:col-span-2">
@@ -96,7 +118,11 @@ export function CouponForm({ value }: { value: CouponFormValue }) {
         </label>
         <input id="max_uses" name="max_uses" type="number" inputMode="numeric" min={1} step={1} defaultValue={value.maxUses} placeholder="بدون حد" dir="ltr" className={`${field} text-right`} />
       </div>
+      <div className="sm:col-span-2">
+        <ScopePicker scope={value.scope} productIds={value.productIds} categoryIds={value.categoryIds} products={products} categories={categories} />
+      </div>
       <div className="space-y-1 self-center">
+        <Toggle name="exclude_sale" defaultChecked={value.excludeSale} label="لا ينطبق على المنتجات المخفّضة" />
         <Toggle name="once_per_customer" defaultChecked={value.oncePerCustomer} label="مرة واحدة لكل حساب" />
         <Toggle name="active" defaultChecked={value.active} label="فعّال" />
       </div>

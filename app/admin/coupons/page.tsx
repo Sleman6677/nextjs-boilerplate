@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CouponRowActions } from "@/components/admin/coupon-row-actions";
-import { Empty, Notice, PageHeader } from "@/components/admin/ui";
+import { Empty, NoAccess, Notice, PageHeader } from "@/components/admin/ui";
 import { adminCoupons, type AdminCoupon } from "@/lib/admin";
 import { day, shekel } from "@/lib/admin-format";
-import { adminUser } from "@/lib/auth";
+import { staffUser } from "@/lib/auth";
 import { getSettings } from "@/lib/orders";
 
 export const metadata: Metadata = { title: "الكوبونات" };
@@ -19,7 +19,9 @@ function state(c: AdminCoupon): { label: string; tone: string } {
 }
 
 export default async function AdminCoupons({ searchParams }: PageProps<"/admin/coupons">) {
-  if (!(await adminUser())) return null;
+  const staff = await staffUser();
+  if (!staff) return null;
+  if (!staff.permissions.includes("marketing")) return <NoAccess />;
   const sp = await searchParams;
   const [coupons, settings] = await Promise.all([adminCoupons(), getSettings()]);
 

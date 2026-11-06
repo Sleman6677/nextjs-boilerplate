@@ -4,6 +4,7 @@ import { cookies, headers } from "next/headers";
 import { getAddress } from "@/lib/account";
 import { currentUser } from "@/lib/auth";
 import { isLocale, type Locale } from "@/lib/i18n/config";
+import { lowStockAlert } from "@/lib/automations";
 import { notifyGiftCards, notifyOrderReceived } from "@/lib/notify";
 import { checkOrderToken, orderPath } from "@/lib/order-link";
 import { CheckoutError, getOrderById, getOrderByNumber, placeOrder, quoteFor, savePaymentRequest, type CartLine, type PaymentMethod, type QuoteRequest, type QuoteResult } from "@/lib/orders";
@@ -102,6 +103,7 @@ export async function checkout(req: CheckoutRequest): Promise<CheckoutResult> {
       lang,
     });
     const path = orderPath(lang, order.number, order.id);
+    await lowStockAlert(order.id);
 
     if (!order.paid && req.method !== "cash" && online.includes(req.method as OnlineMethod)) {
       try {

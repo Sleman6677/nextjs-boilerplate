@@ -13,7 +13,7 @@ const LANGS = [
   { key: "en", title: "English", dir: "ltr" },
 ] as const;
 
-export function CategoryForm({ value, productCount }: { value: { id?: string; name: L3; description: L3; sort: number; active: boolean }; productCount?: number }) {
+export function CategoryForm({ value, productCount }: { value: { id?: string; name: L3; description: L3; sort: number; active: boolean; imageUrl?: string | null }; productCount?: number }) {
   const [state, action] = useActionState<FormState, FormData>(saveCategory, { ok: false, error: null });
   const uid = value.id ?? "new";
   return (
@@ -37,6 +37,16 @@ export function CategoryForm({ value, productCount }: { value: { id?: string; na
             </div>
           </fieldset>
         ))}
+      </div>
+      <div className="grid gap-3 border-t border-cocoa/10 pt-5 sm:grid-cols-2">
+        <label className="text-xs text-taupe">
+          صورة المجموعة (تظهر في الصفحة الرئيسية)
+          <input type="file" name="image_file" accept="image/jpeg,image/png,image/webp" className="mt-2 block w-full text-sm file:me-3 file:rounded-full file:border-0 file:bg-sand file:px-4 file:py-2 file:text-cocoa" />
+        </label>
+        <label className="text-xs text-taupe">
+          أو رابط صورة
+          <input name="image_url" type="url" dir="ltr" defaultValue={value.imageUrl ?? ""} placeholder="https://" className={field} />
+        </label>
       </div>
       <div className="flex flex-wrap items-end gap-x-8 gap-y-4 border-t border-cocoa/10 pt-5">
         <div className="w-28">

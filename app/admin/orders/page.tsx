@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { OrderList } from "@/components/admin/order-list";
-import { Empty, field, PageHeader, STATUS_LABEL } from "@/components/admin/ui";
+import { Empty, NoAccess, PageHeader, STATUS_LABEL, field } from "@/components/admin/ui";
 import { adminOrders, orderCounts, parseOrderFilter, type OrderFilter } from "@/lib/admin";
-import { adminUser } from "@/lib/auth";
+import { staffUser } from "@/lib/auth";
 import { ACTIVE_STATUSES, ORDER_STATUSES } from "@/lib/orders";
 
 export const metadata: Metadata = { title: "الطلبات" };
 
 export default async function AdminOrders({ searchParams }: PageProps<"/admin/orders">) {
-  if (!(await adminUser())) return null;
+  const staff = await staffUser();
+  if (!staff) return null;
+  if (!staff.permissions.includes("orders")) return <NoAccess />;
   const sp = await searchParams;
   const filter = parseOrderFilter(sp.status);
   const q = typeof sp.q === "string" ? sp.q : "";

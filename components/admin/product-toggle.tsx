@@ -1,7 +1,7 @@
 "use client";
 
 import { useOptimistic, useTransition } from "react";
-import { setProductActive } from "@/app/actions/admin";
+import { setProductActive } from "@/app/actions/admin-catalog";
 
 export function ProductToggle({ id, active, name }: { id: string; active: boolean; name: string }) {
   const [shown, setShown] = useOptimistic(active);

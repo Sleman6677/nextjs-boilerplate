@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { ATTRIBUTION_COOKIE, attributionFromUrl } from "./lib/attribution";
 import { defaultLocale, isLocale, type Locale } from "./lib/i18n/config";
 
 const COOKIE = "NEXT_LOCALE";
@@ -53,6 +54,9 @@ export async function proxy(request: NextRequest) {
 
   if (isLocale(first)) {
     const res = NextResponse.next({ request });
+    // Where the visitor came from (?ref=influencer, ?utm_source=instagram): kept 30 days, last visit wins.
+    const source = attributionFromUrl(request.nextUrl);
+    if (source) res.cookies.set(ATTRIBUTION_COOKIE, source, { path: "/", maxAge: 60 * 60 * 24 * 30, sameSite: "lax", httpOnly: true });
     // Remember the language the visitor chose.
     if (request.cookies.get(COOKIE)?.value !== first) {
       res.cookies.set(COOKIE, first, { path: "/", maxAge: 60 * 60 * 24 * 365, sameSite: "lax" });
@@ -62,7 +66,10 @@ export async function proxy(request: NextRequest) {
 
   const url = request.nextUrl.clone();
   url.pathname = `/${preferred(request)}${pathname === "/" ? "" : pathname}`;
-  return NextResponse.redirect(url);
+  const redirect = NextResponse.redirect(url);
+  const source = attributionFromUrl(request.nextUrl);
+  if (source) redirect.cookies.set(ATTRIBUTION_COOKIE, source, { path: "/", maxAge: 60 * 60 * 24 * 30, sameSite: "lax", httpOnly: true });
+  return redirect;
 }
 
 export const config = {

@@ -18,7 +18,7 @@ export function OrderList({ orders }: { orders: AdminOrder[] }) {
             <span className="order-3 col-span-2 min-w-0 sm:order-none sm:col-span-1">
               <span className="block truncate font-medium text-cocoa">
                 {o.name}
-                <span className="font-normal text-taupe"> · {o.city}</span>
+                {o.city ? <span className="font-normal text-taupe"> · {o.city}</span> : null}
               </span>
               <span className="mt-0.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-taupe">
                 <span>{when(o.createdAt)}</span>

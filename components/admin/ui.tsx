@@ -88,3 +88,7 @@ export const field =
   "mt-1.5 block w-full rounded-2xl border border-cocoa/15 bg-white/70 px-4 py-3 text-base text-cocoa placeholder:text-mist focus:border-gold-deep focus:outline-none focus-visible:outline-2 focus-visible:outline-gold";
 export const labelClass = "text-sm font-medium text-cocoa";
 export const hintClass = "mt-1 text-xs text-taupe";
+
+export function NoAccess() {
+  return <Empty>هذا القسم غير متاح لحسابك. يمكن لصاحب المتجر تعديل الصلاحيات من «الطاقم».</Empty>;
+}

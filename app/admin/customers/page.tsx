@@ -1,78 +1,68 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { PointsForm } from "@/components/admin/points-form";
-import { Empty, field, PageHeader } from "@/components/admin/ui";
+import { Empty, field, NoAccess, PageHeader } from "@/components/admin/ui";
 import { adminCustomers } from "@/lib/admin";
-import { day, shekel, whatsappTo } from "@/lib/admin-format";
-import { adminUser } from "@/lib/auth";
+import { day, shekel } from "@/lib/admin-format";
+import { staffUser } from "@/lib/auth";
+import { displayPhone } from "@/lib/phone";
 
 export const metadata: Metadata = { title: "الزبائن" };
 
 export default async function AdminCustomers({ searchParams }: PageProps<"/admin/customers">) {
-  if (!(await adminUser())) return null;
+  const staff = await staffUser();
+  if (!staff) return null;
+  if (!staff.permissions.includes("customers")) return <NoAccess />;
   const sp = await searchParams;
   const q = typeof sp.q === "string" ? sp.q : "";
   const customers = await adminCustomers(q);
-
   return (
     <>
-      <PageHeader title="الزبائن" subtitle="كل من سجّل الدخول للموقع، مع عدد الطلبات ورصيد النقاط." />
+      <PageHeader title="الزبائن" subtitle="العضوية تُنشأ تلقائيًا مع أول طلب أو عند الدخول برقم الهاتف." action={<Link href="/admin/export/customers" prefetch={false} className="btn btn-ghost-dark min-h-11 px-5 text-sm">تصدير CSV</Link>} />
       <form action="/admin/customers" className="mb-6 flex gap-2" role="search">
         <label htmlFor="cust-q" className="sr-only">
           بحث
         </label>
-        <input id="cust-q" name="q" defaultValue={q} placeholder="الاسم، البريد أو الهاتف" className={`${field} mt-0`} />
+        <input id="cust-q" name="q" defaultValue={q} placeholder="الاسم أو رقم الهاتف" className={`${field} mt-0`} />
         <button type="submit" className="btn btn-ink min-h-12 shrink-0 px-6">
           بحث
         </button>
       </form>
-
       {customers.length === 0 ? (
         <Empty>{q ? "لا توجد نتائج." : "لا توجد حسابات بعد."}</Empty>
       ) : (
-        <ul className="grid gap-3 lg:grid-cols-2">
-          {customers.map((c) => {
-            const wa = c.phone ? whatsappTo(c.phone) : null;
-            return (
-              <li key={c.id} className="rounded-3xl border border-cocoa/10 bg-ivory p-5">
-                <div className="flex items-start justify-between gap-4">
-                  <div className="min-w-0">
-                    <p className="truncate font-medium text-cocoa">{c.name || "بدون اسم"}</p>
-                    <p className="truncate text-sm text-taupe" dir="ltr">
-                      {c.email}
-                    </p>
-                    {c.phone ? (
-                      <p className="text-sm text-taupe">
-                        {wa ? (
-                          <a href={wa} target="_blank" rel="noopener noreferrer" className="underline decoration-cocoa/30" dir="ltr">
-                            {c.phone}
-                          </a>
-                        ) : (
-                          <span dir="ltr">{c.phone}</span>
-                        )}
-                      </p>
-                    ) : null}
-                  </div>
-                  <div className="shrink-0 text-end">
-                    <p className="font-display text-3xl leading-none text-gold-deep">{c.points}</p>
-                    <p className="text-xs text-taupe">نقطة</p>
-                  </div>
-                </div>
-                <p className="mt-3 flex flex-wrap gap-x-4 text-xs text-taupe">
-                  <Link href={`/admin/orders?status=all&q=${encodeURIComponent(c.email)}`} className="text-gold-deep underline">
-                    {c.orders} طلب
-                  </Link>
-                  <span>مجموع المشتريات {shekel(c.spent)}</span>
-                  <span>منذ {day(c.joinedAt)}</span>
-                </p>
-                <details className="mt-2">
-                  <summary className="min-h-11 cursor-pointer content-center text-sm text-cocoa">تعديل النقاط</summary>
-                  <PointsForm userId={c.id} label="إضافة أو خصم نقاط" />
-                </details>
-              </li>
-            );
-          })}
-        </ul>
+        <div className="overflow-x-auto rounded-3xl border border-cocoa/10 bg-ivory">
+          <table className="w-full min-w-[46rem] text-sm">
+            <thead className="text-xs text-taupe">
+              <tr className="border-b border-cocoa/10">
+                <th className="p-4 text-start font-medium">الزبونة</th>
+                <th className="p-4 text-start font-medium">الطلبات</th>
+                <th className="p-4 text-start font-medium">المشتريات</th>
+                <th className="p-4 text-start font-medium">النقاط</th>
+                <th className="p-4 text-start font-medium">آخر طلب</th>
+                <th className="p-4 text-start font-medium">عيد الميلاد</th>
+              </tr>
+            </thead>
+            <tbody>
+              {customers.map((c) => (
+                <tr key={c.id} className="border-b border-cocoa/5 last:border-0 hover:bg-sand/30">
+                  <td className="p-4">
+                    <Link href={`/admin/customers/${c.id}`} className="font-medium text-cocoa hover:underline">
+                      {c.name || "بدون اسم"}
+                    </Link>
+                    <span className="block text-xs text-taupe" dir="ltr">
+                      {c.phone.startsWith("+972") ? displayPhone(c.phone) : c.phone || c.email}
+                    </span>
+                  </td>
+                  <td className="p-4">{c.orders}</td>
+                  <td className="p-4">{shekel(c.spent)}</td>
+                  <td className="p-4 text-gold-deep">{c.points}</td>
+                  <td className="p-4 text-taupe">{c.lastOrder ? day(c.lastOrder) : "—"}</td>
+                  <td className="p-4 text-taupe">{c.birthday ? day(`${c.birthday}T12:00:00`) : "—"}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </>
   );

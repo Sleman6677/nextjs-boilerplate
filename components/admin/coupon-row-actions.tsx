@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { deleteCoupon, setCouponActive } from "@/app/actions/admin";
+import { deleteCoupon, setCouponActive } from "@/app/actions/admin-marketing";
 
 export function CouponRowActions({ id, code, active, used }: { id: string; code: string; active: boolean; used: boolean }) {
   const [pending, start] = useTransition();
