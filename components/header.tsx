@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useLenis } from "lenis/react";
 import { useEffect, useState, type CSSProperties } from "react";
 import { href, localeNames, locales, localeShort, switchLocalePath } from "@/lib/i18n/config";
 import { navItems, whatsappLink } from "@/lib/site";
@@ -56,13 +57,17 @@ export function Header({ accounts = false, social }: { accounts?: boolean; socia
   }
 
   // Lock page scroll while the menu is open; Escape closes it.
+  const lenis = useLenis();
   useEffect(() => {
     document.documentElement.style.overflow = open ? "hidden" : "";
+    // Lenis scrolls programmatically, so overflow:hidden alone doesn't stop it.
+    if (open) lenis?.stop();
+    else lenis?.start();
     if (!open) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [open]);
+  }, [open, lenis]);
 
   const isActive = (path: string) => {
     const full = href(lang, path);
