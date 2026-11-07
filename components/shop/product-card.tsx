@@ -14,6 +14,7 @@ import { useI18n } from "../i18n-provider";
 import { Heart, Plus, Star } from "../icons";
 import { BoxVisual, LashPair } from "../lash-box";
 import { useStore } from "./store-provider";
+import { Glare } from "../fx";
 import { toast } from "./toast";
 
 /** Product photo, or the drawn lash box when there is no photo yet. */
@@ -108,7 +109,9 @@ export function ProductCard({ p, offers, isNew = false, best = false, index = 0 
     <article className="group relative flex h-full flex-col">
       <div className="relative">
         <Link href={link} aria-label={name} className="block rounded-[1.6rem] focus-visible:outline-offset-4">
-          <ProductImage p={p} index={index} />
+          <Glare>
+            <ProductImage p={p} index={index} />
+          </Glare>
         </Link>
         {badges.length ? (
           <ul className="pointer-events-none absolute top-3 start-3 flex flex-col items-start gap-1.5">

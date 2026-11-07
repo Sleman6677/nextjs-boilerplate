@@ -4,6 +4,8 @@ import { Analytics, AnalyticsHead } from "@/components/analytics";
 import { AnnouncementBar, Footer, WhatsAppFloat } from "@/components/chrome";
 import { Header } from "@/components/header";
 import { SmoothScroll } from "@/components/smooth-scroll";
+import { MotionFx } from "@/components/motion-fx";
+import { SiteSpark } from "@/components/fx";
 import { StoreProvider } from "@/components/shop/store-provider";
 import { Toaster } from "@/components/shop/toast";
 import { I18nProvider } from "@/components/i18n-provider";
@@ -67,11 +69,14 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
           <div className="scroll-progress fixed inset-x-0 top-0 z-[70] h-[2px] bg-gradient-to-l from-gold-soft via-gold to-gold-deep" aria-hidden="true" />
           <AnnouncementBar lang={lang} info={info} />
           <Header accounts={accounts} social={{ instagram: info.instagram, tiktok: info.tiktok, whatsapp: info.whatsapp }} />
-          <main id="main">{children}</main>
+          <SiteSpark>
+            <main id="main">{children}</main>
+          </SiteSpark>
           <Footer lang={lang} info={info} />
           <WhatsAppFloat lang={lang} info={info} />
           <Toaster />
           <SmoothScroll />
+          <MotionFx />
           <Analytics />
           </StoreProvider>
         </I18nProvider>

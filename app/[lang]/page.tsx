@@ -9,6 +9,8 @@ import { ArrowForward, Coin, Gift, Shield, Truck } from "@/components/icons";
 import { BoxVisual } from "@/components/lash-box";
 import { Reveal } from "@/components/reveal";
 import SplitText from "@/components/SplitText";
+import { MagnetLink, Shiny, Statement } from "@/components/fx";
+import { VelocityMarquee } from "@/components/velocity-marquee";
 import { HeroBoxPlayer } from "@/components/shop/hero-box";
 import { ProductCard } from "@/components/shop/product-card";
 import { getHome, isNewProduct, type Category, type OfferInfo, type Product } from "@/lib/catalog";
@@ -28,19 +30,17 @@ function Row({ title, products, offers, lang, seeAll, bestIds = [] }: { title: s
     <section className="py-16 sm:py-20" aria-label={title}>
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="mb-8 flex items-end justify-between gap-4">
-          <Reveal as="h2" className="font-display text-4xl text-plum sm:text-5xl">
-            {title}
-          </Reveal>
+          <SplitTitle className="font-display text-4xl text-plum sm:text-5xl" text={title} />
           <Link href={href(lang, "/shop")} className="group inline-flex min-h-11 shrink-0 items-center gap-2 text-sm font-semibold text-berry">
             {seeAll}
             <ArrowForward className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1 ltr:group-hover:translate-x-1" />
           </Link>
         </div>
-        <ul className="-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-4 [scrollbar-width:none] sm:mx-0 sm:grid sm:grid-cols-3 sm:gap-6 sm:overflow-visible sm:px-0 lg:grid-cols-4">
+        <ul data-stagger className="-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-4 [scrollbar-width:none] sm:mx-0 sm:grid sm:grid-cols-3 sm:gap-6 sm:overflow-visible sm:px-0 lg:grid-cols-4">
           {products.slice(0, 8).map((p, i) => (
-            <Reveal as="li" key={p.id} delay={(i % 4) * 80} className="w-[46%] shrink-0 snap-start sm:w-auto">
+            <li key={p.id} className="w-[46%] shrink-0 snap-start sm:w-auto">
               <ProductCard p={p} offers={offers} index={i} isNew={isNewProduct(p)} best={bestIds.includes(p.id)} />
-            </Reveal>
+            </li>
           ))}
         </ul>
       </div>
@@ -54,7 +54,7 @@ function CategoryTile({ c, lang, index }: { c: Category; lang: Locale; index: nu
   return (
     <Reveal as="li" delay={index * 120}>
       <Link href={href(lang, `/shop?c=${c.slug}#collection`)} className="group relative block overflow-hidden rounded-[2rem] bg-pink-soft">
-        <span className="relative block aspect-[4/5]">
+        <span data-zoom-in className="relative block aspect-[4/5]">
           {cover ? (
             <Image src={cover} alt="" fill sizes="(min-width:640px) 33vw, 100vw" unoptimized={!optimizable(cover)} className="object-cover transition-transform duration-700 ease-[var(--ease-silk)] group-hover:scale-105" />
           ) : first ? (
@@ -98,14 +98,14 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
       <section className="relative isolate overflow-clip bg-gradient-to-b from-plum via-berry-deep to-berry text-ivory">
         <div className="glow-pink drift pointer-events-none absolute -top-32 right-[-10%] -z-10 h-[34rem] w-[34rem] opacity-60" aria-hidden="true" />
         <div className="glow-pink drift pointer-events-none absolute bottom-[-20%] left-[-12%] -z-10 h-[30rem] w-[30rem] opacity-40" style={v({ "--d": "-6s" })} aria-hidden="true" />
-        <p className="font-display pointer-events-none absolute -bottom-[0.2em] right-0 -z-10 text-[30vw] leading-none text-transparent italic select-none [-webkit-text-stroke:1px_rgba(248,215,223,0.14)] lg:text-[22rem]" dir="ltr" aria-hidden="true">
+        <p className="font-display pointer-events-none absolute -bottom-[0.2em] right-0 -z-10 text-[30vw] leading-none text-transparent italic select-none [-webkit-text-stroke:1px_rgba(248,215,223,0.14)] lg:text-[22rem]" dir="ltr" data-drift="-30" aria-hidden="true">
           Serag
         </p>
-        <div className="mx-auto grid min-h-[92svh] max-w-7xl items-center gap-16 px-5 pt-36 pb-20 sm:px-8 lg:grid-cols-[1.1fr_1fr] lg:gap-12">
+        <div data-hero-out className="mx-auto grid min-h-[92svh] max-w-7xl items-center gap-16 px-5 pt-36 pb-20 sm:px-8 lg:grid-cols-[1.1fr_1fr] lg:gap-12">
           <div>
             <p className="eyebrow fade-in flex items-center gap-3 text-pink">
               <span className="h-px w-10 bg-current opacity-60" aria-hidden="true" />
-              <span>{h.eyebrow}</span>
+              <Shiny>{h.eyebrow}</Shiny>
             </p>
             <h1 className="font-display mt-8 text-[3.2rem] leading-[1.25] sm:text-7xl lg:text-[5.4rem] lg:leading-[1.15]">
               {/* Words (not letters) are split so Arabic letters keep joining. */}
@@ -126,10 +126,12 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
               {h.text}
             </p>
             <div className="fade-in mt-10 flex flex-wrap gap-3" style={v({ "--d": "900ms" })}>
-              <Link href={href(lang, "/shop")} className="btn btn-pink group">
-                {h.cta}
-                <ArrowForward className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1 ltr:group-hover:translate-x-1" />
-              </Link>
+              <MagnetLink>
+                <Link href={href(lang, "/shop")} className="btn btn-pink group">
+                  {h.cta}
+                  <ArrowForward className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1 ltr:group-hover:translate-x-1" />
+                </Link>
+              </MagnetLink>
               {gift ? (
                 <Link href={href(lang, `/p/${gift.slug}`)} className="btn btn-ghost-light">
                   <Gift className="h-5 w-5" /> {h.secondary}
@@ -155,7 +157,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
 
       {/* ───────────── Perks ───────────── */}
       <section aria-label={h.eyebrow} className="border-b border-berry/10 bg-ivory">
-        <ul className="mx-auto grid max-w-7xl gap-px px-5 sm:grid-cols-3 sm:px-8">
+        <ul data-stagger className="mx-auto grid max-w-7xl gap-px px-5 sm:grid-cols-3 sm:px-8">
           {h.perks.map((perk, i) => (
             <li key={perk.title} className="flex items-center gap-4 py-6">
               <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-pink-soft text-berry">{perkIcons[i]}</span>
@@ -168,13 +170,14 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
         </ul>
       </section>
 
+      {/* ───────────── Marquee (speeds up with scroll) ───────────── */}
+      <VelocityMarquee items={[...h.eyebrow.split(" · "), ...h.perks.map((p) => p.title)]} className="font-display border-b border-berry/10 bg-plum py-5 text-3xl text-pink-soft sm:py-7 sm:text-5xl" />
+
       {/* ───────────── Categories ───────────── */}
       {home.categories.length > 1 ? (
         <section className="py-20 sm:py-24" aria-labelledby="cats-title">
           <div className="mx-auto max-w-7xl px-5 sm:px-8">
-            <Reveal as="h2" className="font-display text-4xl text-plum sm:text-5xl">
-              <span id="cats-title">{h.categories}</span>
-            </Reveal>
+            <SplitTitle id="cats-title" className="font-display text-4xl text-plum sm:text-5xl" text={h.categories} />
             <ul className="mt-10 grid gap-5 sm:grid-cols-3">
               {home.categories.slice(0, 3).map((c, i) => (
                 <CategoryTile key={c.id} c={c} lang={lang} index={i} />
@@ -201,11 +204,15 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
               <Gift className="h-10 w-10 text-pink" />
               <SplitTitle className="font-display mt-6 text-4xl sm:text-5xl" text={h.giftTitle} />
               <p className="mt-4 max-w-md text-lg leading-8 text-ivory/80">{t(h.giftText, { paid: money(giftPaid, lang), value: money(round2(giftPaid * (1 + info.giftCardBonusPct / 100)), lang) })}</p>
-              <Link href={href(lang, `/p/${gift.slug}`)} className="btn btn-pink mt-8">
-                {h.giftCta}
-              </Link>
+              <div className="mt-8">
+                <MagnetLink>
+                  <Link href={href(lang, `/p/${gift.slug}`)} className="btn btn-pink">
+                    {h.giftCta}
+                  </Link>
+                </MagnetLink>
+              </div>
             </div>
-            <div className="relative mx-auto w-full max-w-xs rotate-[-6deg] rounded-[1.6rem] bg-gradient-to-br from-pink to-pink-deep p-6 text-plum shadow-[0_40px_80px_-30px_rgba(0,0,0,0.6)]">
+            <div data-scroll-tilt className="relative mx-auto w-full max-w-xs rotate-[-6deg] rounded-[1.6rem] bg-gradient-to-br from-pink to-pink-deep p-6 text-plum shadow-[0_40px_80px_-30px_rgba(0,0,0,0.6)]">
               <p className="font-display text-2xl italic" dir="ltr">
                 Serag Lashes
               </p>
@@ -221,12 +228,8 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
       {/* ───────────── Social ───────────── */}
       <section className="py-20 text-center sm:py-24">
         <div className="mx-auto max-w-3xl px-5 sm:px-8">
-          <Reveal as="h2" className="font-display text-4xl text-plum sm:text-5xl">
-            {h.socialTitle}
-          </Reveal>
-          <Reveal as="p" delay={80} className="mx-auto mt-4 max-w-lg text-lg text-berry-deep/80">
-            {h.socialText}
-          </Reveal>
+          <SplitTitle className="font-display text-4xl text-plum sm:text-5xl" text={h.socialTitle} />
+          <Statement className="mx-auto mt-4 max-w-lg text-lg text-berry-deep/80">{h.socialText}</Statement>
           <Reveal delay={160} className="mt-10 flex flex-wrap justify-center gap-3">
             {socialLinks(info, lang).map((s, i) => (
               <a key={s.key} href={s.href} target="_blank" rel="noopener noreferrer" className={`btn min-h-14 px-7 ${i === 0 ? "btn-berry" : "btn-ghost-dark"}`}>

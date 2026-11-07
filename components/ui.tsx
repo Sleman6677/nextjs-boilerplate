@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { MagnetLink } from "./fx";
 import type { CSSProperties, ReactNode } from "react";
 import { ArrowForward, Sparkle } from "./icons";
 import { Reveal } from "./reveal";
@@ -99,15 +100,19 @@ export function ButtonLink({
   );
   if (external) {
     return (
-      <a href={href} className={cls} target="_blank" rel="noopener noreferrer">
-        {content}
-      </a>
+      <MagnetLink>
+        <a href={href} className={cls} target="_blank" rel="noopener noreferrer">
+          {content}
+        </a>
+      </MagnetLink>
     );
   }
   return (
-    <Link href={href} className={cls}>
-      {content}
-    </Link>
+    <MagnetLink>
+      <Link href={href} className={cls}>
+        {content}
+      </Link>
+    </MagnetLink>
   );
 }
 
@@ -139,7 +144,11 @@ export function PageHero({
             {lead}
           </p>
         </div>
-        {art ? <div className="relative hidden lg:block">{art}</div> : null}
+        {art ? (
+          <div className="relative hidden lg:block" data-parallax="0.35">
+            {art}
+          </div>
+        ) : null}
       </div>
     </section>
   );
