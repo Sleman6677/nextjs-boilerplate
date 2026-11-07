@@ -1,3 +1,4 @@
+import { SplitTitle } from "@/components/split-title";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { connection } from "next/server";
@@ -41,7 +42,7 @@ export default async function ShopPage({ params, searchParams }: PageProps<"/[la
             <span className="h-px w-10 bg-current opacity-60" aria-hidden="true" />
             <span>{dict.store.home.eyebrow}</span>
           </p>
-          <h1 className="font-display mt-6 text-5xl sm:text-7xl">{dict.store.nav.shop}</h1>
+          <SplitTitle as="h1" className="font-display mt-6 text-5xl sm:text-7xl" text={dict.store.nav.shop} />
           <p className="mt-5 max-w-xl text-lg leading-8 text-ivory/80">{s.collLead}</p>
         </div>
       </section>

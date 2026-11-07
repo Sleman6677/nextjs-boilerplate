@@ -1,3 +1,4 @@
+import { SplitTitle } from "@/components/split-title";
 import Link from "next/link";
 import { StatusBadge, StatusTracker } from "@/components/account/order-status";
 import { PayButton } from "@/components/account/pay-button";
@@ -46,7 +47,7 @@ export function OrderView({ order, lang, token = null, flags = {}, signedIn = fa
 
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h2 className="font-display text-4xl text-cocoa">{t(so.title, { number: num(order.number, lang) })}</h2>
+          <SplitTitle className="font-display text-4xl text-cocoa" text={t(so.title, { number: num(order.number, lang) })} />
           <p className="mt-1 text-sm text-taupe">
             {a.placed}: {date(order.createdAt, lang)}
           </p>

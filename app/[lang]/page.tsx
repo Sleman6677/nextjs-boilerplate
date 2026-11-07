@@ -1,3 +1,4 @@
+import { SplitTitle } from "@/components/split-title";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -198,7 +199,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
             <div className="glow-pink pointer-events-none absolute -top-20 -left-20 h-80 w-80 opacity-50" aria-hidden="true" />
             <div className="relative">
               <Gift className="h-10 w-10 text-pink" />
-              <h2 className="font-display mt-6 text-4xl sm:text-5xl">{h.giftTitle}</h2>
+              <SplitTitle className="font-display mt-6 text-4xl sm:text-5xl" text={h.giftTitle} />
               <p className="mt-4 max-w-md text-lg leading-8 text-ivory/80">{t(h.giftText, { paid: money(giftPaid, lang), value: money(round2(giftPaid * (1 + info.giftCardBonusPct / 100)), lang) })}</p>
               <Link href={href(lang, `/p/${gift.slug}`)} className="btn btn-pink mt-8">
                 {h.giftCta}

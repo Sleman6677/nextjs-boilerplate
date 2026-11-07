@@ -1,3 +1,4 @@
+import { SplitTitle } from "@/components/split-title";
 import { notFound, redirect } from "next/navigation";
 import { signOut } from "@/app/actions/auth";
 import { AccountNav } from "@/components/account/account-nav";
@@ -34,7 +35,7 @@ export default async function AccountLayout({ children, params }: LayoutProps<"/
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <p className="eyebrow text-gold" dir="ltr">My Account</p>
-              <h1 className="font-display mt-3 text-4xl sm:text-5xl">{t(dict.account.hello, { name })}</h1>
+              <SplitTitle as="h1" className="font-display mt-3 text-4xl sm:text-5xl" text={t(dict.account.hello, { name })} />
               <p className="mt-2 text-sm text-ivory/60" dir="ltr">{user.phone ? displayPhone(user.phone) : user.email}</p>
             </div>
             <form action={signOutAction}>

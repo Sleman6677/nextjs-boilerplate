@@ -1,3 +1,4 @@
+import { SplitTitle } from "@/components/split-title";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -78,9 +79,7 @@ export default async function ProductPage({ params }: PageProps<"/[lang]/p/[slug
         {p.kind === "standard" ? (
           <section id="reviews" className="mt-24 scroll-mt-28" aria-labelledby="reviews-title">
             <div className="flex flex-wrap items-end justify-between gap-4 border-b border-berry/15 pb-5">
-              <h2 id="reviews-title" className="font-display text-4xl text-plum">
-                {s.reviews}
-              </h2>
+              <SplitTitle id="reviews-title" className="font-display text-4xl text-plum" text={s.reviews} />
               {p.rating ? (
                 <p className="flex items-center gap-2 text-berry-deep/80">
                   <Stars value={p.rating.avg} /> {t(s.rating, { avg: num(p.rating.avg, lang) })} {t(s.reviewsCount, { count: num(p.rating.count, lang) })}
@@ -113,9 +112,7 @@ export default async function ProductPage({ params }: PageProps<"/[lang]/p/[slug
 
         {related.length > 0 ? (
           <section className="mt-24" aria-labelledby="related-title">
-            <h2 id="related-title" className="font-display text-4xl text-plum">
-              {s.related}
-            </h2>
+            <SplitTitle id="related-title" className="font-display text-4xl text-plum" text={s.related} />
             <ul className="mt-8 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 lg:grid-cols-4">
               {related.map((r, i) => (
                 <li key={r.id}>

@@ -1,3 +1,4 @@
+import { SplitTitle } from "@/components/split-title";
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { connection } from "next/server";
@@ -33,7 +34,7 @@ export default async function CheckoutPage({ params }: PageProps<"/[lang]/checko
   return (
     <div className="min-h-[80svh] bg-petal pb-24">
       <div className="bg-gradient-to-b from-plum to-berry-deep pt-36 pb-14 text-ivory sm:pt-44">
-        <h1 className="font-display mx-auto max-w-6xl px-5 text-5xl sm:px-8">{dict.store.checkout.title}</h1>
+        <SplitTitle as="h1" className="font-display mx-auto max-w-6xl px-5 text-5xl sm:px-8" text={dict.store.checkout.title} />
       </div>
       <div className="mx-auto mt-10 max-w-6xl px-5 sm:px-8">
         <CheckoutForm

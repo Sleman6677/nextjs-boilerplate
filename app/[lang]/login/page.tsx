@@ -1,3 +1,4 @@
+import { SplitTitle } from "@/components/split-title";
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { LoginForm } from "@/components/account/login-form";
@@ -30,7 +31,7 @@ export default async function LoginPage({ params, searchParams }: PageProps<"/[l
             <span className="h-px w-10 bg-current opacity-60" aria-hidden="true" />
             <span dir="ltr">My Account</span>
           </p>
-          <h1 className="font-display mt-6 text-5xl leading-tight">{a.title}</h1>
+          <SplitTitle as="h1" className="font-display mt-6 text-5xl leading-tight" text={a.title} />
           <p className="mt-5 text-lg leading-8 text-ivory/75">{getDictionary(lang).store.login.text}</p>
           <ul className="mt-8 space-y-3 text-ivory/80">
             {a.perks.map((p) => (
