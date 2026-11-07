@@ -1,3 +1,4 @@
+import { SplitTitle } from "@/components/split-title";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { connection } from "next/server";
@@ -30,7 +31,7 @@ export default async function CartPage({ params }: PageProps<"/[lang]/cart">) {
     <div className="min-h-[70svh] bg-petal pb-24">
       <div className="bg-gradient-to-b from-plum to-berry-deep pt-36 pb-12 text-ivory sm:pt-44">
         <div className="mx-auto max-w-6xl px-5 sm:px-8">
-          <h1 className="font-display text-5xl">{dict.store.cart.title}</h1>
+          <SplitTitle as="h1" className="font-display text-5xl" text={dict.store.cart.title} />
         </div>
       </div>
       <div className="mx-auto mt-10 max-w-6xl px-5 sm:px-8">

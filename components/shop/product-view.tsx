@@ -1,5 +1,6 @@
 "use client";
 
+import { SplitTitle } from "@/components/split-title";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState, type FormEvent } from "react";
@@ -125,7 +126,7 @@ export function ProductView({ p, offers, addons, gift }: { p: Product; offers: O
       </div>
 
       <div>
-        <h1 className="font-display text-4xl leading-tight text-plum sm:text-5xl">{name}</h1>
+        <SplitTitle as="h1" className="font-display text-4xl leading-tight text-plum sm:text-5xl" text={name} />
         {p.rating ? (
           <a href="#reviews" className="mt-3 inline-flex items-center gap-2 text-sm text-berry-deep/80">
             <Stars value={p.rating.avg} />

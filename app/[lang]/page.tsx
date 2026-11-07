@@ -1,3 +1,4 @@
+import { SplitTitle } from "@/components/split-title";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -7,6 +8,7 @@ import { socialLinks } from "@/components/chrome";
 import { ArrowForward, Coin, Gift, Shield, Truck } from "@/components/icons";
 import { BoxVisual } from "@/components/lash-box";
 import { Reveal } from "@/components/reveal";
+import SplitText from "@/components/SplitText";
 import { HeroBoxPlayer } from "@/components/shop/hero-box";
 import { ProductCard } from "@/components/shop/product-card";
 import { getHome, isNewProduct, type Category, type OfferInfo, type Product } from "@/lib/catalog";
@@ -82,6 +84,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
   await connection();
   const dict = getDictionary(lang);
   const h = dict.store.home;
+  const heroWords = h.title.split(" ");
   const [home, info] = await Promise.all([getHome(), getStoreInfo()]);
   const all = home.categories.flatMap((c) => c.products);
   const from = all.length ? Math.min(...all.map((p) => p.displayPrice)) : shop.boxPrice;
@@ -104,14 +107,20 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
               <span className="h-px w-10 bg-current opacity-60" aria-hidden="true" />
               <span>{h.eyebrow}</span>
             </p>
-            <h1 className="rise font-display mt-8 text-[3.2rem] leading-[1.25] sm:text-7xl lg:text-[5.4rem] lg:leading-[1.15]">
-              {h.title.split(" ").map((w, i, arr) => (
-                <span key={i} className="w">
-                  <span style={v({ "--i": i })} className={i === arr.length - 1 ? "font-script text-pink-grad" : ""}>
-                    {w}
-                  </span>{" "}
+            <h1 className="font-display mt-8 text-[3.2rem] leading-[1.25] sm:text-7xl lg:text-[5.4rem] lg:leading-[1.15]">
+              {/* Words (not letters) are split so Arabic letters keep joining. */}
+              {heroWords.slice(0, -1).map((w, i) => (
+                <span key={i}>
+                  <SplitText tag="span" text={w} textAlign="start" className="align-bottom pt-[0.08em] pb-[0.22em] -mt-[0.08em] -mb-[0.22em]" splitType="words" effect="rise" trigger="load" duration={0.9} delay={250 + i * 90} />{" "}
                 </span>
               ))}
+              <span className="rise">
+                <span className="w">
+                  <span style={v({ "--i": heroWords.length - 1 })} className="font-script text-pink-grad">
+                    {heroWords[heroWords.length - 1]}
+                  </span>
+                </span>
+              </span>
             </h1>
             <p className="fade-in mt-8 max-w-lg text-lg leading-9 text-ivory/80" style={v({ "--d": "700ms" })}>
               {h.text}
@@ -190,7 +199,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
             <div className="glow-pink pointer-events-none absolute -top-20 -left-20 h-80 w-80 opacity-50" aria-hidden="true" />
             <div className="relative">
               <Gift className="h-10 w-10 text-pink" />
-              <h2 className="font-display mt-6 text-4xl sm:text-5xl">{h.giftTitle}</h2>
+              <SplitTitle className="font-display mt-6 text-4xl sm:text-5xl" text={h.giftTitle} />
               <p className="mt-4 max-w-md text-lg leading-8 text-ivory/80">{t(h.giftText, { paid: money(giftPaid, lang), value: money(round2(giftPaid * (1 + info.giftCardBonusPct / 100)), lang) })}</p>
               <Link href={href(lang, `/p/${gift.slug}`)} className="btn btn-pink mt-8">
                 {h.giftCta}

@@ -1,3 +1,4 @@
+import { SplitTitle } from "@/components/split-title";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -19,7 +20,7 @@ export default async function UnsubscribePage({ params, searchParams }: PageProp
   return (
     <section className="grid min-h-[70svh] place-items-center bg-petal px-5 pt-32 pb-20 text-center">
       <div className="max-w-md">
-        <h1 className="font-display text-4xl text-plum">{u.title}</h1>
+        <SplitTitle as="h1" className="font-display text-4xl text-plum" text={u.title} />
         <p className="mt-5 text-lg leading-8 text-berry-deep/85" role="status">
           {result.ok ? u.done : u.failed}
         </p>

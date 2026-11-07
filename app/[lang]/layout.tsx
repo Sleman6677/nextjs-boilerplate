@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Analytics, AnalyticsHead } from "@/components/analytics";
 import { AnnouncementBar, Footer, WhatsAppFloat } from "@/components/chrome";
 import { Header } from "@/components/header";
+import { SmoothScroll } from "@/components/smooth-scroll";
 import { StoreProvider } from "@/components/shop/store-provider";
 import { Toaster } from "@/components/shop/toast";
 import { I18nProvider } from "@/components/i18n-provider";
@@ -70,6 +71,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
           <Footer lang={lang} info={info} />
           <WhatsAppFloat lang={lang} info={info} />
           <Toaster />
+          <SmoothScroll />
           <Analytics />
           </StoreProvider>
         </I18nProvider>

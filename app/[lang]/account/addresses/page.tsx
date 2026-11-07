@@ -1,3 +1,4 @@
+import { SplitTitle } from "@/components/split-title";
 import { notFound, redirect } from "next/navigation";
 import { AddressBook } from "@/components/account/address-book";
 import { listAddresses } from "@/lib/account";
@@ -13,7 +14,7 @@ export default async function AddressesPage({ params }: PageProps<"/[lang]/accou
   const dict = getDictionary(lang);
   return (
     <section>
-      <h2 className="font-naskh mb-6 text-3xl text-cocoa">{dict.account.nav.addresses}</h2>
+      <SplitTitle className="font-naskh mb-6 text-3xl text-cocoa" text={dict.account.nav.addresses} />
       <AddressBook addresses={await listAddresses(user.id)} />
     </section>
   );

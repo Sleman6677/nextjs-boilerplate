@@ -1,3 +1,4 @@
+import { SplitTitle } from "@/components/split-title";
 import { notFound, redirect } from "next/navigation";
 import { ProfileForm } from "@/components/account/profile-form";
 import { getProfile } from "@/lib/account";
@@ -14,7 +15,7 @@ export default async function ProfilePage({ params }: PageProps<"/[lang]/account
   if (!profile) notFound();
   return (
     <section>
-      <h2 className="font-naskh mb-6 text-3xl text-cocoa">{getDictionary(lang).account.nav.profile}</h2>
+      <SplitTitle className="font-naskh mb-6 text-3xl text-cocoa" text={getDictionary(lang).account.nav.profile} />
       <ProfileForm profile={profile} />
     </section>
   );

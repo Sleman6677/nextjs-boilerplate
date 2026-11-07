@@ -1,5 +1,6 @@
 "use client";
 
+import { SplitTitle } from "@/components/split-title";
 import { LashEye } from "@/components/art";
 import { useI18n } from "@/components/i18n-provider";
 import { ButtonLink } from "@/components/ui";
@@ -17,7 +18,7 @@ export default function NotFound() {
         <p className="font-display lining text-gold-grad mt-8 text-7xl" dir="ltr">
           404
         </p>
-        <h1 className="font-display mt-4 text-4xl leading-snug sm:text-5xl">{dict.notFound.title}</h1>
+        <SplitTitle as="h1" className="font-display mt-4 text-4xl leading-snug sm:text-5xl" text={dict.notFound.title} />
         <p className="mt-5 text-lg text-ivory/70">{dict.notFound.lead}</p>
         <div className="mt-10 flex flex-wrap justify-center gap-3">
           <ButtonLink href={href(lang, "/")}>{dict.notFound.home}</ButtonLink>

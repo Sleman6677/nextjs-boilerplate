@@ -1,5 +1,6 @@
 "use client";
 
+import { SplitTitle } from "@/components/split-title";
 import { useState } from "react";
 import type { Category, OfferInfo } from "@/lib/catalog";
 import { localized } from "@/lib/i18n/format";
@@ -38,9 +39,7 @@ export function CatalogGrid({ categories, offers, newIds, bestIds, initial = "al
           <section key={c.id} id={c.slug} aria-labelledby={`cat-${c.slug}`} className="scroll-mt-28">
             {categories.length > 1 ? (
               <header className="mb-8 flex flex-wrap items-end justify-between gap-3 border-b border-berry/15 pb-4">
-                <h2 id={`cat-${c.slug}`} className="font-display text-3xl text-plum sm:text-4xl">
-                  {localized(c.name, lang)}
-                </h2>
+                <SplitTitle id={`cat-${c.slug}`} className="font-display text-3xl text-plum sm:text-4xl" text={localized(c.name, lang)} />
                 {localized(c.description, lang) ? <p className="text-sm text-berry-deep/70">{localized(c.description, lang)}</p> : null}
               </header>
             ) : null}
