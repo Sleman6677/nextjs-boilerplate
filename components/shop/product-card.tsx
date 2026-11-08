@@ -106,7 +106,7 @@ export function ProductCard({ p, offers, isNew = false, best = false, index = 0 
   ].filter((b): b is { text: string; tone: string } => b !== null);
 
   return (
-    <article className="group relative flex h-full flex-col">
+    <article className="box-card group relative flex h-full flex-col">
       <div className="relative">
         <Link href={link} aria-label={name} className="block rounded-[1.6rem] focus-visible:outline-offset-4">
           <Glare>

@@ -16,6 +16,7 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
  *   data-scroll-tilt      straightens and lifts while it crosses the viewport
  *   data-zoom-in          image settles from 1.15 to 1 while in view
  *   data-stagger          direct children rise in, batched as they enter
+ *   data-lash-draw        lash strokes (pathLength=1) draw on as it enters
  * Re-runs on every route change; does nothing when motion is reduced.
  */
 export function MotionFx() {
@@ -57,6 +58,12 @@ export function MotionFx() {
             once: true,
             onEnter: (batch) => gsap.to(batch, { y: 0, opacity: 1, duration: 0.9, ease: "power3.out", stagger: 0.09, overwrite: true }),
           });
+        });
+
+        gsap.utils.toArray<HTMLElement>("[data-lash-draw]").forEach((el) => {
+          const paths = el.querySelectorAll("path");
+          if (!paths.length) return;
+          gsap.fromTo(paths, { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 1.3, ease: "power2.out", stagger: { amount: 0.6, from: "center" }, scrollTrigger: { trigger: el, start: "top 88%", once: true } });
         });
 
         // Layout settles after fonts/images; re-measure once it has.

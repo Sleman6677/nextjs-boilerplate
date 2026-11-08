@@ -20,11 +20,11 @@ export function useReducedMotion() {
   return useSyncExternalStore(subscribe, () => window.matchMedia(QUERY).matches, () => false);
 }
 
-/** Gold sparks wherever the visitor clicks inside the page content. */
+/** A fan of lash strokes flicks up wherever the visitor clicks inside the page content. */
 export function SiteSpark({ children }: { children: ReactNode }) {
   const reduce = useReducedMotion();
   return (
-    <ClickSpark sparkColor={["#c9a45c", "#eda4b6", "#f8d7df"]} sparkSize={9} sparkRadius={22} sparkCount={10} duration={520} glow={6} disabled={reduce} className="!h-auto">
+    <ClickSpark shape="line" sparkColor={["#4b1530", "#8a2a55", "#c9a45c"]} sparkSize={11} sparkRadius={24} sparkCount={11} sparkWidth={1.6} direction={0} spread={150} gravity={0} randomness={0.15} duration={560} disabled={reduce} className="!h-auto">
       {children}
     </ClickSpark>
   );

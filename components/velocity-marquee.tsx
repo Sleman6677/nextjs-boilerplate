@@ -7,6 +7,19 @@ import { useLenis } from "lenis/react";
 
 gsap.registerPlugin(useGSAP);
 
+/** A closed eye with lashes, the brand mark, as the separator between phrases. */
+function LashMark() {
+  return (
+    <svg viewBox="0 0 40 20" aria-hidden="true" className="h-[0.5em] w-[1em] shrink-0 text-gold" fill="none" stroke="currentColor" strokeLinecap="round">
+      <path d="M3 6 Q20 18 37 6" strokeWidth="2" />
+      {[8, 14, 20, 26, 32].map((x, i) => {
+        const y = 6 + 12 * (1 - Math.pow((x - 20) / 17, 2)) * 0.5;
+        return <path key={x} d={`M${x} ${y} L${x + (i - 2) * 1.6} ${y + 6}`} strokeWidth="1.6" />;
+      })}
+    </svg>
+  );
+}
+
 /**
  * An endless strip of text that speeds up — and flips direction — with the
  * scroll velocity Lenis reports. Static (no movement) when motion is reduced.
@@ -46,7 +59,7 @@ export function VelocityMarquee({ items, className = "", base = 40 }: { items: s
     items.map((t, i) => (
       <span key={`${copy}-${i}`} className="flex shrink-0 items-center gap-8 pe-8">
         <span>{t}</span>
-        <span aria-hidden="true" className="text-[0.5em] text-gold">✦</span>
+        <LashMark />
       </span>
     ));
 
