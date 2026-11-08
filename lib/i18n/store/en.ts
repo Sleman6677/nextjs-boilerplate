@@ -16,6 +16,7 @@ const store: StoreDictionary = {
     bestSellers: "Best sellers",
     onSale: "Sale & offers",
     seeAll: "See all",
+    showcase: { label: "The Serag signature edit", prev: "Previous", next: "Next", go: "Show {name}", cta: "Discover" },
     perks: [
       { title: "Free delivery", text: "On orders over {amount}" },
       { title: "Points on every order", text: "Use them as a discount next time" },

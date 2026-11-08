@@ -16,6 +16,7 @@ const store: StoreDictionary = {
     bestSellers: "הנמכרים ביותר",
     onSale: "מבצעים והנחות",
     seeAll: "לכל המוצרים",
+    showcase: { label: "הקולקציה המיוחדת של Serag", prev: "הקודם", next: "הבא", go: "הציגי את {name}", cta: "לגלות" },
     perks: [
       { title: "משלוח חינם", text: "בהזמנה מעל {amount}" },
       { title: "נקודות על כל הזמנה", text: "מנוצלות כהנחה בהזמנה הבאה" },

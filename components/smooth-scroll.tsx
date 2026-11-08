@@ -1,12 +1,27 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { ReactLenis } from "lenis/react";
+import { useEffect, useRef, useState } from "react";
+import { ReactLenis, useLenis, type LenisRef } from "lenis/react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "lenis/dist/lenis.css";
 
-/** Site-wide smooth scrolling (Lenis); skipped for visitors who prefer reduced motion. */
+gsap.registerPlugin(ScrollTrigger);
+
+/** Tells ScrollTrigger about every Lenis scroll frame. */
+function TriggerSync() {
+  useLenis(ScrollTrigger.update);
+  return null;
+}
+
+/**
+ * Site-wide smooth scrolling (Lenis), driven by GSAP's ticker so every
+ * ScrollTrigger effect moves in the same frame as the scroll itself.
+ * Skipped for visitors who prefer reduced motion.
+ */
 export function SmoothScroll() {
   const [on, setOn] = useState(false);
+  const lenisRef = useRef<LenisRef>(null);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -16,5 +31,22 @@ export function SmoothScroll() {
     return () => mq.removeEventListener("change", sync);
   }, []);
 
-  return on ? <ReactLenis root options={{ anchors: true }} /> : null;
+  useEffect(() => {
+    if (!on) return;
+    const update = (time: number) => lenisRef.current?.lenis?.raf(time * 1000);
+    gsap.ticker.add(update);
+    gsap.ticker.lagSmoothing(0);
+    return () => {
+      gsap.ticker.remove(update);
+      gsap.ticker.lagSmoothing(500, 33);
+    };
+  }, [on]);
+
+  if (!on) return null;
+  return (
+    <>
+      <ReactLenis root ref={lenisRef} options={{ autoRaf: false, anchors: true, lerp: 0.09 }} />
+      <TriggerSync />
+    </>
+  );
 }
