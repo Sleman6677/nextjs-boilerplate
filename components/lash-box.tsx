@@ -31,32 +31,32 @@ export function LashPair({
 
 const tones: Record<LashBox["tone"], { box: string; tray: string; lashes: string; lid: string; label: string }> = {
   petal: {
-    box: "bg-gradient-to-b from-[#fff7f9] to-pink-soft",
-    tray: "bg-ivory",
-    lashes: "text-plum",
-    lid: "bg-berry text-ivory",
-    label: "text-berry",
+    box: "bg-white border border-mist-gray",
+    tray: "bg-[#f6f6f6]",
+    lashes: "text-graphite",
+    lid: "bg-graphite text-white",
+    label: "text-graphite",
   },
   rose: {
-    box: "bg-gradient-to-b from-pink-soft to-pink",
-    tray: "bg-petal",
-    lashes: "text-berry-deep",
-    lid: "bg-ivory text-berry",
-    label: "text-berry-deep",
+    box: "bg-[#f6f6f6]",
+    tray: "bg-white",
+    lashes: "text-graphite",
+    lid: "bg-ember text-white",
+    label: "text-graphite",
   },
   blush: {
-    box: "bg-gradient-to-b from-blush to-[#e7c4bb]",
-    tray: "bg-ivory",
-    lashes: "text-cocoa",
-    lid: "bg-berry-deep text-pink-soft",
-    label: "text-cocoa",
+    box: "bg-[#fff1ec]",
+    tray: "bg-white",
+    lashes: "text-graphite",
+    lid: "bg-white text-ember border-[1.5px] border-apricot",
+    label: "text-graphite",
   },
   berry: {
-    box: "bg-gradient-to-b from-berry to-berry-deep",
-    tray: "bg-plum",
-    lashes: "text-pink-soft",
-    lid: "bg-pink text-plum",
-    label: "text-pink-soft",
+    box: "bg-inkwell",
+    tray: "bg-ink-3",
+    lashes: "text-white",
+    lid: "bg-ember text-white",
+    label: "text-white/80",
   },
 };
 
@@ -74,7 +74,7 @@ export function BoxVisual({
 }) {
   const t = tones[art.tone];
   return (
-    <div className={`relative aspect-[4/5] overflow-hidden rounded-[2rem] ${t.box}`}>
+    <div className={`relative aspect-[4/5] overflow-hidden rounded-[15px] ${t.box}`}>
       {[
         { top: "38%", left: "8%", d: 0 },
         { top: "70%", left: "88%", d: 900 },
@@ -87,7 +87,7 @@ export function BoxVisual({
         />
       ))}
 
-      <div data-lash-draw={imageUrl ? undefined : ""} className={`absolute inset-x-6 top-[32%] bottom-[17%] grid place-items-center rounded-[1.4rem] ${t.tray} shadow-[inset_0_2px_14px_rgba(75,21,48,0.12)]`}>
+      <div data-lash-draw={imageUrl ? undefined : ""} className={`absolute inset-x-6 top-[32%] bottom-[17%] grid place-items-center rounded-[10px] ${t.tray}`}>
         {imageUrl ? (
           <span className="card-lashes absolute inset-2 overflow-hidden rounded-[1.1rem]">
             <Image src={imageUrl} alt="" fill unoptimized sizes="(min-width:1024px) 30vw, 90vw" className="object-cover" />
@@ -97,8 +97,8 @@ export function BoxVisual({
         )}
       </div>
 
-      <div className={`card-lid absolute inset-x-4 top-4 flex h-[23%] flex-col items-center justify-center rounded-[1.4rem] shadow-[0_14px_30px_-16px_rgba(44,13,28,0.55)] ${t.lid}`}>
-        <span className="font-display text-2xl leading-none italic" dir="ltr">
+      <div className={`card-lid absolute inset-x-4 top-4 flex h-[23%] flex-col items-center justify-center rounded-[10px] ${t.lid}`}>
+        <span className="font-display text-2xl leading-none font-light" dir="ltr">
           Serag
         </span>
         <span className="font-display mt-1 text-[0.6rem] tracking-[0.45em]" dir="ltr">
@@ -130,29 +130,29 @@ export function HeroBox({ label, tag, price }: { label: string; tag: string; pri
       {heroSparkles.map((s, i) => (
         <Sparkle
           key={i}
-          className={`twinkle absolute ${s.size} text-pink-soft`}
+          className={`twinkle absolute ${s.size} text-apricot`}
           style={{ top: s.top, left: s.left, "--d": `${s.d}ms` } as CSSProperties}
         />
       ))}
 
       <div className="box-scene relative aspect-[5/4.4]" role="img" aria-label={label}>
         {/* Base */}
-        <div className="absolute inset-x-0 bottom-0 h-[62%] rounded-[1.8rem] bg-gradient-to-b from-pink-soft via-pink to-pink-deep p-[5%] shadow-[0_40px_80px_-30px_rgba(20,4,12,0.8)]">
-          <div className="grid h-full place-items-center rounded-[1.3rem] bg-petal shadow-[inset_0_4px_20px_rgba(75,21,48,0.18)]">
-            <LashPair style="hybrid" map="doll" seed={8} className="box-lashes w-[88%] text-berry-deep" />
+        <div className="absolute inset-x-0 bottom-0 h-[62%] rounded-[15px] bg-ember p-[5%]">
+          <div className="grid h-full place-items-center rounded-[10px] bg-white">
+            <LashPair style="hybrid" map="doll" seed={8} className="box-lashes w-[88%] text-graphite" />
           </div>
-          <span className="font-display absolute inset-x-0 -bottom-8 text-center text-xs tracking-[0.45em] text-pink-soft/80" dir="ltr">
+          <span className="font-display absolute inset-x-0 -bottom-8 text-center text-xs tracking-[0.45em] text-smoke" dir="ltr">
             SERAG · DAILY
           </span>
         </div>
 
         {/* Lid (on top so the box starts closed) */}
-        <div className="box-lid absolute inset-x-0 bottom-0 flex h-[62%] flex-col items-center justify-center rounded-[1.8rem] bg-gradient-to-b from-[#f9c7d4] to-pink text-plum shadow-[0_20px_50px_-25px_rgba(20,4,12,0.7)]">
-          <Monogram className="h-12 w-12 text-berry" />
-          <span className="font-display mt-2 text-4xl italic" dir="ltr">
+        <div className="box-lid absolute inset-x-0 bottom-0 flex h-[62%] flex-col items-center justify-center rounded-[15px] border border-mist-gray bg-[#f6f6f6] text-inkwell">
+          <Monogram className="h-12 w-12 text-ember" />
+          <span className="font-display mt-2 text-4xl font-light" dir="ltr">
             Serag
           </span>
-          <span className="font-display mt-1 text-[0.7rem] tracking-[0.5em] text-berry" dir="ltr">
+          <span className="font-display mt-1 text-[0.7rem] tracking-[0.5em] text-smoke" dir="ltr">
             DAILY LASHES
           </span>
         </div>
@@ -160,11 +160,11 @@ export function HeroBox({ label, tag, price }: { label: string; tag: string; pri
 
       {/* Price tag */}
       <div className="price-tag absolute -end-4 -bottom-[14%] flex flex-col items-center sm:-end-10" aria-hidden="true">
-        <span className="h-12 w-px bg-pink-soft/60" />
-        <span className="relative rounded-2xl bg-ivory px-5 pt-5 pb-3 text-center shadow-[0_20px_40px_-20px_rgba(0,0,0,0.6)]">
-          <span className="absolute top-2 left-1/2 h-2 w-2 -translate-x-1/2 rounded-full bg-pink-deep/50" />
-          <span className="block text-xs text-berry">{tag}</span>
-          <span className="font-display block text-3xl leading-tight text-plum">
+        <span className="h-12 w-px bg-graphite/30" />
+        <span className="relative rounded-[10px] border border-graphite bg-white px-5 pt-5 pb-3 text-center">
+          <span className="absolute top-2 left-1/2 h-2 w-2 -translate-x-1/2 rounded-full bg-ember" />
+          <span className="block text-xs text-smoke">{tag}</span>
+          <span className="font-display block text-3xl leading-tight text-inkwell">
             {price}
           </span>
         </span>

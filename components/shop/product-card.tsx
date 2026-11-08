@@ -21,7 +21,7 @@ import { toast } from "./toast";
 export function ProductImage({ p, index = 0, sizes = "(min-width:1024px) 25vw, 50vw", priority = false }: { p: Product; index?: number; sizes?: string; priority?: boolean }) {
   if (p.imageUrl) {
     return (
-      <span className="relative block aspect-[4/5] overflow-hidden rounded-[1.6rem] bg-pink-soft">
+      <span className="relative block aspect-[4/5] overflow-hidden rounded-[15px] bg-pink-soft">
         <Image src={p.imageUrl} alt="" fill sizes={sizes} quality={85} priority={priority} unoptimized={!optimizable(p.imageUrl)} className="object-cover transition-transform duration-700 ease-[var(--ease-silk)] group-hover:scale-[1.04]" />
       </span>
     );
@@ -100,15 +100,15 @@ export function ProductCard({ p, offers, isNew = false, best = false, index = 0 
 
   const badges = [
     pct > 0 ? { text: `−${num(pct, lang)}${lang === "ar" ? "٪" : "%"}`, tone: "bg-rose-ink text-ivory" } : null,
-    status === "out" ? { text: s.badges.out, tone: "bg-plum text-ivory" } : status === "low" ? { text: s.badges.low, tone: "bg-ivory text-berry" } : null,
+    status === "out" ? { text: s.badges.out, tone: "bg-plum text-ivory" } : status === "low" ? { text: s.badges.low, tone: "bg-white text-graphite border border-graphite" } : null,
     isNew ? { text: s.badges.new, tone: "bg-berry text-ivory" } : null,
-    best ? { text: s.badges.best, tone: "bg-gold text-ink" } : null,
+    best ? { text: s.badges.best, tone: "bg-ember text-white" } : null,
   ].filter((b): b is { text: string; tone: string } => b !== null);
 
   return (
-    <article className="box-card group relative flex h-full flex-col">
+    <article className="box-card group relative flex h-full flex-col rounded-[10px] border-[1.5px] border-apricot bg-white p-4 sm:p-5">
       <div className="relative">
-        <Link href={link} aria-label={name} className="block rounded-[1.6rem] focus-visible:outline-offset-4">
+        <Link href={link} aria-label={name} className="block rounded-[15px] focus-visible:outline-offset-4">
           <Glare>
             <ProductImage p={p} index={index} />
           </Glare>
@@ -116,7 +116,7 @@ export function ProductCard({ p, offers, isNew = false, best = false, index = 0 
         {badges.length ? (
           <ul className="pointer-events-none absolute top-3 start-3 flex flex-col items-start gap-1.5">
             {badges.slice(0, 2).map((b) => (
-              <li key={b.text} className={`rounded-full px-2.5 py-1 text-[0.72rem] font-semibold shadow-sm ${b.tone}`}>
+              <li key={b.text} className={`rounded-full px-2.5 py-1 text-[0.72rem] font-medium ${b.tone}`}>
                 {b.text}
               </li>
             ))}
@@ -126,8 +126,8 @@ export function ProductCard({ p, offers, isNew = false, best = false, index = 0 
       </div>
 
       <div className="mt-4 flex flex-1 flex-col">
-        <h3 className="text-base font-semibold text-plum sm:text-lg">
-          <Link href={link} className="hover:text-berry">
+        <h3 className="text-base font-medium text-inkwell">
+          <Link href={link} className="hover:text-ember">
             {name}
           </Link>
         </h3>
@@ -157,7 +157,7 @@ export function ProductCard({ p, offers, isNew = false, best = false, index = 0 
                 toast(t(s.product.added, { name }));
               }}
               aria-label={`${s.product.add}: ${name}`}
-              className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-berry text-ivory transition-transform duration-200 active:scale-90"
+              className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-ember text-white transition-[transform,background-color] duration-200 hover:bg-tangerine active:scale-90"
             >
               <Plus className="h-4 w-4" />
             </button>

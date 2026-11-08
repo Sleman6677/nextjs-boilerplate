@@ -129,7 +129,7 @@ export function PageHero({
   art?: ReactNode;
 }) {
   return (
-    <section className="relative overflow-clip bg-ink pt-40 pb-20 text-ivory sm:pt-48 sm:pb-28">
+    <section className="relative overflow-clip bg-white border-b border-mist-gray pt-40 pb-20 text-inkwell sm:pt-48 sm:pb-28">
       <div className="glow pointer-events-none absolute -top-40 left-[-10%] h-[36rem] w-[36rem] opacity-60" aria-hidden="true" />
       <div className="relative mx-auto grid max-w-7xl items-end gap-12 px-5 sm:px-8 lg:grid-cols-[1.2fr_1fr]">
         <div>
@@ -137,10 +137,10 @@ export function PageHero({
             <span className="h-px w-10 bg-current opacity-60" aria-hidden="true" />
             <span dir="ltr">{eyebrow}</span>
           </p>
-          <h1 className="font-display mt-6 text-[2.6rem] leading-[1.25] sm:text-6xl sm:leading-[1.2]">
+          <h1 className="font-display mt-6 text-5xl leading-[1] sm:text-[6.5rem] sm:leading-[0.95]">
             <Rise text={title} />
           </h1>
-          <p className="fade-in mt-6 max-w-xl text-lg leading-8 text-ivory/75" style={{ "--d": "500ms" } as CSSProperties}>
+          <p className="fade-in mt-6 max-w-xl text-lg leading-8 text-taupe" style={{ "--d": "500ms" } as CSSProperties}>
             {lead}
           </p>
         </div>

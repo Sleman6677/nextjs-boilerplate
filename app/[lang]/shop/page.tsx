@@ -35,20 +35,20 @@ export default async function ShopPage({ params, searchParams }: PageProps<"/[la
 
   return (
     <div className="bg-petal">
-      <section className="relative isolate overflow-clip bg-gradient-to-b from-plum via-berry-deep to-berry pt-36 pb-16 text-ivory sm:pt-40">
+      <section className="relative isolate overflow-clip bg-white border-b border-mist-gray pt-36 pb-16 text-inkwell sm:pt-40">
         <div className="glow-pink drift pointer-events-none absolute -top-32 right-[-10%] -z-10 h-[30rem] w-[30rem] opacity-50" aria-hidden="true" />
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
-          <p className="eyebrow flex items-center gap-3 text-pink">
+          <p className="eyebrow flex items-center gap-3 text-smoke">
             <span className="h-px w-10 bg-current opacity-60" aria-hidden="true" />
             <span>{dict.store.home.eyebrow}</span>
           </p>
-          <SplitTitle as="h1" className="font-display mt-6 text-5xl sm:text-7xl" text={dict.store.nav.shop} />
-          <p className="mt-5 max-w-xl text-lg leading-8 text-ivory/80">{s.collLead}</p>
+          <SplitTitle as="h1" className="font-display mt-6 text-6xl leading-[0.95] sm:text-[8rem]" text={dict.store.nav.shop} />
+          <p className="mt-6 max-w-xl text-base leading-7 text-taupe">{s.collLead}</p>
         </div>
       </section>
 
       {!accountsEnabled() ? (
-        <p className="bg-pink px-5 py-4 text-center text-sm text-plum">
+        <p className="bg-tangerine px-5 py-4 text-center text-sm text-white">
           {dict.store.setup}{" "}
           <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 font-semibold underline">
             <WhatsApp className="h-4 w-4" /> {dict.store.orderOnWhatsapp}

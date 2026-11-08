@@ -33,8 +33,8 @@ export default async function CheckoutPage({ params }: PageProps<"/[lang]/checko
 
   return (
     <div className="min-h-[80svh] bg-petal pb-24">
-      <div className="bg-gradient-to-b from-plum to-berry-deep pt-36 pb-14 text-ivory sm:pt-44">
-        <SplitTitle as="h1" className="font-display mx-auto max-w-6xl px-5 text-5xl sm:px-8" text={dict.store.checkout.title} />
+      <div className="bg-white border-b border-mist-gray pt-36 pb-14 text-inkwell sm:pt-44">
+        <SplitTitle as="h1" className="font-display mx-auto max-w-6xl px-5 text-5xl sm:px-8 sm:text-7xl" text={dict.store.checkout.title} />
       </div>
       <div className="mx-auto mt-10 max-w-6xl px-5 sm:px-8">
         <CheckoutForm

@@ -69,12 +69,12 @@ export function Monogram({ className }: { className?: string }) {
 }
 
 export function Wordmark({ className, tone = "light" }: { className?: string; tone?: "light" | "dark" }) {
-  const color = tone === "light" ? "text-ivory" : "text-cocoa";
+  const color = tone === "light" ? "text-white" : "text-inkwell";
   return (
     <span className={`inline-flex items-center gap-3 ${color} ${className ?? ""}`} dir="ltr">
       <Monogram className="h-9 w-9 text-gold" />
       <span className="flex flex-col leading-none">
-        <span className="font-display text-[1.65rem] italic tracking-wide">Serag</span>
+        <span className="font-display text-[1.65rem] font-light">Serag</span>
         <span className="font-display mt-1 text-[0.62rem] tracking-[0.55em] text-gold">LASHES</span>
       </span>
     </span>
@@ -111,7 +111,7 @@ export function RotatingBadge({ className, text = "SERAG LASHES • LUXURY LASH 
         <defs>
           <path id={pathId} d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1 -92 0" />
         </defs>
-        <text fill="currentColor" fontSize="9.4" letterSpacing="2.3" style={{ fontFamily: "var(--font-cormorant)" }}>
+        <text fill="currentColor" fontSize="9.4" letterSpacing="2.3" style={{ fontFamily: "var(--font-onest)" }}>
           <textPath href={`#${pathId}`}>{text}</textPath>
         </text>
       </svg>

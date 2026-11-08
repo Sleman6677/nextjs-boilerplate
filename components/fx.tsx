@@ -24,14 +24,14 @@ export function useReducedMotion() {
 export function SiteSpark({ children }: { children: ReactNode }) {
   const reduce = useReducedMotion();
   return (
-    <ClickSpark shape="line" sparkColor={["#4b1530", "#8a2a55", "#c9a45c"]} sparkSize={11} sparkRadius={24} sparkCount={11} sparkWidth={1.6} direction={0} spread={150} gravity={0} randomness={0.15} duration={560} disabled={reduce} className="!h-auto">
+    <ClickSpark shape="line" sparkColor={["#111111", "#f15730", "#ff8562"]} sparkSize={11} sparkRadius={24} sparkCount={11} sparkWidth={1.6} direction={0} spread={150} gravity={0} randomness={0.15} duration={560} disabled={reduce} className="!h-auto">
       {children}
     </ClickSpark>
   );
 }
 
 /** A light band that sweeps across the text now and then. */
-export function Shiny({ children, color = "#eda4b6", shine = "#fbf7f1" }: { children: string; color?: string; shine?: string }) {
+export function Shiny({ children, color = "#818181", shine = "#f15730" }: { children: string; color?: string; shine?: string }) {
   const reduce = useReducedMotion();
   return <ShinyText text={children} color={color} shineColor={shine} speed={3} delay={2} disabled={reduce} />;
 }
@@ -51,7 +51,7 @@ export function Glare({ children }: { children: ReactNode }) {
   const reduce = useReducedMotion();
   if (reduce) return <>{children}</>;
   return (
-    <GlareHover width="100%" height="auto" background="transparent" borderRadius="1.6rem" glareColor="#ffffff" glareOpacity={0.35} glareSize={220} variant="sheen" className="!block !border-0 ![place-items:normal]">
+    <GlareHover width="100%" height="auto" background="transparent" borderRadius="15px" glareColor="#ffffff" glareOpacity={0.5} glareSize={220} variant="sheen" className="!block !border-0 ![place-items:normal]">
       {children}
     </GlareHover>
   );

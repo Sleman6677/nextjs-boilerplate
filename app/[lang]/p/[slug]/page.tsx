@@ -65,9 +65,9 @@ export default async function ProductPage({ params }: PageProps<"/[lang]/p/[slug
   return (
     <div className="bg-petal pb-28">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
-      <div className="bg-gradient-to-b from-plum to-berry-deep pt-32 pb-8 sm:pt-36">
+      <div className="bg-white border-b border-mist-gray pt-32 pb-8 sm:pt-36">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
-          <Link href={href(lang, "/shop")} className="inline-flex min-h-11 items-center gap-2 text-sm text-pink-soft/90 hover:text-ivory">
+          <Link href={href(lang, "/shop")} className="inline-flex min-h-11 items-center gap-2 text-sm text-taupe hover:text-ember">
             <ArrowForward className="h-4 w-4 rotate-180" /> {s.back}
           </Link>
         </div>

@@ -101,19 +101,19 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
   return (
     <div className="bg-petal">
       {/* ───────────── Hero ───────────── */}
-      <section className="relative isolate overflow-clip bg-gradient-to-b from-plum via-berry-deep to-berry text-ivory">
+      <section className="relative isolate overflow-clip bg-white text-inkwell">
         <div className="glow-pink drift pointer-events-none absolute -top-32 right-[-10%] -z-10 h-[34rem] w-[34rem] opacity-60" aria-hidden="true" />
         <div className="glow-pink drift pointer-events-none absolute bottom-[-20%] left-[-12%] -z-10 h-[30rem] w-[30rem] opacity-40" style={v({ "--d": "-6s" })} aria-hidden="true" />
-        <p className="font-display pointer-events-none absolute -bottom-[0.2em] right-0 -z-10 text-[30vw] leading-none text-transparent italic select-none [-webkit-text-stroke:1px_rgba(248,215,223,0.14)] lg:text-[22rem]" dir="ltr" data-drift="-30" aria-hidden="true">
+        <p className="font-display pointer-events-none absolute -bottom-[0.2em] right-0 -z-10 text-[30vw] leading-none text-transparent select-none [-webkit-text-stroke:1px_rgba(17,17,17,0.07)] lg:text-[22rem]" dir="ltr" data-drift="-30" aria-hidden="true">
           Serag
         </p>
         <div data-hero-out className="mx-auto grid min-h-[92svh] max-w-7xl items-center gap-16 px-5 pt-36 pb-20 sm:px-8 lg:grid-cols-[1.1fr_1fr] lg:gap-12">
           <div>
-            <p className="eyebrow fade-in flex items-center gap-3 text-pink">
+            <p className="eyebrow fade-in flex items-center gap-3 text-smoke">
               <span className="h-px w-10 bg-current opacity-60" aria-hidden="true" />
               <Shiny>{h.eyebrow}</Shiny>
             </p>
-            <h1 className="font-display mt-8 text-[3.2rem] leading-[1.25] sm:text-7xl lg:text-[5.4rem] lg:leading-[1.15]">
+            <h1 className="font-display mt-8 text-[3.6rem] leading-[1] sm:text-8xl lg:text-[7.2rem] lg:leading-[0.92]">
               {/* Words (not letters) are split so Arabic letters keep joining. */}
               {heroWords.slice(0, -1).map((w, i) => (
                 <span key={i}>
@@ -122,13 +122,13 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
               ))}
               <span className="rise">
                 <span className="w">
-                  <span style={v({ "--i": heroWords.length - 1 })} className="font-script text-pink-grad">
+                  <span style={v({ "--i": heroWords.length - 1 })} className="text-ember">
                     {heroWords[heroWords.length - 1]}
                   </span>
                 </span>
               </span>
             </h1>
-            <p className="fade-in mt-8 max-w-lg text-lg leading-9 text-ivory/80" style={v({ "--d": "700ms" })}>
+            <p className="fade-in mt-8 max-w-md text-base leading-7 text-taupe" style={v({ "--d": "700ms" })}>
               {h.text}
             </p>
             <div className="fade-in mt-10 flex flex-wrap gap-3" style={v({ "--d": "900ms" })}>
@@ -139,7 +139,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
                 </Link>
               </MagnetLink>
               {gift ? (
-                <Link href={href(lang, `/p/${gift.slug}`)} className="btn btn-ghost-light">
+                <Link href={href(lang, `/p/${gift.slug}`)} className="btn btn-ghost-dark">
                   <Gift className="h-5 w-5" /> {h.secondary}
                 </Link>
               ) : null}
@@ -147,7 +147,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
             <ul className="fade-in mt-10 flex gap-3" style={v({ "--d": "1100ms" })}>
               {socialLinks(info, lang).map((s) => (
                 <li key={s.key}>
-                  <a href={s.href} target="_blank" rel="noopener noreferrer" className="flex min-h-11 items-center gap-2 rounded-full border border-pink/30 px-4 text-sm text-pink-soft transition-colors hover:border-pink hover:bg-pink hover:text-plum">
+                  <a href={s.href} target="_blank" rel="noopener noreferrer" className="flex min-h-11 items-center gap-2 rounded-full border border-graphite/15 px-4 text-sm text-graphite transition-colors hover:border-ember hover:text-ember">
                     {s.icon}
                     <span>{s.label}</span>
                   </a>
@@ -166,7 +166,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
         <ul data-stagger className="mx-auto grid max-w-7xl gap-px px-5 sm:grid-cols-3 sm:px-8">
           {h.perks.map((perk, i) => (
             <li key={perk.title} className="flex items-center gap-4 py-6">
-              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-pink-soft text-berry">{perkIcons[i]}</span>
+              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full border-[1.5px] border-apricot text-graphite">{perkIcons[i]}</span>
               <span>
                 <span className="block font-semibold text-plum">{perk.title}</span>
                 <span className="block text-sm text-berry-deep/75">{i === 0 ? (info.freeShippingThreshold !== null ? t(perk.text, { amount: money(info.freeShippingThreshold, lang) }) : h.perkFreeAlways) : perk.text}</span>
@@ -177,7 +177,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
       </section>
 
       {/* ───────────── Marquee (speeds up with scroll) ───────────── */}
-      <VelocityMarquee items={[...h.eyebrow.split(" · "), ...h.perks.map((p) => p.title)]} className="font-display border-b border-berry/10 bg-plum py-5 text-3xl text-pink-soft sm:py-7 sm:text-5xl" />
+      <VelocityMarquee items={[...h.eyebrow.split(" · "), ...h.perks.map((p) => p.title)]} className="font-display bg-graphite py-5 text-3xl text-white sm:py-7 sm:text-5xl" />
 
       {/* ───────────── Categories ───────────── */}
       {home.categories.length > 1 ? (
@@ -208,22 +208,22 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
       {/* ───────────── Gift card ───────────── */}
       {gift ? (
         <section className="px-5 py-16 sm:px-8 sm:py-20">
-          <Reveal className="relative mx-auto grid max-w-6xl items-center gap-10 overflow-hidden rounded-[2.5rem] bg-plum p-8 text-ivory sm:p-14 lg:grid-cols-[1.2fr_1fr]">
+          <Reveal className="relative mx-auto grid max-w-6xl items-center gap-10 overflow-hidden rounded-[10px] bg-tangerine p-8 text-white sm:p-14 lg:grid-cols-[1.2fr_1fr]">
             <div className="glow-pink pointer-events-none absolute -top-20 -left-20 h-80 w-80 opacity-50" aria-hidden="true" />
             <div className="relative">
-              <Gift className="h-10 w-10 text-pink" />
+              <Gift className="h-10 w-10 text-white" />
               <SplitTitle className="font-display mt-6 text-4xl sm:text-5xl" text={h.giftTitle} />
-              <p className="mt-4 max-w-md text-lg leading-8 text-ivory/80">{t(h.giftText, { paid: money(giftPaid, lang), value: money(round2(giftPaid * (1 + info.giftCardBonusPct / 100)), lang) })}</p>
+              <p className="mt-4 max-w-md text-base leading-7 text-white/90">{t(h.giftText, { paid: money(giftPaid, lang), value: money(round2(giftPaid * (1 + info.giftCardBonusPct / 100)), lang) })}</p>
               <div className="mt-8">
                 <MagnetLink>
-                  <Link href={href(lang, `/p/${gift.slug}`)} className="btn btn-pink">
+                  <Link href={href(lang, `/p/${gift.slug}`)} className="btn btn-ghost-light">
                     {h.giftCta}
                   </Link>
                 </MagnetLink>
               </div>
             </div>
-            <div data-scroll-tilt className="relative mx-auto w-full max-w-xs rotate-[-6deg] rounded-[1.6rem] bg-gradient-to-br from-pink to-pink-deep p-6 text-plum shadow-[0_40px_80px_-30px_rgba(0,0,0,0.6)]">
-              <p className="font-display text-2xl italic" dir="ltr">
+            <div data-scroll-tilt className="relative mx-auto w-full max-w-xs rotate-[-6deg] rounded-[10px] border-2 border-white bg-white p-6 text-inkwell">
+              <p className="font-display text-2xl text-ember" dir="ltr">
                 Serag Lashes
               </p>
               <p className="font-display mt-10 text-5xl">{money(round2(giftPaid * (1 + info.giftCardBonusPct / 100)), lang)}</p>

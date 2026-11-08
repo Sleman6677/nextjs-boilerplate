@@ -29,9 +29,9 @@ export default async function CartPage({ params }: PageProps<"/[lang]/cart">) {
 
   return (
     <div className="min-h-[70svh] bg-petal pb-24">
-      <div className="bg-gradient-to-b from-plum to-berry-deep pt-36 pb-12 text-ivory sm:pt-44">
+      <div className="bg-white border-b border-mist-gray pt-36 pb-12 text-inkwell sm:pt-44">
         <div className="mx-auto max-w-6xl px-5 sm:px-8">
-          <SplitTitle as="h1" className="font-display text-5xl" text={dict.store.cart.title} />
+          <SplitTitle as="h1" className="font-display text-5xl sm:text-7xl" text={dict.store.cart.title} />
         </div>
       </div>
       <div className="mx-auto mt-10 max-w-6xl px-5 sm:px-8">

@@ -2,31 +2,40 @@
 
 /* ───────────────────────── Brand tokens ───────────────────────── */
 @theme {
-  --color-ink: #14100e;
-  --color-ink-2: #1d1613;
-  --color-ink-3: #2a201b;
-  --color-ivory: #fbf7f1;
-  --color-cream: #f5ede3;
-  --color-sand: #e9dccb;
-  --color-blush: #f0dcd4;
-  --color-rose: #cf9a90;
-  --color-rosewood: #7a403f;
-  --color-gold: #c9a45c;
-  --color-gold-soft: #e6d1a0;
-  --color-gold-deep: #7d5e27;
-  --color-cocoa: #2b211c;
-  --color-taupe: #65564d;
-  --color-mist: #b9aba0;
+  /* Editorial beauty palette (white gallery walls + one warm orange).
+     Legacy token names are kept so every page follows the new palette. */
+  --color-ember: #f15730; /* filled actions */
+  --color-tangerine: #f7651a; /* promotional surfaces */
+  --color-apricot: #ff8562; /* hairline borders, accents */
+  --color-graphite: #111111;
+  --color-inkwell: #0d1717;
+  --color-smoke: #818181;
+  --color-mist-gray: #eeeeee;
 
-  /* Shop (pink) */
-  --color-petal: #fdf1f3;
-  --color-pink-soft: #f8d7df;
-  --color-pink: #eda4b6;
-  --color-pink-deep: #d9728f;
-  --color-rose-ink: #b8466f; /* pink that passes 4.5:1 on petal, for pink text */
-  --color-berry: #8a2c52;
-  --color-berry-deep: #4b1530;
-  --color-plum: #2c0d1c;
+  --color-ink: #0d1717;
+  --color-ink-2: #142020;
+  --color-ink-3: #1d2a2a;
+  --color-ivory: #ffffff;
+  --color-cream: #ffffff;
+  --color-sand: #eeeeee;
+  --color-blush: #f6f6f6;
+  --color-rose: #818181;
+  --color-rosewood: #111111;
+  --color-gold: #f15730;
+  --color-gold-soft: #ff8562;
+  --color-gold-deep: #c2410c;
+  --color-cocoa: #111111;
+  --color-taupe: #5c5c5c; /* secondary text that still passes 4.5:1 on white */
+  --color-mist: #b5b5b5;
+
+  --color-petal: #ffffff;
+  --color-pink-soft: #f4f4f4;
+  --color-pink: #ff8562;
+  --color-pink-deep: #f7651a;
+  --color-rose-ink: #c2410c; /* orange that passes 4.5:1 on white, for sale prices */
+  --color-berry: #111111;
+  --color-berry-deep: #111111;
+  --color-plum: #0d1717;
 
   --ease-silk: cubic-bezier(0.2, 0.7, 0.1, 1);
   --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -35,36 +44,36 @@
 }
 
 @theme inline {
-  --font-display: var(--font-cormorant), var(--font-amiri), var(--font-frank), "Times New Roman", serif;
-  --font-naskh: var(--font-amiri), var(--font-frank), serif;
-  --font-sans: var(--font-noto-arabic), var(--font-heebo), var(--font-frank), system-ui, sans-serif;
-  --font-script: var(--font-ruqaa), var(--font-amiri), var(--font-frank), serif;
+  --font-display: var(--font-onest), var(--font-plex-arabic), var(--font-heebo), ui-sans-serif, system-ui, sans-serif;
+  --font-naskh: var(--font-display);
+  --font-sans: var(--font-onest), var(--font-plex-arabic), var(--font-heebo), ui-sans-serif, system-ui, sans-serif;
+  --font-script: var(--font-display);
 }
 
 @layer base {
   /* ───────────────────────── Base ───────────────────────── */
   html {
-    background: var(--color-ink);
-    /* Cormorant defaults to old-style figures ("2oo"); prices and counters read better as lining figures */
+    background: #ffffff;
     font-variant-numeric: lining-nums;
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
   }
 
   body {
-    background: var(--color-cream);
-    color: var(--color-cocoa);
+    background: #ffffff;
+    color: var(--color-graphite);
     font-family: var(--font-sans);
     font-size: 1rem;
-    line-height: 1.75;
+    line-height: 1.6;
+    letter-spacing: -0.02em;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     overflow-x: clip;
   }
 
   ::selection {
-    background: var(--color-gold);
-    color: var(--color-ink);
+    background: var(--color-ember);
+    color: #ffffff;
   }
 
   :focus-visible {
@@ -91,33 +100,22 @@
     text-wrap: pretty;
   }
 
-  /* Film grain: a tactile, printed feel instead of flat digital colour */
-  body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: 60;
-    pointer-events: none;
-    opacity: 0.07;
-    mix-blend-mode: multiply;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
 }
 
 @layer components {
   /* ───────────────────────── Type helpers ───────────────────────── */
   .eyebrow {
-    font-family: var(--font-display);
-    font-size: 0.8rem;
-    letter-spacing: 0.32em;
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
   }
 
-  .text-gold-grad {
-    background: linear-gradient(100deg, #f1dfb3 0%, #c9a45c 38%, #9c7a39 62%, #e6d1a0 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+  /* Former gradient text: the single accent, solid */
+  .text-gold-grad,
+  .text-pink-grad {
+    color: var(--color-ember);
   }
 
   .lining {
@@ -138,15 +136,14 @@
     align-items: center;
     justify-content: center;
     gap: 0.6rem;
-    min-height: 3.25rem;
-    padding: 0.85rem 1.9rem;
-    border-radius: 999px;
-    font-weight: 600;
-    font-size: 0.98rem;
+    min-height: 3rem;
+    padding: 0.95rem 2.5rem;
+    border-radius: 600px;
+    font-weight: 500;
+    font-size: 0.875rem;
+    letter-spacing: -0.01em;
     overflow: hidden;
     transition:
-      transform 250ms var(--ease-silk),
-      box-shadow 250ms var(--ease-silk),
       background-color 250ms var(--ease-silk),
       color 250ms var(--ease-silk),
       border-color 250ms var(--ease-silk);
@@ -156,63 +153,47 @@
     transform: scale(0.98);
   }
 
-  .btn-gold {
-    color: var(--color-ink);
-    background: linear-gradient(135deg, #efdcaa 0%, #c9a45c 48%, #a8843f 100%);
-    box-shadow:
-      0 1px 0 rgba(255, 255, 255, 0.5) inset,
-      0 10px 30px -12px rgba(201, 164, 92, 0.65);
+  /* Primary: Ember fill → Tangerine on hover */
+  .btn-gold,
+  .btn-pink,
+  .btn-berry {
+    color: #ffffff;
+    background: var(--color-ember);
   }
 
-  .btn-gold:hover {
-    box-shadow:
-      0 1px 0 rgba(255, 255, 255, 0.5) inset,
-      0 18px 40px -14px rgba(201, 164, 92, 0.85);
-    transform: translateY(-2px);
+  .btn-gold:hover,
+  .btn-pink:hover,
+  .btn-berry:hover {
+    background: var(--color-tangerine);
   }
 
-  .btn-gold::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background: linear-gradient(110deg, transparent 25%, rgba(255, 255, 255, 0.65) 50%, transparent 75%);
-    transform: translateX(130%);
-    transition: transform 900ms var(--ease-silk);
-  }
-
-  .btn-gold:hover::after {
-    transform: translateX(-130%);
-  }
-
+  /* Ghost on dark / imagery: white pill */
   .btn-ghost-light {
-    color: var(--color-ivory);
-    border: 1px solid rgba(230, 209, 160, 0.4);
+    color: var(--color-graphite);
+    background: #ffffff;
   }
 
   .btn-ghost-light:hover {
-    border-color: var(--color-gold);
-    background: rgba(201, 164, 92, 0.1);
+    color: var(--color-ember);
   }
 
   .btn-ink {
-    color: var(--color-ivory);
-    background: var(--color-ink);
+    color: #ffffff;
+    background: var(--color-graphite);
   }
 
   .btn-ink:hover {
-    background: var(--color-ink-3);
-    transform: translateY(-2px);
+    background: var(--color-ember);
   }
 
   .btn-ghost-dark {
-    color: var(--color-cocoa);
-    border: 1px solid rgba(43, 33, 28, 0.25);
+    color: var(--color-graphite);
+    border: 1px solid var(--color-graphite);
   }
 
   .btn-ghost-dark:hover {
-    border-color: var(--color-cocoa);
-    background: rgba(43, 33, 28, 0.05);
+    color: #ffffff;
+    background: var(--color-graphite);
   }
 
   /* Link with an animated underline that grows from the reading-start side */
@@ -233,16 +214,15 @@
     border-start-end-radius: 999px;
   }
 
-  .glow {
-    background: radial-gradient(closest-side, rgba(230, 209, 160, 0.42), rgba(201, 164, 92, 0.12) 55%, transparent);
-  }
-
-  .glow-rose {
-    background: radial-gradient(closest-side, rgba(207, 154, 144, 0.45), transparent);
+  /* No glows or gradient fields in the editorial system */
+  .glow,
+  .glow-rose,
+  .glow-pink {
+    display: none;
   }
 
   .ring-orbit {
-    border: 1px solid rgba(201, 164, 92, 0.28);
+    border: 1px solid var(--color-apricot);
     border-radius: 999px;
   }
 }
@@ -360,19 +340,23 @@ html[data-motion="on"] [data-reveal].is-in {
 }
 
 /* ───────────────────────── Language & direction ───────────────────────── */
-/* Hebrew: Frank Ruhl Libre for display/script words; English: Cormorant italic instead of Arabic calligraphy. */
-html:lang(he) .font-naskh,
-html:lang(he) .font-script {
-  font-family: var(--font-frank), var(--font-cormorant), serif;
+/* Display type: whisper weight, tightly tracked (Latin only: tracking breaks Arabic joins) */
+.font-display,
+.font-naskh,
+.font-script {
+  font-weight: 200;
+  font-style: normal;
+  letter-spacing: -0.045em;
 }
 
-html:lang(en) .font-naskh {
-  font-family: var(--font-cormorant), serif;
-}
-
-html:lang(en) .font-script {
-  font-family: var(--font-cormorant), serif;
-  font-style: italic;
+:lang(ar) .font-display,
+:lang(ar) .font-naskh,
+:lang(ar) .font-script,
+:lang(he) .font-display,
+:lang(he) .font-naskh,
+:lang(he) .font-script {
+  font-weight: 300;
+  letter-spacing: 0;
 }
 
 /* "Forward" arrows point left in RTL and right in LTR */
@@ -582,54 +566,6 @@ details[open] .faq-icon {
 
 /* ───────────────────────── Shop (pink) ───────────────────────── */
 @layer components {
-  .btn-berry {
-    color: var(--color-ivory);
-    background: linear-gradient(135deg, #a33a65 0%, var(--color-berry) 55%, #6d2041 100%);
-    box-shadow: 0 12px 30px -14px rgba(138, 44, 82, 0.7);
-  }
-
-  .btn-berry:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 18px 40px -14px rgba(138, 44, 82, 0.85);
-  }
-
-  .btn-pink {
-    color: var(--color-plum);
-    background: linear-gradient(135deg, #fde3ea 0%, #f2b3c3 50%, #e48aa3 100%);
-    box-shadow:
-      0 1px 0 rgba(255, 255, 255, 0.6) inset,
-      0 12px 30px -14px rgba(217, 114, 143, 0.8);
-  }
-
-  .btn-pink:hover {
-    transform: translateY(-2px);
-  }
-
-  .btn-pink::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background: linear-gradient(110deg, transparent 25%, rgba(255, 255, 255, 0.7) 50%, transparent 75%);
-    transform: translateX(130%);
-    transition: transform 900ms var(--ease-silk);
-  }
-
-  .btn-pink:hover::after {
-    transform: translateX(-130%);
-  }
-
-  .glow-pink {
-    background: radial-gradient(closest-side, rgba(248, 196, 210, 0.55), rgba(237, 164, 182, 0.18) 55%, transparent);
-  }
-
-  .text-pink-grad {
-    background: linear-gradient(100deg, #ffe4ec 0%, #f4a9bd 40%, #e27c9a 70%, #ffd3df 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
   /* Hero box: static styles are the OPEN state, so reduced-motion visitors see the product. */
   .box-scene {
     perspective: 1400px;
@@ -811,4 +747,13 @@ details[open] .faq-icon {
     opacity: 0;
     transform: translateY(24px);
   }
+}
+
+/* ───────────────────────── Editorial: flat surfaces ───────────────────────── */
+/* The system carries depth with hairline borders, never shadows. */
+*,
+::before,
+::after {
+  --tw-shadow: 0 0 #0000 !important;
+  --tw-inset-shadow: 0 0 #0000 !important;
 }

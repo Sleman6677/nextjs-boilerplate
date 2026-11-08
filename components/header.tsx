@@ -16,7 +16,7 @@ function LanguageSwitcher({ className }: { className?: string }) {
   const { lang, dict } = useI18n();
   const pathname = usePathname();
   return (
-    <div role="group" aria-label={dict.nav.language} className={`flex items-center rounded-full border border-gold/25 p-0.5 ${className ?? ""}`}>
+    <div role="group" aria-label={dict.nav.language} className={`flex items-center rounded-full border border-graphite/15 p-0.5 ${className ?? ""}`}>
       {locales.map((l) => (
         <Link
           key={l}
@@ -26,7 +26,7 @@ function LanguageSwitcher({ className }: { className?: string }) {
           prefetch={false}
           aria-current={l === lang ? "true" : undefined}
           aria-label={localeNames[l]}
-          className="grid h-9 min-w-9 place-items-center rounded-full px-2 text-xs font-semibold text-ivory/75 transition-colors duration-200 hover:text-gold-soft aria-[current=true]:bg-gold aria-[current=true]:text-ink"
+          className="grid h-9 min-w-9 place-items-center rounded-full px-2 text-xs font-semibold text-taupe transition-colors duration-200 hover:text-ember aria-[current=true]:bg-graphite aria-[current=true]:text-white"
         >
           {localeShort[l]}
         </Link>
@@ -81,22 +81,22 @@ export function Header({ accounts = false, social }: { accounts?: boolean; socia
         <div
           className={`flex items-center justify-between gap-4 transition-all duration-500 ${
             scrolled
-              ? "rounded-full border border-gold/20 bg-ink/80 px-4 py-2.5 shadow-[0_20px_50px_-25px_rgba(0,0,0,0.6)] backdrop-blur-xl sm:px-6"
+              ? "rounded-full border border-mist-gray bg-white/90 px-4 py-2.5 backdrop-blur-xl sm:px-6"
               : "px-5 py-4 sm:px-8"
           }`}
         >
           <Link href={href(lang, "/")} aria-label={dict.nav.homeLabel} className="shrink-0">
-            <Wordmark />
+            <Wordmark tone="dark" />
           </Link>
 
           <nav aria-label={dict.nav.mainNav} className="hidden lg:block">
-            <ul className="flex items-center gap-5 text-[0.95rem] text-ivory/85 xl:gap-8">
+            <ul className="flex items-center gap-5 text-[0.95rem] text-inkwell xl:gap-8">
               {links.map((item) => (
                 <li key={item.path}>
                   <Link
                     href={href(lang, item.path)}
                     aria-current={isActive(item.path) ? "page" : undefined}
-                    className="link-line transition-colors duration-200 hover:text-gold-soft aria-[current=page]:text-gold-soft"
+                    className="link-line transition-colors duration-200 hover:text-ember aria-[current=page]:text-ember"
                   >
                     {item.label}
                   </Link>
@@ -107,18 +107,18 @@ export function Header({ accounts = false, social }: { accounts?: boolean; socia
 
           <div className="flex items-center gap-2">
             <LanguageSwitcher className="hidden md:flex" />
-            <Link href={href(lang, "/account/favorites")} aria-label={dict.store.nav.favorites} className="hidden h-11 w-11 place-items-center rounded-full border border-gold/30 text-ivory transition-colors duration-200 hover:border-gold sm:grid">
+            <Link href={href(lang, "/account/favorites")} aria-label={dict.store.nav.favorites} className="hidden h-11 w-11 place-items-center rounded-full border border-graphite/15 text-inkwell transition-colors duration-200 hover:border-graphite sm:grid">
               <Heart className="h-5 w-5" />
             </Link>
             {accounts ? (
-              <Link href={href(lang, "/account")} aria-label={dict.nav.account} className="hidden h-11 w-11 place-items-center rounded-full border border-gold/30 text-ivory transition-colors duration-200 hover:border-gold sm:grid">
+              <Link href={href(lang, "/account")} aria-label={dict.nav.account} className="hidden h-11 w-11 place-items-center rounded-full border border-graphite/15 text-inkwell transition-colors duration-200 hover:border-graphite sm:grid">
                 <User />
               </Link>
             ) : null}
-            <Link href={href(lang, "/cart")} aria-label={t(dict.cart.label, { count: num(count, lang) })} className="relative grid h-11 w-11 place-items-center rounded-full border border-gold/30 text-ivory transition-colors duration-200 hover:border-gold">
+            <Link href={href(lang, "/cart")} aria-label={t(dict.cart.label, { count: num(count, lang) })} className="relative grid h-11 w-11 place-items-center rounded-full border border-graphite/15 text-inkwell transition-colors duration-200 hover:border-graphite">
               <Bag className="h-5 w-5" />
               {count > 0 ? (
-                <span key={count} className="pop absolute -top-1 -end-1 grid h-5 min-w-5 place-items-center rounded-full bg-gold px-1 text-[0.7rem] font-bold text-ink">
+                <span key={count} className="pop absolute -top-1 -end-1 grid h-5 min-w-5 place-items-center rounded-full bg-tangerine px-1 text-[0.6rem] font-semibold text-white">
                   {num(count, lang)}
                 </span>
               ) : null}
@@ -129,7 +129,7 @@ export function Header({ accounts = false, social }: { accounts?: boolean; socia
             <button
               type="button"
               onClick={() => setOpen(true)}
-              className="grid h-11 w-11 place-items-center rounded-full border border-gold/30 text-ivory transition-colors duration-200 hover:border-gold lg:hidden"
+              className="grid h-11 w-11 place-items-center rounded-full border border-graphite/15 text-inkwell transition-colors duration-200 hover:border-graphite lg:hidden"
               aria-label={dict.nav.openMenu}
               aria-expanded={open}
               aria-controls="mobile-menu"

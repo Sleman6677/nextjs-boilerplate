@@ -23,20 +23,20 @@ export default async function LoginPage({ params, searchParams }: PageProps<"/[l
   if (await currentUser()) redirect(next);
 
   return (
-    <section className="relative overflow-clip bg-ink pt-36 pb-24 sm:pt-44">
+    <section className="relative overflow-clip bg-white pt-36 pb-24 sm:pt-44">
       <div className="glow pointer-events-none absolute -top-40 left-[-10%] h-[36rem] w-[36rem] opacity-60" aria-hidden="true" />
       <div className="relative mx-auto grid max-w-5xl items-center gap-12 px-5 sm:px-8 lg:grid-cols-[1fr_1.1fr]">
-        <div className="text-ivory">
-          <p className="eyebrow flex items-center gap-3 text-gold">
+        <div className="text-inkwell">
+          <p className="eyebrow flex items-center gap-3 text-smoke">
             <span className="h-px w-10 bg-current opacity-60" aria-hidden="true" />
             <span dir="ltr">My Account</span>
           </p>
           <SplitTitle as="h1" className="font-display mt-6 text-5xl leading-tight" text={a.title} />
-          <p className="mt-5 text-lg leading-8 text-ivory/75">{getDictionary(lang).store.login.text}</p>
-          <ul className="mt-8 space-y-3 text-ivory/80">
+          <p className="mt-5 text-lg leading-8 text-taupe">{getDictionary(lang).store.login.text}</p>
+          <ul className="mt-8 space-y-3 text-taupe">
             {a.perks.map((p) => (
               <li key={p} className="flex items-center gap-3">
-                <span className="grid h-6 w-6 place-items-center rounded-full bg-gold text-ink">
+                <span className="grid h-6 w-6 place-items-center rounded-full bg-ember text-white">
                   <Check className="h-3.5 w-3.5" />
                 </span>
                 {p}
@@ -44,7 +44,7 @@ export default async function LoginPage({ params, searchParams }: PageProps<"/[l
             ))}
           </ul>
         </div>
-        {accountsEnabled() ? <LoginForm next={next} /> : <p className="rounded-[2rem] bg-ivory p-8 text-cocoa">{a.unavailable}</p>}
+        {accountsEnabled() ? <LoginForm next={next} /> : <p className="rounded-[10px] border border-mist-gray bg-white p-8 text-graphite">{a.unavailable}</p>}
       </div>
     </section>
   );
