@@ -13,6 +13,7 @@ import { MagnetLink, Shiny, Statement } from "@/components/fx";
 import { VelocityMarquee } from "@/components/velocity-marquee";
 import { HeroBoxPlayer } from "@/components/shop/hero-box";
 import { ProductCard } from "@/components/shop/product-card";
+import { SignatureShowcase } from "@/components/shop/signature-showcase";
 import { getHome, isNewProduct, type Category, type OfferInfo, type Product } from "@/lib/catalog";
 import { href, isLocale, type Locale } from "@/lib/i18n/config";
 import { localized, money, t } from "@/lib/i18n/format";
@@ -89,6 +90,11 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
   const all = home.categories.flatMap((c) => c.products);
   const from = all.length ? Math.min(...all.map((p) => p.displayPrice)) : shop.boxPrice;
   const gift = home.giftCards[0];
+  // Signature stage: best sellers once there are sales, otherwise featured, otherwise everything.
+  const standard = all.filter((p) => p.kind === "standard");
+  const hasBest = home.bestSellers.length >= 3;
+  const featured = standard.filter((p) => p.featured);
+  const signature = hasBest ? home.bestSellers : featured.length >= 3 ? featured : standard;
   const giftPaid = gift ? gift.price : 0;
   const perkIcons = [<Truck key="t" className="h-6 w-6" />, <Coin key="c" className="h-6 w-6" />, <Shield key="s" className="h-6 w-6" />];
 
@@ -193,7 +199,11 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
           <Row title={h.onSale} products={home.onSale} offers={home.offers} lang={lang} seeAll={h.seeAll} />
         </div>
       ) : null}
-      <Row title={h.bestSellers} products={home.bestSellers} offers={home.offers} lang={lang} seeAll={h.seeAll} bestIds={home.bestSellers.map((p) => p.id)} />
+      {signature.length >= 3 ? (
+        <SignatureShowcase products={signature.slice(0, 7)} title={hasBest ? h.bestSellers : h.showcase.label} eyebrow={hasBest ? h.showcase.label : "Serag · Daily Lashes"} />
+      ) : (
+        <Row title={h.bestSellers} products={home.bestSellers} offers={home.offers} lang={lang} seeAll={h.seeAll} bestIds={home.bestSellers.map((p) => p.id)} />
+      )}
 
       {/* ───────────── Gift card ───────────── */}
       {gift ? (

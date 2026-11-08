@@ -15,6 +15,7 @@ const store = {
     bestSellers: "الأكثر مبيعًا",
     onSale: "تخفيضات وعروض",
     seeAll: "عرض الكل",
+    showcase: { label: "مجموعة سراج المميزة", prev: "السابق", next: "التالي", go: "اعرضي {name}", cta: "اكتشفيها" },
     perks: [
       { title: "توصيل مجاني", text: "للطلبات فوق {amount}" },
       { title: "نقاط مع كل طلب", text: "تُستعمل كخصم في طلبكِ القادم" },
