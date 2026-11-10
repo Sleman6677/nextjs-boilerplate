@@ -16,7 +16,7 @@ const store: StoreDictionary = {
     bestSellers: "הנמכרים ביותר",
     onSale: "מבצעים והנחות",
     seeAll: "לכל המוצרים",
-    kohl: { mapsTitle: "בחרי לפי מפת הריסים", heroLabel: "הריס של היום", style: "סגנון", map: "מפה", price: "מחיר" },
+    kohl: { facts: ["120 ריסים בקופסה", "עמיד במים", "קל על העיניים", "מחזיק 7–14 ימים"], boxAlt: "קופסת Serag Lashes הוורודה עם איור של בחורה קורצת שמחזיקה פינצטה", mapsTitle: "בחרי לפי מפת הריסים", heroLabel: "הריס של היום", style: "סגנון", map: "מפה", price: "מחיר" },
     perks: [
       { title: "משלוח חינם", text: "בהזמנה מעל {amount}" },
       { title: "נקודות על כל הזמנה", text: "מנוצלות כהנחה בהזמנה הבאה" },

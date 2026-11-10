@@ -16,7 +16,7 @@ const store: StoreDictionary = {
     bestSellers: "Best sellers",
     onSale: "Sale & offers",
     seeAll: "See all",
-    kohl: { mapsTitle: "Choose by lash map", heroLabel: "Today’s lash", style: "Style", map: "Map", price: "Price" },
+    kohl: { facts: ["120 lashes in the box", "Waterproof", "Lightweight on the eyes", "Lasts 7–14 days"], boxAlt: "The pink Serag Lashes box, illustrated with a winking girl holding tweezers", mapsTitle: "Choose by lash map", heroLabel: "Today’s lash", style: "Style", map: "Map", price: "Price" },
     perks: [
       { title: "Free delivery", text: "On orders over {amount}" },
       { title: "Points on every order", text: "Use them as a discount next time" },

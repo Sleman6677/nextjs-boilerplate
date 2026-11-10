@@ -31,9 +31,9 @@ export function LashPair({
 
 const tones: Record<LashBox["tone"], { box: string; tray: string; lashes: string; lid: string; label: string }> = {
   petal: { box: "bg-stone-2", tray: "bg-stone", lashes: "text-kohl", lid: "bg-kohl text-stone", label: "text-kohl" },
-  rose: { box: "bg-[#e7e7e3]", tray: "bg-stone", lashes: "text-kohl", lid: "bg-copper text-white", label: "text-kohl" },
-  blush: { box: "bg-[#d9d9d4]", tray: "bg-stone", lashes: "text-kohl", lid: "bg-stone text-kohl ring-1 ring-inset ring-kohl", label: "text-kohl" },
-  berry: { box: "bg-kohl", tray: "bg-kohl-2", lashes: "text-stone", lid: "bg-copper text-white", label: "text-stone/80" },
+  rose: { box: "bg-[#f3f3f3]", tray: "bg-stone", lashes: "text-kohl", lid: "bg-copper text-kohl", label: "text-kohl" },
+  blush: { box: "bg-[#f3f3f3]", tray: "bg-stone", lashes: "text-kohl", lid: "bg-stone text-kohl ring-1 ring-inset ring-kohl", label: "text-kohl" },
+  berry: { box: "bg-kohl", tray: "bg-kohl-2", lashes: "text-stone", lid: "bg-copper text-kohl", label: "text-stone/80" },
 };
 
 /** Product visual: a lash box whose lid lifts on hover/focus. */
@@ -74,11 +74,8 @@ export function BoxVisual({
       </div>
 
       <div className={`card-lid absolute inset-x-4 top-4 flex h-[23%] flex-col items-center justify-center rounded-[8px] ${t.lid}`}>
-        <span className="font-display text-2xl leading-none font-light" dir="ltr">
-          Serag
-        </span>
-        <span className="font-display mt-1 text-[0.6rem] tracking-[0.45em]" dir="ltr">
-          DAILY LASHES
+        <span className="text-[clamp(1rem,2.4vw,1.6rem)] leading-none font-semibold [font-family:var(--font-wordmark),serif]" dir="ltr" aria-hidden="true">
+          serag lashes
         </span>
       </div>
 

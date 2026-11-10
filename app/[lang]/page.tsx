@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { connection } from "next/server";
+import Image from "next/image";
 import { LashEye } from "@/components/art";
 import { socialLinks } from "@/components/chrome";
 import { ArrowForward, Coin, Gift, Shield, Truck } from "@/components/icons";
-import { KohlStroke, LashCallouts } from "@/components/kohl";
+import { KohlStroke } from "@/components/kohl";
 import { HeroAdd } from "@/components/shop/hero-add";
 import { ProductCard, PriceTag } from "@/components/shop/product-card";
 import { getHome, isNewProduct, type OfferInfo, type Product } from "@/lib/catalog";
@@ -65,9 +66,9 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
 
   return (
     <>
-      {/* ───────────── First screen: the lash on the eye, and the way to buy it ───────────── */}
+      {/* ───────────── First screen: the real box, its facts, and the way to buy it ───────────── */}
       <section className="relative overflow-clip">
-        <div className="mx-auto grid max-w-7xl items-start gap-12 px-5 pt-36 pb-16 sm:px-8 lg:min-h-svh lg:grid-cols-12 lg:gap-x-6 lg:pb-10">
+        <div className="mx-auto grid max-w-7xl items-start gap-8 px-5 pt-32 pb-16 lg:gap-12 lg:pt-36 sm:px-8 lg:min-h-svh lg:grid-cols-12 lg:gap-x-6 lg:pb-10">
           <div className="lg:col-span-6">
             <h1 className="font-display text-[3.25rem] leading-[1.02] sm:text-7xl lg:text-[5.5rem]">{h.title}</h1>
             <KohlStroke on="load" delay={500} className="mt-4 h-4 w-48 sm:w-64" />
@@ -92,34 +93,44 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
               </div>
             ) : null}
 
-            <ul className="mt-12 grid gap-4 border-t border-line pt-6 sm:grid-cols-3">
-              {h.perks.map((perk, i) => (
-                <li key={perk.title} className="flex items-start gap-3">
-                  <span className="mt-0.5 text-copper">{perkIcons[i]}</span>
-                  <span className="text-sm leading-6">
-                    <span className="block font-medium">{perk.title}</span>
-                    <span className="block text-taupe">{i === 0 ? (info.freeShippingThreshold !== null ? t(perk.text, { amount: money(info.freeShippingThreshold, lang) }) : h.perkFreeAlways) : perk.text}</span>
-                  </span>
+            <ul className="mt-12 grid grid-cols-2 gap-x-6 gap-y-4 border-t border-line pt-6">
+              {k.facts.map((f) => (
+                <li key={f} className="flex items-center gap-3 text-[0.9375rem] font-medium">
+                  <span className="h-2 w-2 shrink-0 rounded-full bg-copper ring-1 ring-kohl" aria-hidden="true" />
+                  {f}
                 </li>
               ))}
             </ul>
           </div>
 
-          {hero ? (
-            <div className="relative lg:col-span-6">
-              <div className="relative rounded-[20px] bg-stone-2 px-[8%] pt-[10%] pb-[14%]">
-                <Link href={href(lang, `/p/${hero.slug}`)} aria-label={localized(hero.name, lang)} className="block text-kohl">
-                  <LashEye style={hero.art.style} map={hero.art.map} seed={11} draw baseDelay={200} lidWidth={3} className="w-full" />
-                </Link>
-                <LashCallouts
-                  items={[
-                    { label: k.style, value: dict.styles[hero.art.style], x: 34, y: 80, side: "start" },
-                    { label: k.map, value: dict.maps[hero.art.map].name, x: 72, y: 24, side: "end" },
-                  ]}
-                />
-              </div>
-            </div>
-          ) : null}
+          <div className="relative order-first -mx-2 lg:order-none lg:col-span-6 lg:mx-0">
+            <Image
+              src="/images/serag-lashes-box.jpg"
+              alt={k.boxAlt}
+              width={1344}
+              height={960}
+              priority
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="h-auto w-full"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* ───────────── Store promises ───────────── */}
+      <section aria-label={h.perks.map((p) => p.title).join(" · ")} className="border-y border-line">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <ul className="grid gap-4 py-6 sm:grid-cols-3">
+            {h.perks.map((perk, i) => (
+              <li key={perk.title} className="flex items-start gap-3">
+                <span className="mt-0.5 text-pink-deep">{perkIcons[i]}</span>
+                <span className="text-sm leading-6">
+                  <span className="block font-medium">{perk.title}</span>
+                  <span className="block text-taupe">{i === 0 ? (info.freeShippingThreshold !== null ? t(perk.text, { amount: money(info.freeShippingThreshold, lang) }) : h.perkFreeAlways) : perk.text}</span>
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
@@ -133,15 +144,15 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
             <h2 id="maps-title" className="font-display text-4xl sm:text-6xl lg:col-span-6">
               {k.mapsTitle}
             </h2>
-            <p className="max-w-xl text-lg leading-8 text-[#c4c4bf] lg:col-span-6">{dict.shop.lead}</p>
+            <p className="max-w-xl text-lg leading-8 text-[#bdbdbd] lg:col-span-6">{dict.shop.lead}</p>
           </div>
-          <ul className="mt-14 grid gap-px overflow-hidden rounded-[20px] bg-[#3a3b3d] sm:grid-cols-2 lg:grid-cols-4">
+          <ul className="mt-14 grid gap-px overflow-hidden rounded-[20px] bg-[#262626] sm:grid-cols-2 lg:grid-cols-4">
             {MAPS.map((m, i) => (
               <li key={m} className="kohl-trigger bg-kohl p-6 sm:p-8">
                 <LashEye style="classic" map={m} seed={20 + i} showCrease={false} lidWidth={2.6} className="w-full text-stone" />
                 <h3 className="mt-6 text-xl font-medium">{dict.maps[m].name}</h3>
                 <KohlStroke className="mt-1 w-20 !text-copper" />
-                <p className="mt-3 text-[0.9375rem] leading-7 text-[#c4c4bf]">{dict.maps[m].text}</p>
+                <p className="mt-3 text-[0.9375rem] leading-7 text-[#bdbdbd]">{dict.maps[m].text}</p>
               </li>
             ))}
           </ul>
@@ -161,11 +172,11 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
                 <Gift className="h-5 w-5" /> {h.giftCta}
               </Link>
             </div>
-            <div className="mx-auto w-full max-w-sm rounded-[20px] bg-copper p-8 text-white">
+            <div className="mx-auto w-full max-w-sm rounded-[20px] bg-copper p-8 text-kohl">
               <p className="text-lg font-medium" dir="ltr">
                 Serag Lashes
               </p>
-              <KohlStroke className="mt-2 w-24 !text-white" on="load" delay={300} />
+              <KohlStroke className="mt-2 w-24" on="load" delay={300} />
               <p className="font-display mt-16 text-5xl">{money(round2(giftPaid * (1 + info.giftCardBonusPct / 100)), lang)}</p>
             </div>
           </div>

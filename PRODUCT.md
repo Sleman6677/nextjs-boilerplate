@@ -43,13 +43,18 @@ lamp: a quiet light that reveals beauty without overpowering it.
 ## Brand Commitments
 
 - Name: Serag Lashes (سراج لاشز). The lamp/light meaning is the brand's story.
-- The owner has a finished logo (not yet in the repository; the current monogram is a stand-in).
+- Packaging (binding): the pink Serag Lashes box (`#f8a5b7`) with black lettering, a lowercase
+  serif wordmark "serag lashes" and an illustrated winking girl holding tweezers.
+- The owner has a finished logo file (not yet in the repository); the header uses the box's
+  lowercase serif lettering until it arrives.
 
 ## Evidence on Hand
 
-- The owner has real product photographs, photographs of models/clients wearing the lashes (with
-  permission to use) and the logo file. None are in the repository yet: until they are uploaded,
-  pages use the drawn lash boxes and clearly listed stand-ins, never presented as Serag's own work.
+- Product photograph: `public/images/serag-lashes-box.jpg` (the box, on white).
+- Box facts printed on the packaging: contains 120 lashes; waterproof; lightweight on the eyes;
+  lasts 7–14 days.
+- The owner also has model/client photographs and the logo file, not yet uploaded; until then the
+  per-design cards use the drawn lash boxes.
 - No reviews, press or sales figures are on hand; none may be invented.
 
 ## Product Principles

@@ -2,51 +2,51 @@
 
 /* ───────────────────────── Brand tokens ───────────────────────── */
 @theme {
-  /* Kohl world (taste-skill deal "steel-orange"): stone ground, kohl ink,
-     one copper accent from the kohl jar. Legacy names remapped so every page
+  /* Kohl world in the brand's own colours (taste-skill brand, from the box):
+     white ground, kohl-black ink, the box's pink as the field colour. Legacy names remapped so every page
      follows. */
-  --color-stone: #eeeeeb;
-  --color-stone-2: #e1e1dd;
-  --color-kohl: #1c1d1f;
-  --color-kohl-2: #28292b;
-  --color-copper: #c2501b;
-  --color-copper-deep: #a8441a;
-  --color-muted: #46474b;
-  --color-line: #1c1d1f2e;
+  --color-stone: #fcfcfc;
+  --color-stone-2: #fde8ee;
+  --color-kohl: #0a0a0a;
+  --color-kohl-2: #171717;
+  --color-copper: #f8a5b7;
+  --color-copper-deep: #d9607d;
+  --color-muted: #4d4d4d;
+  --color-line: #0a0a0a1f;
 
-  --color-surface: #e1e1dd;
-  --color-ember: #c2501b;
-  --color-tangerine: #a8441a;
-  --color-apricot: #1c1d1f2e;
-  --color-graphite: #1c1d1f;
-  --color-inkwell: #1c1d1f;
-  --color-smoke: #46474b;
-  --color-mist-gray: #1c1d1f2e;
+  --color-surface: #fde8ee;
+  --color-ember: #0a0a0a;
+  --color-tangerine: #2a2a2a;
+  --color-apricot: #0a0a0a1f;
+  --color-graphite: #0a0a0a;
+  --color-inkwell: #0a0a0a;
+  --color-smoke: #4d4d4d;
+  --color-mist-gray: #0a0a0a1f;
 
-  --color-ink: #1c1d1f;
-  --color-ink-2: #1c1d1f;
-  --color-ink-3: #28292b;
-  --color-ivory: #eeeeeb;
-  --color-cream: #eeeeeb;
-  --color-sand: #e1e1dd;
-  --color-blush: #e7e7e3;
-  --color-rose: #46474b;
-  --color-rosewood: #1c1d1f;
-  --color-gold: #c2501b;
-  --color-gold-soft: #d9d9d4;
-  --color-gold-deep: #a8441a;
-  --color-cocoa: #1c1d1f;
-  --color-taupe: #46474b;
-  --color-mist: #969796;
+  --color-ink: #0a0a0a;
+  --color-ink-2: #0a0a0a;
+  --color-ink-3: #171717;
+  --color-ivory: #fcfcfc;
+  --color-cream: #fcfcfc;
+  --color-sand: #fde8ee;
+  --color-blush: #fde8ee;
+  --color-rose: #4d4d4d;
+  --color-rosewood: #0a0a0a;
+  --color-gold: #0a0a0a;
+  --color-gold-soft: #f8a5b7;
+  --color-gold-deep: #d9607d;
+  --color-cocoa: #0a0a0a;
+  --color-taupe: #4d4d4d;
+  --color-mist: #959595;
 
-  --color-petal: #eeeeeb;
-  --color-pink-soft: #e1e1dd;
-  --color-pink: #c2501b;
-  --color-pink-deep: #a8441a;
-  --color-rose-ink: #a8441a;
-  --color-berry: #1c1d1f;
-  --color-berry-deep: #1c1d1f;
-  --color-plum: #1c1d1f;
+  --color-petal: #fcfcfc;
+  --color-pink-soft: #fde8ee;
+  --color-pink: #f8a5b7;
+  --color-pink-deep: #d9607d;
+  --color-rose-ink: #b8325a;
+  --color-berry: #0a0a0a;
+  --color-berry-deep: #0a0a0a;
+  --color-plum: #0a0a0a;
 
   --radius-sm: 8px;
   --radius-md: 12px;
@@ -68,15 +68,15 @@
 @layer base {
   /* ───────────────────────── Base ───────────────────────── */
   html {
-    background: #eeeeeb;
+    background: #fcfcfc;
     font-variant-numeric: lining-nums;
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
   }
 
   body {
-    background: #eeeeeb;
-    color: #1c1d1f;
+    background: #fcfcfc;
+    color: #0a0a0a;
     font-family: var(--font-sans);
     font-size: 1rem;
     font-weight: 400;
@@ -88,14 +88,14 @@
   }
 
   ::selection {
-    background: #c2501b;
+    background: #d9607d;
     color: #ffffff;
   }
 
   /* A dark ring with a white gap: visible on white pages and dark bars alike */
   :focus-visible {
-    outline: 2px solid #1c1d1f;
-    box-shadow: 0 0 0 2px #eeeeeb;
+    outline: 2px solid #0a0a0a;
+    box-shadow: 0 0 0 2px #fcfcfc;
     outline-offset: 3px;
     border-radius: 6px;
   }
@@ -176,35 +176,35 @@
   .btn-gold,
   .btn-pink,
   .btn-berry {
-    color: #ffffff;
-    background: #c2501b;
+    color: #fcfcfc;
+    background: #0a0a0a;
   }
 
   .btn-ink {
-    color: #eeeeeb;
-    background: #1c1d1f;
+    color: #0a0a0a;
+    background: #f8a5b7;
   }
 
   @media (hover: hover) and (pointer: fine) {
     .btn-gold:hover,
     .btn-pink:hover,
     .btn-berry:hover {
-      background: #a8441a;
+      background: #2a2a2a;
     }
   }
 
   .btn-ghost-light,
   .btn-ghost-dark {
-    color: #1c1d1f;
+    color: #0a0a0a;
     background: transparent;
-    outline: 1px solid #1c1d1f;
+    outline: 1px solid #0a0a0a;
     outline-offset: -1px;
   }
 
   .btn-ghost-light:is(:hover, :focus-visible),
   .btn-ghost-dark:is(:hover, :focus-visible) {
-    color: #eeeeeb;
-    background: #1c1d1f;
+    color: #fcfcfc;
+    background: #0a0a0a;
   }
 
   /* Link with an animated underline that grows from the reading-start side */
@@ -738,7 +738,7 @@ details[open] .faq-icon {
   display: block;
   width: 100%;
   height: 0.6em;
-  color: #1c1d1f;
+  color: #0a0a0a;
   clip-path: inset(0 100% 0 0);
 }
 
@@ -825,14 +825,14 @@ details[open] .faq-icon {
     height: 7px;
     margin: -3.5px;
     border-radius: 50%;
-    background: #c2501b;
+    background: #d9607d;
     flex: none;
   }
 
   .kohl-callout-line {
     width: clamp(36px, 6vw, 88px);
     height: 1px;
-    background: #1c1d1f;
+    background: #0a0a0a;
     flex: none;
   }
 
@@ -849,13 +849,13 @@ details[open] .faq-icon {
 
 .kohl-callout-label {
   font-size: 0.75rem;
-  color: #46474b;
+  color: #4d4d4d;
 }
 
 .kohl-callout-value {
   font-size: 1rem;
   font-weight: 500;
-  color: #1c1d1f;
+  color: #0a0a0a;
 }
 
 @keyframes kohl-callout-in {

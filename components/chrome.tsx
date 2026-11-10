@@ -130,11 +130,11 @@ export function Footer({ lang, info }: { lang: Locale; info: StoreInfo }) {
 
         <div className="relative py-10">
           <p
-            className="font-display pointer-events-none text-start text-[19vw] leading-[0.8] text-transparent select-none [-webkit-text-stroke:1px_rgba(238,238,235,0.35)] lg:text-[15rem]"
+            className="pointer-events-none text-start text-[17vw] leading-[0.9] font-semibold text-transparent select-none [font-family:var(--font-wordmark),serif] [-webkit-text-stroke:1px_rgba(252,252,252,0.35)] lg:text-[12rem]"
             dir="ltr"
             aria-hidden="true"
           >
-            Serag
+            serag lashes
           </p>
           <LashDivider className="-mt-2 w-56 text-white/50" />
         </div>

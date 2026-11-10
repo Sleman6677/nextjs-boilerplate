@@ -70,13 +70,10 @@ export function Monogram({ className }: { className?: string }) {
 
 export function Wordmark({ className, tone = "light" }: { className?: string; tone?: "light" | "dark" }) {
   const color = tone === "light" ? "text-white" : "text-inkwell";
+  // The box's lettering: lowercase serif, as printed on the packaging.
   return (
-    <span className={`inline-flex items-center gap-3 ${color} ${className ?? ""}`} dir="ltr">
-      <Monogram className="h-8 w-8 text-gold" />
-      <span className="flex flex-col leading-none">
-        <span className="text-sm font-semibold tracking-[0.35em] uppercase">Serag</span>
-        <span className="mt-1.5 text-[0.6875rem] tracking-[0.38em] text-taupe uppercase">Lashes</span>
-      </span>
+    <span className={`inline-flex items-baseline ${color} ${className ?? ""}`} dir="ltr">
+      <span className="text-[1.75rem] leading-none font-semibold tracking-[0.01em] [font-family:var(--font-wordmark),serif]">serag lashes</span>
     </span>
   );
 }
