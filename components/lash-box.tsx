@@ -2,7 +2,7 @@ import Image from "next/image";
 import type { CSSProperties } from "react";
 import type { LashMap, LashStyle } from "@/lib/lash";
 import type { LashBox } from "@/lib/site";
-import { LashEye, Monogram } from "./art";
+import { LashEye } from "./art";
 import { Sparkle } from "./icons";
 
 /** A pair of strip lashes lying in a tray (outer corners pointing outward). */
@@ -30,34 +30,10 @@ export function LashPair({
 }
 
 const tones: Record<LashBox["tone"], { box: string; tray: string; lashes: string; lid: string; label: string }> = {
-  petal: {
-    box: "bg-[#f5f5f5]",
-    tray: "bg-white",
-    lashes: "text-ink",
-    lid: "bg-ink text-white",
-    label: "text-ink",
-  },
-  rose: {
-    box: "bg-white border border-[#e4e4e4]",
-    tray: "bg-[#f5f5f5]",
-    lashes: "text-ink",
-    lid: "bg-white text-ink border border-ink",
-    label: "text-ink",
-  },
-  blush: {
-    box: "bg-[#ececec]",
-    tray: "bg-white",
-    lashes: "text-ink",
-    lid: "bg-ink text-white",
-    label: "text-ink",
-  },
-  berry: {
-    box: "bg-ink",
-    tray: "bg-ink-3",
-    lashes: "text-white",
-    lid: "bg-white text-ink",
-    label: "text-white/80",
-  },
+  petal: { box: "bg-stone-2", tray: "bg-stone", lashes: "text-kohl", lid: "bg-kohl text-stone", label: "text-kohl" },
+  rose: { box: "bg-[#e7e7e3]", tray: "bg-stone", lashes: "text-kohl", lid: "bg-copper text-white", label: "text-kohl" },
+  blush: { box: "bg-[#d9d9d4]", tray: "bg-stone", lashes: "text-kohl", lid: "bg-stone text-kohl ring-1 ring-inset ring-kohl", label: "text-kohl" },
+  berry: { box: "bg-kohl", tray: "bg-kohl-2", lashes: "text-stone", lid: "bg-copper text-white", label: "text-stone/80" },
 };
 
 /** Product visual: a lash box whose lid lifts on hover/focus. */
@@ -74,7 +50,7 @@ export function BoxVisual({
 }) {
   const t = tones[art.tone];
   return (
-    <div className={`relative aspect-[4/5] overflow-hidden rounded-none ${t.box}`}>
+    <div className={`relative aspect-[4/5] overflow-hidden rounded-[12px] ${t.box}`}>
       {[
         { top: "38%", left: "8%", d: 0 },
         { top: "70%", left: "88%", d: 900 },
@@ -87,9 +63,9 @@ export function BoxVisual({
         />
       ))}
 
-      <div className={`absolute inset-x-6 top-[32%] bottom-[17%] grid place-items-center rounded-none ${t.tray}`}>
+      <div className={`absolute inset-x-6 top-[32%] bottom-[17%] grid place-items-center rounded-[8px] ${t.tray}`}>
         {imageUrl ? (
-          <span className="card-lashes absolute inset-2 overflow-hidden rounded-none">
+          <span className="card-lashes absolute inset-2 overflow-hidden rounded-[6px]">
             <Image src={imageUrl} alt="" fill unoptimized sizes="(min-width:1024px) 30vw, 90vw" className="object-cover" />
           </span>
         ) : (
@@ -97,7 +73,7 @@ export function BoxVisual({
         )}
       </div>
 
-      <div className={`card-lid absolute inset-x-4 top-4 flex h-[23%] flex-col items-center justify-center rounded-none ${t.lid}`}>
+      <div className={`card-lid absolute inset-x-4 top-4 flex h-[23%] flex-col items-center justify-center rounded-[8px] ${t.lid}`}>
         <span className="font-display text-2xl leading-none font-light" dir="ltr">
           Serag
         </span>
@@ -109,66 +85,6 @@ export function BoxVisual({
       <span className={`font-display absolute inset-x-0 bottom-5 text-center text-sm tracking-[0.3em] ${t.label}`} dir="ltr">
         {label.toUpperCase()}
       </span>
-    </div>
-  );
-}
-
-const heroSparkles = [
-  { top: "6%", left: "70%", size: "h-5 w-5", d: 0 },
-  { top: "30%", left: "92%", size: "h-3 w-3", d: 700 },
-  { top: "62%", left: "-2%", size: "h-4 w-4", d: 1300 },
-  { top: "90%", left: "80%", size: "h-3 w-3", d: 400 },
-  { top: "18%", left: "14%", size: "h-3 w-3", d: 1900 },
-];
-
-/** Signature hero animation: the box lid opens, lashes rise, the price tag swings in. */
-export function HeroBox({ label, tag, price }: { label: string; tag: string; price: string }) {
-  return (
-    <div className="relative mx-auto w-full max-w-[26rem]">
-      <div className="glow-pink box-glow absolute inset-[-18%] opacity-90" aria-hidden="true" />
-
-      {heroSparkles.map((s, i) => (
-        <Sparkle
-          key={i}
-          className={`twinkle absolute ${s.size} text-apricot`}
-          style={{ top: s.top, left: s.left, "--d": `${s.d}ms` } as CSSProperties}
-        />
-      ))}
-
-      <div className="box-scene relative aspect-[5/4.4]" role="img" aria-label={label}>
-        {/* Base */}
-        <div className="absolute inset-x-0 bottom-0 h-[62%] rounded-none bg-ember p-[5%]">
-          <div className="grid h-full place-items-center rounded-none bg-white">
-            <LashPair style="hybrid" map="doll" seed={8} className="box-lashes w-[88%] text-graphite" />
-          </div>
-          <span className="font-display absolute inset-x-0 -bottom-8 text-center text-xs tracking-[0.45em] text-smoke" dir="ltr">
-            SERAG · DAILY
-          </span>
-        </div>
-
-        {/* Lid (on top so the box starts closed) */}
-        <div className="box-lid absolute inset-x-0 bottom-0 flex h-[62%] flex-col items-center justify-center rounded-none border border-apricot bg-ink-2 text-ivory">
-          <Monogram className="h-12 w-12 text-ember" />
-          <span className="font-display mt-2 text-4xl font-light" dir="ltr">
-            Serag
-          </span>
-          <span className="font-display mt-1 text-[0.7rem] tracking-[0.5em] text-smoke" dir="ltr">
-            DAILY LASHES
-          </span>
-        </div>
-      </div>
-
-      {/* Price tag */}
-      <div className="price-tag absolute -end-4 -bottom-[14%] flex flex-col items-center sm:-end-10" aria-hidden="true">
-        <span className="h-12 w-px bg-graphite/30" />
-        <span className="relative rounded-none border border-graphite bg-surface px-5 pt-5 pb-3 text-center">
-          <span className="absolute top-2 left-1/2 h-2 w-2 -translate-x-1/2 rounded-full bg-ember" />
-          <span className="block text-xs text-smoke">{tag}</span>
-          <span className="font-display block text-3xl leading-tight text-inkwell">
-            {price}
-          </span>
-        </span>
-      </div>
     </div>
   );
 }

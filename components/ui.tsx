@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { MagnetLink } from "./fx";
 import type { CSSProperties, ReactNode } from "react";
 import { ArrowForward, Sparkle } from "./icons";
 import { Reveal } from "./reveal";
@@ -94,19 +93,15 @@ export function ButtonLink({
   );
   if (external) {
     return (
-      <MagnetLink>
-        <a href={href} className={cls} target="_blank" rel="noopener noreferrer">
+      <a href={href} className={cls} target="_blank" rel="noopener noreferrer">
           {content}
         </a>
-      </MagnetLink>
     );
   }
   return (
-    <MagnetLink>
-      <Link href={href} className={cls}>
+    <Link href={href} className={cls}>
         {content}
       </Link>
-    </MagnetLink>
   );
 }
 

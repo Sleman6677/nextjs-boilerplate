@@ -1,9 +1,11 @@
-import { Heebo, IBM_Plex_Sans_Arabic } from "next/font/google";
+import { Albert_Sans, Heebo, Readex_Pro } from "next/font/google";
 
-// Runway system: Helvetica/Arial from the device for Latin; neutral sans
-// faces for Arabic (IBM Plex Sans Arabic) and Hebrew (Heebo, also the ₪ glyph).
-const plexArabic = IBM_Plex_Sans_Arabic({ variable: "--font-plex-arabic", subsets: ["arabic"], weight: ["400", "500", "600"], display: "swap" });
-const heebo = Heebo({ variable: "--font-heebo", subsets: ["hebrew"], weight: ["400", "500", "600"], display: "swap", preload: false });
+// Kohl world: one quiet sans in two weights per script. Albert Sans (Latin, dealt
+// by taste-skill for a consumer product), Readex Pro (Arabic, same calm geometry),
+// Heebo (Hebrew; also the ₪ glyph).
+const albert = Albert_Sans({ variable: "--font-albert", subsets: ["latin"], weight: ["400", "500"], display: "swap" });
+const readex = Readex_Pro({ variable: "--font-readex", subsets: ["arabic", "latin"], weight: ["400", "500"], display: "swap" });
+const heebo = Heebo({ variable: "--font-heebo", subsets: ["hebrew"], weight: ["400", "500"], display: "swap", preload: false });
 
 /** CSS variables for every brand font; put on <html>. */
-export const fontVariables = [plexArabic, heebo].map((f) => f.variable).join(" ");
+export const fontVariables = [albert, readex, heebo].map((f) => f.variable).join(" ");

@@ -14,14 +14,14 @@ import { useI18n } from "../i18n-provider";
 import { Heart, Plus, Star } from "../icons";
 import { BoxVisual, LashPair } from "../lash-box";
 import { useStore } from "./store-provider";
-import { Glare } from "../fx";
+import { KohlStroke } from "../kohl";
 import { toast } from "./toast";
 
 /** Product photo, or the drawn lash box when there is no photo yet. */
 export function ProductImage({ p, index = 0, sizes = "(min-width:1024px) 25vw, 50vw", priority = false }: { p: Product; index?: number; sizes?: string; priority?: boolean }) {
   if (p.imageUrl) {
     return (
-      <span className="relative block aspect-[4/5] overflow-hidden rounded-none bg-pink-soft">
+      <span className="relative block aspect-[4/5] overflow-hidden rounded-[12px] bg-pink-soft">
         <Image src={p.imageUrl} alt="" fill sizes={sizes} quality={85} priority={priority} unoptimized={!optimizable(p.imageUrl)} className="object-cover transition-transform duration-700 ease-[var(--ease-silk)] group-hover:scale-[1.03]" />
       </span>
     );
@@ -106,17 +106,15 @@ export function ProductCard({ p, offers, isNew = false, best = false, index = 0 
   ].filter((b): b is { text: string; tone: string } => b !== null);
 
   return (
-    <article className="box-card group relative flex h-full flex-col rounded-none border-[1.5px] border-apricot bg-surface p-4 sm:p-5">
+    <article className="box-card kohl-trigger group relative flex h-full flex-col">
       <div className="relative">
-        <Link href={link} aria-label={name} className="block rounded-none focus-visible:outline-offset-4">
-          <Glare>
-            <ProductImage p={p} index={index} />
-          </Glare>
+        <Link href={link} aria-label={name} className="block overflow-hidden rounded-[12px] focus-visible:outline-offset-4">
+          <ProductImage p={p} index={index} />
         </Link>
         {badges.length ? (
           <ul className="pointer-events-none absolute top-3 start-3 flex flex-col items-start gap-1.5">
             {badges.slice(0, 2).map((b) => (
-              <li key={b.text} className={`rounded-full px-2.5 py-1 text-[0.72rem] font-medium ${b.tone}`}>
+              <li key={b.text} className={`rounded-[8px] px-2.5 py-1 text-xs font-medium ${b.tone}`}>
                 {b.text}
               </li>
             ))}
@@ -127,10 +125,12 @@ export function ProductCard({ p, offers, isNew = false, best = false, index = 0 
 
       <div className="mt-4 flex flex-1 flex-col">
         <h3 className="text-base font-medium text-inkwell">
-          <Link href={link} className="hover:text-ember">
-            {name}
-          </Link>
+          <Link href={link}>{name}</Link>
         </h3>
+        <KohlStroke className="mt-1 w-24" />
+        <p className="mt-1 text-sm text-taupe">
+          {dict.styles[p.art.style]} · {dict.maps[p.art.map].name}
+        </p>
         {p.rating ? (
           <p className="mt-1 flex items-center gap-1.5 text-xs text-berry-deep/70">
             <Stars value={p.rating.avg} />
@@ -157,7 +157,7 @@ export function ProductCard({ p, offers, isNew = false, best = false, index = 0 
                 toast(t(s.product.added, { name }));
               }}
               aria-label={`${s.product.add}: ${name}`}
-              className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-ember text-white transition-[transform,background-color] duration-200 hover:bg-tangerine active:scale-90"
+              className="grid h-11 w-11 shrink-0 place-items-center rounded-[8px] bg-ember text-white transition-[transform,background-color] duration-150 active:scale-95 [@media(hover:hover)]:hover:bg-tangerine"
             >
               <Plus className="h-4 w-4" />
             </button>

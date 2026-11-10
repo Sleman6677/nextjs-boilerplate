@@ -75,7 +75,7 @@ export function Wordmark({ className, tone = "light" }: { className?: string; to
       <Monogram className="h-8 w-8 text-gold" />
       <span className="flex flex-col leading-none">
         <span className="text-sm font-semibold tracking-[0.35em] uppercase">Serag</span>
-        <span className="mt-1.5 text-[0.55rem] tracking-[0.5em] text-gold uppercase">Lashes</span>
+        <span className="mt-1.5 text-[0.6875rem] tracking-[0.38em] text-taupe uppercase">Lashes</span>
       </span>
     </span>
   );

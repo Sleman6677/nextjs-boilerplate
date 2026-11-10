@@ -1,45 +1,42 @@
-import { SplitTitle } from "@/components/split-title";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { connection } from "next/server";
-import type { CSSProperties } from "react";
+import { LashEye } from "@/components/art";
 import { socialLinks } from "@/components/chrome";
 import { ArrowForward, Coin, Gift, Shield, Truck } from "@/components/icons";
-import { BoxVisual } from "@/components/lash-box";
-import { Reveal } from "@/components/reveal";
-import SplitText from "@/components/SplitText";
-import { MagnetLink } from "@/components/fx";
-import { VelocityMarquee } from "@/components/velocity-marquee";
-import { HeroBoxPlayer } from "@/components/shop/hero-box";
-import { ProductCard } from "@/components/shop/product-card";
-import { Runway } from "@/components/shop/runway";
-import { getHome, isNewProduct, type Category, type OfferInfo, type Product } from "@/lib/catalog";
+import { KohlStroke, LashCallouts } from "@/components/kohl";
+import { HeroAdd } from "@/components/shop/hero-add";
+import { ProductCard, PriceTag } from "@/components/shop/product-card";
+import { getHome, isNewProduct, type OfferInfo, type Product } from "@/lib/catalog";
 import { href, isLocale, type Locale } from "@/lib/i18n/config";
 import { localized, money, t } from "@/lib/i18n/format";
 import { getDictionary } from "@/lib/i18n";
-import { optimizable } from "@/lib/media";
+import type { LashMap } from "@/lib/lash";
 import { round2 } from "@/lib/pricing";
-import { shop } from "@/lib/site";
 import { getStoreInfo } from "@/lib/social";
 
-const v = (vars: Record<string, string | number>) => vars as CSSProperties;
+const MAPS: LashMap[] = ["natural", "cat", "doll", "squirrel"];
 
-function Row({ title, products, offers, lang, seeAll, bestIds = [] }: { title: string; products: Product[]; offers: OfferInfo[]; lang: Locale; seeAll: string; bestIds?: string[] }) {
+function Grid({ title, products, offers, lang, seeAll, bestIds = [] }: { title: string; products: Product[]; offers: OfferInfo[]; lang: Locale; seeAll: string; bestIds?: string[] }) {
   if (products.length === 0) return null;
   return (
-    <section className="py-16 sm:py-20" aria-label={title}>
+    <section className="py-20 sm:py-28" aria-labelledby="grid-title">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        <div className="mb-8 flex items-end justify-between gap-4">
-          <SplitTitle className="font-display text-4xl text-plum sm:text-5xl" text={title} />
-          <Link href={href(lang, "/shop")} className="group inline-flex min-h-11 shrink-0 items-center gap-2 text-sm font-semibold text-berry">
-            {seeAll}
-            <ArrowForward className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1 ltr:group-hover:translate-x-1" />
+        <div className="mb-10 flex items-end justify-between gap-6">
+          <h2 id="grid-title" className="font-display text-4xl sm:text-6xl">
+            {title}
+          </h2>
+          <Link href={href(lang, "/shop")} className="kohl-trigger inline-flex min-h-11 shrink-0 flex-col justify-center text-[0.9375rem] font-medium">
+            <span className="inline-flex items-center gap-2">
+              {seeAll}
+              <ArrowForward className="h-4 w-4" />
+            </span>
+            <KohlStroke />
           </Link>
         </div>
-        <ul className="-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-4 [scrollbar-width:none] sm:mx-0 sm:grid sm:grid-cols-3 sm:gap-6 sm:overflow-visible sm:px-0 lg:grid-cols-4">
-          {products.slice(0, 8).map((p, i) => (
-            <li key={p.id} className="w-[46%] shrink-0 snap-start sm:w-auto">
+        <ul className="grid grid-cols-2 gap-x-4 gap-y-12 sm:gap-x-6 lg:grid-cols-3">
+          {products.slice(0, 6).map((p, i) => (
+            <li key={p.id}>
               <ProductCard p={p} offers={offers} index={i} isNew={isNewProduct(p)} best={bestIds.includes(p.id)} />
             </li>
           ))}
@@ -49,200 +46,150 @@ function Row({ title, products, offers, lang, seeAll, bestIds = [] }: { title: s
   );
 }
 
-function CategoryTile({ c, lang, index }: { c: Category; lang: Locale; index: number }) {
-  const cover = c.imageUrl ?? c.products.find((p) => p.imageUrl)?.imageUrl ?? null;
-  const first = c.products[0];
-  return (
-    <Reveal as="li" delay={index * 120}>
-      <Link href={href(lang, `/shop?c=${c.slug}#collection`)} className="group relative block overflow-hidden rounded-none bg-pink-soft">
-        <span className="relative block aspect-[4/5]">
-          {cover ? (
-            <Image src={cover} alt="" fill sizes="(min-width:640px) 33vw, 100vw" unoptimized={!optimizable(cover)} className="object-cover transition-transform duration-700 ease-[var(--ease-silk)] group-hover:scale-105" />
-          ) : first ? (
-            <span className="absolute inset-0 transition-transform duration-700 group-hover:scale-105">
-              <BoxVisual art={first.art} label={c.name.en || "Serag"} index={index} />
-            </span>
-          ) : null}
-          <span className="absolute inset-0 bg-gradient-to-t from-plum/85 via-plum/10 to-transparent" aria-hidden="true" />
-        </span>
-        <span className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-6 text-ivory">
-          <span>
-            <span className="font-display block text-3xl">{localized(c.name, lang)}</span>
-            {localized(c.description, lang) ? <span className="mt-1 block text-sm text-gold-soft/90">{localized(c.description, lang)}</span> : null}
-          </span>
-          <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-surface text-plum transition-transform duration-300 group-hover:-translate-x-1 ltr:group-hover:translate-x-1">
-            <ArrowForward className="h-4 w-4" />
-          </span>
-        </span>
-      </Link>
-    </Reveal>
-  );
-}
-
 export default async function Home({ params }: PageProps<"/[lang]">) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   await connection();
   const dict = getDictionary(lang);
   const h = dict.store.home;
-  const heroWords = h.title.split(" ");
+  const k = h.kohl;
   const [home, info] = await Promise.all([getHome(), getStoreInfo()]);
   const all = home.categories.flatMap((c) => c.products);
-  const from = all.length ? Math.min(...all.map((p) => p.displayPrice)) : shop.boxPrice;
-  const gift = home.giftCards[0];
-  // Signature stage: best sellers once there are sales, otherwise featured, otherwise everything.
   const standard = all.filter((p) => p.kind === "standard");
-  const hasBest = home.bestSellers.length >= 3;
   const featured = standard.filter((p) => p.featured);
-  const signature = hasBest ? home.bestSellers : featured.length >= 3 ? featured : standard;
+  const hero = featured[0] ?? standard[0];
+  const gift = home.giftCards[0];
   const giftPaid = gift ? gift.price : 0;
-  const perkIcons = [<Truck key="t" className="h-6 w-6" />, <Coin key="c" className="h-6 w-6" />, <Shield key="s" className="h-6 w-6" />];
+  const bestIds = home.bestSellers.slice(0, 3).map((p) => p.id);
+  const perkIcons = [<Truck key="t" className="h-5 w-5" />, <Coin key="c" className="h-5 w-5" />, <Shield key="s" className="h-5 w-5" />];
 
   return (
-    <div className="bg-petal">
-      {/* ───────────── Hero ───────────── */}
-      <section className="relative isolate overflow-clip bg-transparent text-inkwell">
-        <div className="glow-pink drift pointer-events-none absolute -top-32 right-[-10%] -z-10 h-[34rem] w-[34rem] opacity-60" aria-hidden="true" />
-        <div className="glow-pink drift pointer-events-none absolute bottom-[-20%] left-[-12%] -z-10 h-[30rem] w-[30rem] opacity-40" style={v({ "--d": "-6s" })} aria-hidden="true" />
-        <p className="font-display pointer-events-none absolute -bottom-[0.2em] right-0 -z-10 text-[30vw] leading-none text-transparent select-none [-webkit-text-stroke:1px_rgba(17,17,17,0.07)] lg:text-[22rem]" dir="ltr" aria-hidden="true">
-          Serag
-        </p>
-        <div className="mx-auto grid min-h-[92svh] max-w-7xl items-center gap-16 px-5 pt-36 pb-20 sm:px-8 lg:grid-cols-[1.1fr_1fr] lg:gap-12">
+    <div className="bg-stone">
+      {/* ───────────── First screen: the lash on the eye, and the way to buy it ───────────── */}
+      <section className="relative overflow-clip">
+        <div className="mx-auto grid min-h-[92svh] max-w-7xl items-center gap-12 px-5 pt-32 pb-16 sm:px-8 lg:grid-cols-[1fr_1.15fr] lg:gap-16">
           <div>
-            <h1 className="font-display mt-8 text-[3.6rem] leading-[1] sm:text-8xl lg:text-[7.2rem] lg:leading-[0.92]">
-              {/* Words (not letters) are split so Arabic letters keep joining. */}
-              {heroWords.slice(0, -1).map((w, i) => (
-                <span key={i}>
-                  <SplitText tag="span" text={w} textAlign="start" className="align-bottom pt-[0.08em] pb-[0.22em] -mt-[0.08em] -mb-[0.22em]" splitType="words" from={{ opacity: 0, y: 50, filter: "blur(12px)" }} to={{ opacity: 1, y: 0, filter: "blur(0px)" }} ease="power3.out" trigger="load" duration={0.9} delay={250 + i * 90} />{" "}
-                </span>
-              ))}
-              <span className="rise">
-                <span className="w">
-                  <span style={v({ "--i": heroWords.length - 1 })} className="text-ember">
-                    {heroWords[heroWords.length - 1]}
+            <h1 className="font-display text-[3.25rem] leading-[1.02] sm:text-7xl lg:text-[5.5rem]">{h.title}</h1>
+            <KohlStroke on="load" delay={500} className="mt-4 h-4 w-48 sm:w-64" />
+            <p className="mt-6 max-w-md text-lg leading-8 text-taupe">{h.text}</p>
+
+            {hero ? (
+              <p className="mt-10 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                <span className="text-sm text-taupe">{k.heroLabel}</span>
+                <Link href={href(lang, `/p/${hero.slug}`)} className="text-lg font-medium">
+                  {localized(hero.name, lang)}
+                </Link>
+                <PriceTag p={hero} />
+              </p>
+            ) : null}
+            {hero ? (
+              <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-4">
+                <HeroAdd p={hero} />
+                <Link href={href(lang, "/shop")} className="kohl-trigger inline-flex min-h-11 flex-col justify-center font-medium">
+                  <span>{h.seeAll}</span>
+                  <KohlStroke />
+                </Link>
+              </div>
+            ) : null}
+
+            <ul className="mt-12 grid gap-4 border-t border-line pt-6 sm:grid-cols-3">
+              {h.perks.map((perk, i) => (
+                <li key={perk.title} className="flex items-start gap-3">
+                  <span className="mt-0.5 text-copper">{perkIcons[i]}</span>
+                  <span className="text-sm leading-6">
+                    <span className="block font-medium">{perk.title}</span>
+                    <span className="block text-taupe">{i === 0 ? (info.freeShippingThreshold !== null ? t(perk.text, { amount: money(info.freeShippingThreshold, lang) }) : h.perkFreeAlways) : perk.text}</span>
                   </span>
-                </span>
-              </span>
-            </h1>
-            <p className="fade-in mt-8 max-w-md text-base leading-7 text-taupe" style={v({ "--d": "700ms" })}>
-              {h.text}
-            </p>
-            <div className="fade-in mt-10 flex flex-wrap gap-3" style={v({ "--d": "900ms" })}>
-              <MagnetLink>
-                <Link href={href(lang, "/shop")} className="btn btn-pink group">
-                  {h.cta}
-                  <ArrowForward className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1 ltr:group-hover:translate-x-1" />
-                </Link>
-              </MagnetLink>
-              {gift ? (
-                <Link href={href(lang, `/p/${gift.slug}`)} className="btn btn-ghost-dark">
-                  <Gift className="h-5 w-5" /> {h.secondary}
-                </Link>
-              ) : null}
-            </div>
-            <ul className="fade-in mt-10 flex gap-3" style={v({ "--d": "1100ms" })}>
-              {socialLinks(info, lang).map((s) => (
-                <li key={s.key}>
-                  <a href={s.href} target="_blank" rel="noopener noreferrer" className="flex min-h-11 items-center gap-2 rounded-full border border-graphite/15 px-4 text-sm text-graphite transition-colors hover:border-ember hover:text-ember">
-                    {s.icon}
-                    <span>{s.label}</span>
-                  </a>
                 </li>
               ))}
             </ul>
           </div>
-          <div className="px-8 sm:px-12">
-            <HeroBoxPlayer price={t(dict.store.product.from, { price: money(from, lang) })} />
-          </div>
+
+          {hero ? (
+            <div className="relative">
+              <div className="relative rounded-[20px] bg-stone-2 px-[8%] pt-[10%] pb-[14%]">
+                <Link href={href(lang, `/p/${hero.slug}`)} aria-label={localized(hero.name, lang)} className="block text-kohl">
+                  <LashEye style={hero.art.style} map={hero.art.map} seed={11} draw baseDelay={200} lidWidth={3} className="w-full" />
+                </Link>
+                <LashCallouts
+                  items={[
+                    { label: k.style, value: dict.styles[hero.art.style], x: 34, y: 80, side: "start" },
+                    { label: k.map, value: dict.maps[hero.art.map].name, x: 72, y: 24, side: "end" },
+                  ]}
+                />
+              </div>
+            </div>
+          ) : null}
         </div>
       </section>
 
-      {/* ───────────── Perks ───────────── */}
-      <section aria-label={h.eyebrow} className="border-b border-berry/10 bg-surface">
-        <ul className="mx-auto grid max-w-7xl gap-px px-5 sm:grid-cols-3 sm:px-8">
-          {h.perks.map((perk, i) => (
-            <li key={perk.title} className="flex items-center gap-4 py-6">
-              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full border-[1.5px] border-apricot text-graphite">{perkIcons[i]}</span>
-              <span>
-                <span className="block font-semibold text-plum">{perk.title}</span>
-                <span className="block text-sm text-berry-deep/75">{i === 0 ? (info.freeShippingThreshold !== null ? t(perk.text, { amount: money(info.freeShippingThreshold, lang) }) : h.perkFreeAlways) : perk.text}</span>
-              </span>
-            </li>
-          ))}
-        </ul>
-      </section>
+      {/* ───────────── The lashes ───────────── */}
+      <Grid title={h.newArrivals} products={standard} offers={home.offers} lang={lang} seeAll={h.seeAll} bestIds={bestIds} />
 
-      {/* ───────────── Marquee (speeds up with scroll) ───────────── */}
-      <VelocityMarquee items={[...h.eyebrow.split(" · "), ...h.perks.map((p) => p.title)]} className="font-display bg-ink py-5 text-3xl text-white sm:py-7 sm:text-5xl" />
-
-      {/* ───────────── Categories ───────────── */}
-      {home.categories.length > 1 ? (
-        <section className="py-20 sm:py-24" aria-labelledby="cats-title">
-          <div className="mx-auto max-w-7xl px-5 sm:px-8">
-            <SplitTitle id="cats-title" className="font-display text-4xl text-plum sm:text-5xl" text={h.categories} />
-            <ul className="mt-10 grid gap-5 sm:grid-cols-3">
-              {home.categories.slice(0, 3).map((c, i) => (
-                <CategoryTile key={c.id} c={c} lang={lang} index={i} />
-              ))}
-            </ul>
+      {/* ───────────── Kohl band: the four lash maps the designs come from ───────────── */}
+      <section className="bg-kohl py-20 text-stone sm:py-28" aria-labelledby="maps-title">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <div className="grid gap-6 lg:grid-cols-[1fr_1.4fr] lg:items-end">
+            <h2 id="maps-title" className="font-display text-4xl sm:text-6xl">
+              {k.mapsTitle}
+            </h2>
+            <p className="max-w-xl text-lg leading-8 text-[#c4c4bf]">{dict.shop.lead}</p>
           </div>
-        </section>
-      ) : null}
-
-      <Row title={h.newArrivals} products={home.newArrivals} offers={home.offers} lang={lang} seeAll={h.seeAll} bestIds={home.bestSellers.slice(0, 3).map((p) => p.id)} />
-      {home.onSale.length > 0 ? (
-        <div className="bg-gradient-to-b from-pink-soft/70 to-petal">
-          <Row title={h.onSale} products={home.onSale} offers={home.offers} lang={lang} seeAll={h.seeAll} />
+          <ul className="mt-14 grid gap-px overflow-hidden rounded-[20px] bg-[#3a3b3d] sm:grid-cols-2 lg:grid-cols-4">
+            {MAPS.map((m, i) => (
+              <li key={m} className="kohl-trigger bg-kohl p-6 sm:p-8">
+                <LashEye style="classic" map={m} seed={20 + i} showCrease={false} lidWidth={2.6} className="w-full text-stone" />
+                <h3 className="mt-6 text-xl font-medium">{dict.maps[m].name}</h3>
+                <KohlStroke className="mt-1 w-20 !text-copper" />
+                <p className="mt-3 text-[0.9375rem] leading-7 text-[#c4c4bf]">{dict.maps[m].text}</p>
+              </li>
+            ))}
+          </ul>
         </div>
-      ) : null}
-      {signature.length >= 3 ? (
-        <Runway products={signature.slice(0, 6)} />
-      ) : (
-        <Row title={h.bestSellers} products={home.bestSellers} offers={home.offers} lang={lang} seeAll={h.seeAll} bestIds={home.bestSellers.map((p) => p.id)} />
-      )}
+      </section>
 
       {/* ───────────── Gift card ───────────── */}
       {gift ? (
-        <section className="px-5 py-16 sm:px-8 sm:py-20">
-          <Reveal className="relative mx-auto grid max-w-6xl items-center gap-10 overflow-hidden rounded-none border border-apricot bg-surface p-8 text-inkwell sm:p-14 lg:grid-cols-[1.2fr_1fr]">
-            <div className="glow-pink pointer-events-none absolute -top-20 -left-20 h-80 w-80 opacity-50" aria-hidden="true" />
-            <div className="relative">
-              <Gift className="h-10 w-10 text-ember" />
-              <SplitTitle className="font-display mt-6 text-4xl sm:text-5xl" text={h.giftTitle} />
-              <p className="mt-4 max-w-md text-base leading-7 text-taupe">{t(h.giftText, { paid: money(giftPaid, lang), value: money(round2(giftPaid * (1 + info.giftCardBonusPct / 100)), lang) })}</p>
-              <div className="mt-8">
-                <MagnetLink>
-                  <Link href={href(lang, `/p/${gift.slug}`)} className="btn btn-gold">
-                    {h.giftCta}
-                  </Link>
-                </MagnetLink>
-              </div>
+        <section className="py-20 sm:py-28" aria-labelledby="gift-title">
+          <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 sm:px-8 lg:grid-cols-[1.1fr_1fr]">
+            <div>
+              <h2 id="gift-title" className="font-display text-4xl sm:text-6xl">
+                {h.giftTitle}
+              </h2>
+              <p className="mt-6 max-w-md text-lg leading-8 text-taupe">{t(h.giftText, { paid: money(giftPaid, lang), value: money(round2(giftPaid * (1 + info.giftCardBonusPct / 100)), lang) })}</p>
+              <Link href={href(lang, `/p/${gift.slug}`)} className="btn btn-ink mt-10">
+                <Gift className="h-5 w-5" /> {h.giftCta}
+              </Link>
             </div>
-            <div className="relative mx-auto w-full max-w-xs rotate-[-6deg] rounded-none border border-apricot bg-ink-2 p-6 text-ivory">
-              <p className="font-display text-2xl text-ember" dir="ltr">
+            <div className="mx-auto w-full max-w-sm rounded-[20px] bg-copper p-8 text-white">
+              <p className="text-lg font-medium" dir="ltr">
                 Serag Lashes
               </p>
-              <p className="font-display mt-10 text-5xl">{money(round2(giftPaid * (1 + info.giftCardBonusPct / 100)), lang)}</p>
-              <p className="mt-2 font-mono text-sm tracking-[0.3em]" dir="ltr">
-                XXXX-XXXX-XXXX
-              </p>
+              <KohlStroke className="mt-2 w-24 !text-white" on="load" delay={300} />
+              <p className="font-display mt-16 text-5xl">{money(round2(giftPaid * (1 + info.giftCardBonusPct / 100)), lang)}</p>
             </div>
-          </Reveal>
+          </div>
         </section>
       ) : null}
 
-      {/* ───────────── Social ───────────── */}
-      <section className="py-20 text-center sm:py-24">
-        <div className="mx-auto max-w-3xl px-5 sm:px-8">
-          <SplitTitle className="font-display text-4xl text-plum sm:text-5xl" text={h.socialTitle} />
-          <p className="mx-auto mt-4 max-w-lg text-lg text-berry-deep/80">{h.socialText}</p>
-          <Reveal delay={160} className="mt-10 flex flex-wrap justify-center gap-3">
-            {socialLinks(info, lang).map((s, i) => (
-              <a key={s.key} href={s.href} target="_blank" rel="noopener noreferrer" className={`btn min-h-14 px-7 ${i === 0 ? "btn-berry" : "btn-ghost-dark"}`}>
-                {s.icon} {s.label}
-              </a>
+      {/* ───────────── Where to follow ───────────── */}
+      <section className="border-t border-line py-20 sm:py-24" aria-labelledby="social-title">
+        <div className="mx-auto flex max-w-7xl flex-col gap-8 px-5 sm:px-8 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-xl">
+            <h2 id="social-title" className="font-display text-4xl sm:text-5xl">
+              {h.socialTitle}
+            </h2>
+            <p className="mt-4 text-lg leading-8 text-taupe">{h.socialText}</p>
+          </div>
+          <ul className="flex flex-wrap gap-3">
+            {socialLinks(info, lang).map((s) => (
+              <li key={s.key}>
+                <a href={s.href} target="_blank" rel="noopener noreferrer" className="btn btn-ghost-dark">
+                  {s.icon} {s.label}
+                </a>
+              </li>
             ))}
-          </Reveal>
+          </ul>
         </div>
       </section>
     </div>

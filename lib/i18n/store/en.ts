@@ -16,7 +16,7 @@ const store: StoreDictionary = {
     bestSellers: "Best sellers",
     onSale: "Sale & offers",
     seeAll: "See all",
-    runway: { title: "Try the Look.", sub: "Six looks, each with its pieces. Drag to browse, tap to view the look.", inLook: "In this look", pieces: "{n} pieces", look: "Look", vendor: "Serag Lashes", complete: "Complete the look", completeNote: "Every piece in one tap", addAll: "Add full look to bag", addAllShort: "Add full look — {price}", done: "Full look in your bag", choose: "Pick an option for: {items}", drag: "Drag", view: "View", viewLook: "View look", hint: "Tap a piece to see it", prev: "Previous look", next: "Next look", autoplay: "Autoplay", close: "Close", add: "Add to bag", addTo: "Add to bag: {name}", added: "Added to bag: {name}", region: "Try the Look — use arrow keys or swipe to change look", option: "Option" },
+    kohl: { mapsTitle: "Choose by lash map", heroLabel: "Today’s lash", style: "Style", map: "Map", price: "Price" },
     perks: [
       { title: "Free delivery", text: "On orders over {amount}" },
       { title: "Points on every order", text: "Use them as a discount next time" },

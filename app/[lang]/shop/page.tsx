@@ -52,8 +52,11 @@ export default async function ShopPage({ params, searchParams }: PageProps<"/[la
         </p>
       ) : null}
 
-      <section id="collection" className="relative scroll-mt-24 py-16 sm:py-24">
+      <section id="collection" aria-labelledby="collection-title" className="relative scroll-mt-24 py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <h2 id="collection-title" className="sr-only">
+            {dict.store.nav.categories}
+          </h2>
           <CatalogGrid
             categories={home.categories}
             offers={home.offers}
@@ -96,7 +99,7 @@ export default async function ShopPage({ params, searchParams }: PageProps<"/[la
           <ol className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {s.steps.map((step, i) => (
               <Reveal as="li" key={step.title} delay={i * 110} className="group relative overflow-hidden rounded-[1.75rem] border border-berry/10 bg-surface/80 p-7 transition-transform duration-500 hover:-translate-y-1.5">
-                <span className="font-display absolute -top-4 -end-1 text-[6.5rem] leading-none text-[#8a8a8a] transition-colors duration-500 group-hover:text-ink" aria-hidden="true">
+                <span className="font-display absolute -top-4 -end-1 text-[6.5rem] leading-none text-[#75767a] transition-colors duration-500 group-hover:text-ink" aria-hidden="true">
                   {num(i + 1, lang)}
                 </span>
                 <h3 className="relative mt-14 text-xl font-semibold text-plum">{step.title}</h3>

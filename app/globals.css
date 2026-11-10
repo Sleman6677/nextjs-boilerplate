@@ -2,42 +2,55 @@
 
 /* ───────────────────────── Brand tokens ───────────────────────── */
 @theme {
-  /* Runway system: white stage, near-black ink, one grey line colour,
-     square buttons and pill-shaped option chips. Legacy token names are
-     kept so every page follows. */
-  --color-surface: #ffffff;
-  --color-ember: #0e0e0e; /* accent fills */
-  --color-tangerine: #151413;
-  --color-apricot: #c8c8c8; /* lines */
-  --color-graphite: #151413;
-  --color-inkwell: #151413;
-  --color-smoke: #66625c;
-  --color-mist-gray: #e4e4e4;
+  /* Kohl world (taste-skill deal "steel-orange"): stone ground, kohl ink,
+     one copper accent from the kohl jar. Legacy names remapped so every page
+     follows. */
+  --color-stone: #eeeeeb;
+  --color-stone-2: #e1e1dd;
+  --color-kohl: #1c1d1f;
+  --color-kohl-2: #28292b;
+  --color-copper: #c2501b;
+  --color-copper-deep: #a8441a;
+  --color-muted: #5c5e62;
+  --color-line: #1c1d1f2e;
 
-  --color-ink: #151413;
-  --color-ink-2: #151413;
-  --color-ink-3: #2a2927;
-  --color-ivory: #ffffff;
-  --color-cream: #ffffff;
-  --color-sand: #f2f2f2;
-  --color-blush: #f7f7f7;
-  --color-rose: #66625c;
-  --color-rosewood: #151413;
-  --color-gold: #151413;
-  --color-gold-soft: #d4d4d4;
-  --color-gold-deep: #66625c;
-  --color-cocoa: #151413;
-  --color-taupe: #66625c;
-  --color-mist: #a3a3a3;
+  --color-surface: #e1e1dd;
+  --color-ember: #c2501b;
+  --color-tangerine: #a8441a;
+  --color-apricot: #1c1d1f2e;
+  --color-graphite: #1c1d1f;
+  --color-inkwell: #1c1d1f;
+  --color-smoke: #5c5e62;
+  --color-mist-gray: #1c1d1f2e;
 
-  --color-petal: #ffffff;
-  --color-pink-soft: #f2f2f2;
-  --color-pink: #151413;
-  --color-pink-deep: #151413;
-  --color-rose-ink: #b42318; /* sale price */
-  --color-berry: #151413;
-  --color-berry-deep: #151413;
-  --color-plum: #151413;
+  --color-ink: #1c1d1f;
+  --color-ink-2: #1c1d1f;
+  --color-ink-3: #28292b;
+  --color-ivory: #eeeeeb;
+  --color-cream: #eeeeeb;
+  --color-sand: #e1e1dd;
+  --color-blush: #e7e7e3;
+  --color-rose: #5c5e62;
+  --color-rosewood: #1c1d1f;
+  --color-gold: #c2501b;
+  --color-gold-soft: #d9d9d4;
+  --color-gold-deep: #a8441a;
+  --color-cocoa: #1c1d1f;
+  --color-taupe: #5c5e62;
+  --color-mist: #969796;
+
+  --color-petal: #eeeeeb;
+  --color-pink-soft: #e1e1dd;
+  --color-pink: #c2501b;
+  --color-pink-deep: #a8441a;
+  --color-rose-ink: #a8441a;
+  --color-berry: #1c1d1f;
+  --color-berry-deep: #1c1d1f;
+  --color-plum: #1c1d1f;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
 
   --ease-silk: cubic-bezier(0.2, 0.7, 0.1, 1);
   --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -46,24 +59,24 @@
 }
 
 @theme inline {
-  --font-display: Helvetica, Arial, var(--font-plex-arabic), var(--font-heebo), sans-serif;
+  --font-display: var(--font-albert), var(--font-readex), var(--font-heebo), system-ui, sans-serif;
   --font-naskh: var(--font-display);
-  --font-sans: Helvetica, Arial, var(--font-plex-arabic), var(--font-heebo), sans-serif;
+  --font-sans: var(--font-albert), var(--font-readex), var(--font-heebo), system-ui, sans-serif;
   --font-script: var(--font-display);
 }
 
 @layer base {
   /* ───────────────────────── Base ───────────────────────── */
   html {
-    background: #ffffff;
+    background: #eeeeeb;
     font-variant-numeric: lining-nums;
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
   }
 
   body {
-    background: #ffffff;
-    color: #151413;
+    background: #eeeeeb;
+    color: #1c1d1f;
     font-family: var(--font-sans);
     font-size: 1rem;
     font-weight: 400;
@@ -75,14 +88,14 @@
   }
 
   ::selection {
-    background: #151413;
+    background: #c2501b;
     color: #ffffff;
   }
 
   /* A dark ring with a white gap: visible on white pages and dark bars alike */
   :focus-visible {
-    outline: 2px solid #151413;
-    box-shadow: 0 0 0 2px #fff;
+    outline: 2px solid #1c1d1f;
+    box-shadow: 0 0 0 2px #eeeeeb;
     outline-offset: 3px;
     border-radius: 6px;
   }
@@ -144,10 +157,10 @@
     gap: 0.75rem;
     min-height: 3.5rem;
     padding: 0.9rem 2rem;
-    border-radius: 0;
+    border-radius: 8px;
     font-weight: 500;
-    font-size: 0.8125rem;
-    letter-spacing: 0.02em;
+    font-size: 0.9375rem;
+    letter-spacing: 0;
     overflow: hidden;
     transition:
       transform 160ms var(--ease-expo),
@@ -180,23 +193,36 @@
 
   .btn-gold,
   .btn-pink,
-  .btn-berry,
-  .btn-ink {
+  .btn-berry {
     color: #ffffff;
-    background: #151413;
+    background: #c2501b;
+  }
+
+  .btn-ink {
+    color: #eeeeeb;
+    background: #1c1d1f;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .btn-gold:hover,
+    .btn-pink:hover,
+    .btn-berry:hover {
+      background: #a8441a;
+    }
   }
 
   .btn-ghost-light,
   .btn-ghost-dark {
-    color: #151413;
+    color: #1c1d1f;
     background: transparent;
-    border: 1px solid #151413;
+    outline: 1px solid #1c1d1f;
+    outline-offset: -1px;
   }
 
   .btn-ghost-light:is(:hover, :focus-visible),
   .btn-ghost-dark:is(:hover, :focus-visible) {
-    color: #ffffff;
-    background: #151413;
+    color: #eeeeeb;
+    background: #1c1d1f;
   }
 
   /* Link with an animated underline that grows from the reading-start side */
@@ -345,7 +371,7 @@ html[data-motion="on"] [data-reveal].is-in {
 .font-script {
   font-weight: 400;
   font-style: normal;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
 }
 
 :lang(ar) .font-display,
@@ -754,4 +780,143 @@ details[open] .faq-icon {
 ::after {
   --tw-shadow: 0 0 #0000 !important;
   --tw-inset-shadow: 0 0 #0000 !important;
+}
+
+/* ───────────────────────── Kohl world: signature ───────────────────────── */
+/* The kohl stroke draws once, from the reading start, in one pass. */
+.kohl-stroke {
+  display: block;
+  width: 100%;
+  height: 0.6em;
+  color: #1c1d1f;
+  clip-path: inset(0 100% 0 0);
+}
+
+[dir="rtl"] .kohl-stroke {
+  clip-path: inset(0 0 0 100%);
+}
+
+.kohl-stroke[data-on="load"] {
+  animation: kohl-draw 900ms cubic-bezier(0.23, 1, 0.32, 1) var(--kohl-delay, 0ms) forwards;
+}
+
+.kohl-trigger:is(:hover, :focus-within) .kohl-stroke[data-on="hover"] {
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 450ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.kohl-stroke[data-on="hover"] {
+  transition: clip-path 200ms ease;
+}
+
+@keyframes kohl-draw {
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kohl-stroke[data-on="load"] {
+    animation: none;
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* Leader-line call-outs on a lash drawing */
+.kohl-callouts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Pins are placed on the drawing, which never mirrors: lay the dot and line out
+   left to right and let only the words follow their own direction. */
+@media (min-width: 768px) {
+  .kohl-callouts {
+    direction: ltr;
+  }
+
+  .kohl-callout-text {
+    unicode-bidi: plaintext;
+  }
+
+  .kohl-callout[data-side="start"] .kohl-callout-text {
+    text-align: right;
+  }
+}
+
+@media (min-width: 768px) {
+  .kohl-callouts {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .kohl-callout {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    display: flex;
+    align-items: center;
+    animation: kohl-callout-in 500ms cubic-bezier(0.23, 1, 0.32, 1) 1100ms backwards;
+  }
+
+  .kohl-callout[data-side="end"] {
+    flex-direction: row;
+  }
+
+  .kohl-callout[data-side="start"] {
+    flex-direction: row-reverse;
+    transform: translateX(-100%);
+  }
+
+  .kohl-callout-dot {
+    width: 7px;
+    height: 7px;
+    margin: -3.5px;
+    border-radius: 50%;
+    background: #c2501b;
+    flex: none;
+  }
+
+  .kohl-callout-line {
+    width: clamp(36px, 6vw, 88px);
+    height: 1px;
+    background: #1c1d1f;
+    flex: none;
+  }
+
+  .kohl-callout-text {
+    padding-inline: 10px;
+  }
+}
+
+.kohl-callout-text {
+  display: flex;
+  flex-direction: column;
+  white-space: nowrap;
+}
+
+.kohl-callout-label {
+  font-size: 0.75rem;
+  color: #5c5e62;
+}
+
+.kohl-callout-value {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #1c1d1f;
+}
+
+@keyframes kohl-callout-in {
+  from {
+    opacity: 0;
+    translate: 0 6px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kohl-callout {
+    animation: none;
+  }
 }

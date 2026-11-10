@@ -81,7 +81,7 @@ export function Header({ accounts = false, social }: { accounts?: boolean; socia
         <div
           className={`flex items-center justify-between gap-4 transition-[padding,background-color,border-color] duration-300 ${
             scrolled
-              ? "rounded-none border border-mist-gray bg-white/95 px-4 py-2.5 backdrop-blur-xl sm:px-6"
+              ? "rounded-[12px] bg-stone/95 px-4 py-2.5 ring-1 ring-line backdrop-blur-xl sm:px-6"
               : "px-5 py-4 sm:px-8"
           }`}
         >
