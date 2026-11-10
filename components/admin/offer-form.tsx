@@ -13,7 +13,7 @@ export function OfferForm({ value, products, categories }: { value: AdminOffer |
   const [kind, setKind] = useState(value?.kind ?? "percent");
   const d = (v: string | null) => (v ? new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Jerusalem" }).format(new Date(v)) : "");
   return (
-    <form action={action} className="grid max-w-3xl gap-5 rounded-3xl border border-cocoa/10 bg-ivory p-5 sm:grid-cols-2 sm:p-8">
+    <form action={action} className="grid max-w-3xl gap-5 rounded-3xl border border-cocoa/10 bg-surface p-5 sm:grid-cols-2 sm:p-8">
       {value ? <input type="hidden" name="id" value={value.id} /> : null}
       <div className="grid gap-3 sm:col-span-2 sm:grid-cols-3">
         {(["ar", "he", "en"] as const).map((l) => (

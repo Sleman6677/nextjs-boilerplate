@@ -49,7 +49,7 @@ export default async function AdminHome() {
       {can("orders") ? (
         <div className="grid gap-3 sm:grid-cols-3">
           {attention.map((a) => (
-            <Link key={a.label} href={a.href} className={`group rounded-3xl p-5 transition-transform duration-200 hover:-translate-y-0.5 ${a.strong && a.value > 0 ? "bg-ink text-ivory" : "border border-cocoa/10 bg-ivory text-cocoa"}`}>
+            <Link key={a.label} href={a.href} className={`group rounded-3xl p-5 transition-transform duration-200 hover:-translate-y-0.5 ${a.strong && a.value > 0 ? "bg-ink text-ivory" : "border border-cocoa/10 bg-surface text-cocoa"}`}>
               <span className="flex items-start justify-between gap-3">
                 <span>
                   <span className="block font-semibold">{a.label}</span>
@@ -71,7 +71,7 @@ export default async function AdminHome() {
               { label: "هذا الشهر", value: shekel(periods.month.sales), sub: `${periods.month.orders} طلب · متوسط ${shekel(periods.month.avg)}` },
               { label: "الزبائن", value: String(periods.customers), sub: `${periods.newCustomersMonth} جديدة هذا الشهر` },
             ].map((m) => (
-              <div key={m.label} className="rounded-3xl border border-cocoa/10 bg-ivory p-5">
+              <div key={m.label} className="rounded-3xl border border-cocoa/10 bg-surface p-5">
                 <dt className="text-xs text-taupe">{m.label}</dt>
                 <dd className="font-display mt-2 text-3xl text-cocoa">{m.value}</dd>
                 <dd className="mt-1 text-xs text-taupe">{m.sub}</dd>

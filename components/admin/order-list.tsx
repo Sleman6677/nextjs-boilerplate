@@ -5,7 +5,7 @@ import { PaymentPill, StatusPill } from "./ui";
 
 export function OrderList({ orders }: { orders: AdminOrder[] }) {
   return (
-    <ul className="divide-y divide-cocoa/10 overflow-hidden rounded-3xl border border-cocoa/10 bg-ivory">
+    <ul className="divide-y divide-cocoa/10 overflow-hidden rounded-3xl border border-cocoa/10 bg-surface">
       {orders.map((o) => (
         <li key={o.id}>
           <Link

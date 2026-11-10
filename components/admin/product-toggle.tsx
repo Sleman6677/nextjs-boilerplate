@@ -20,8 +20,8 @@ export function ProductToggle({ id, active, name }: { id: string; active: boolea
       }
       className="flex min-h-11 items-center gap-2 text-xs text-taupe"
     >
-      <span className={`relative h-6 w-11 rounded-full transition-colors duration-200 ${shown ? "bg-gold-deep" : "bg-cocoa/20"}`} aria-hidden="true">
-        <span className={`absolute top-0.5 start-0.5 h-5 w-5 rounded-full bg-ivory shadow transition-transform duration-200 ${shown ? "-translate-x-5" : ""}`} />
+      <span className={`relative h-6 w-11 rounded-full transition-colors duration-200 ${shown ? "bg-gold-deep" : "bg-ivory/20"}`} aria-hidden="true">
+        <span className={`absolute top-0.5 start-0.5 h-5 w-5 rounded-full bg-surface shadow transition-transform duration-200 ${shown ? "-translate-x-5" : ""}`} />
       </span>
       <span className="w-12 text-start">{shown ? "معروض" : "مخفي"}</span>
     </button>

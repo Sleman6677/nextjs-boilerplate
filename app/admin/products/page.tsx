@@ -10,7 +10,7 @@ import { staffUser } from "@/lib/auth";
 
 export const metadata: Metadata = { title: "المنتجات" };
 
-const SWATCH: Record<AdminProduct["art"]["tone"], string> = { petal: "bg-pink-soft text-berry", rose: "bg-pink text-berry-deep", blush: "bg-blush text-cocoa", berry: "bg-berry text-pink-soft" };
+const SWATCH: Record<AdminProduct["art"]["tone"], string> = { petal: "bg-pink-soft text-berry", rose: "bg-pink text-berry-deep", blush: "bg-blush text-cocoa", berry: "bg-ink-3 text-gold-soft" };
 
 function Thumb({ p }: { p: AdminProduct }) {
   return (
@@ -65,7 +65,7 @@ export default async function AdminProducts({ searchParams }: PageProps<"/admin/
                 </Link>
               </Empty>
             ) : (
-              <ul className="divide-y divide-cocoa/10 overflow-hidden rounded-3xl border border-cocoa/10 bg-ivory">
+              <ul className="divide-y divide-cocoa/10 overflow-hidden rounded-3xl border border-cocoa/10 bg-surface">
                 {g.items.map((p) => (
                   <li key={p.id} className={`flex items-center gap-4 px-4 py-3 sm:px-5 ${p.active ? "" : "bg-sand/30"}`}>
                     <Thumb p={p} />

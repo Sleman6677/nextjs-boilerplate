@@ -9,7 +9,7 @@ import { href } from "@/lib/i18n/config";
 export default function NotFound() {
   const { lang, dict } = useI18n();
   return (
-    <section className="relative flex min-h-[90svh] items-center overflow-clip bg-white pt-32 pb-20 text-inkwell">
+    <section className="relative flex min-h-[90svh] items-center overflow-clip bg-transparent pt-32 pb-20 text-inkwell">
       <div className="glow pointer-events-none absolute top-1/4 left-1/2 h-[34rem] w-[34rem] -translate-x-1/2 opacity-50" aria-hidden="true" />
       <div className="relative mx-auto max-w-2xl px-5 text-center">
         <div className="mx-auto w-56 text-gold-soft">

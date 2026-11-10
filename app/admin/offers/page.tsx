@@ -34,12 +34,12 @@ export default async function Offers({ searchParams }: PageProps<"/admin/offers"
           {offers.map((o) => {
             const running = o.running;
             return (
-              <li key={o.id} className={`rounded-3xl border border-cocoa/10 bg-ivory p-5 ${o.active ? "" : "opacity-70"}`}>
+              <li key={o.id} className={`rounded-3xl border border-cocoa/10 bg-surface p-5 ${o.active ? "" : "opacity-70"}`}>
                 <div className="flex items-start justify-between gap-3">
                   <Link href={`/admin/offers/${o.id}`} className="font-semibold text-cocoa hover:text-gold-deep">
                     {o.name.ar}
                   </Link>
-                  <span className={`rounded-full px-3 py-1 text-xs font-semibold ${running ? "bg-emerald-700/10 text-emerald-800" : "bg-cocoa/10 text-taupe"}`}>{running ? "يعمل الآن" : o.active ? "مجدول/منتهٍ" : "موقوف"}</span>
+                  <span className={`rounded-full px-3 py-1 text-xs font-semibold ${running ? "bg-emerald-700/10 text-emerald-800" : "bg-ivory/10 text-taupe"}`}>{running ? "يعمل الآن" : o.active ? "مجدول/منتهٍ" : "موقوف"}</span>
                 </div>
                 <p className="mt-2 text-sm text-taupe">
                   {o.kind === "percent" ? `${o.value}٪` : `${shekel(o.value)} لكل قطعة`} · {o.scope === "all" ? "كل المنتجات" : o.scope === "products" ? `${o.productIds.length} منتج` : `${o.categoryIds.length} مجموعة`}

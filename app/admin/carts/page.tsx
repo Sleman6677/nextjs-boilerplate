@@ -22,7 +22,7 @@ export default async function Carts() {
       ) : (
         <ul className="grid gap-3 lg:grid-cols-2">
           {carts.map((c) => (
-            <li key={c.id} className="rounded-3xl border border-cocoa/10 bg-ivory p-5">
+            <li key={c.id} className="rounded-3xl border border-cocoa/10 bg-surface p-5">
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <Link href={`/admin/customers/${c.customerId}`} className="font-medium text-cocoa hover:underline">

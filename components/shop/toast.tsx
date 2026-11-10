@@ -36,7 +36,7 @@ export function Toaster() {
   return (
     <div className="pointer-events-none fixed inset-x-0 top-24 z-[60] flex justify-center px-4" aria-live="polite">
       {t ? (
-        <p key={t.id} className="slide-up rounded-full bg-plum px-5 py-3 text-sm text-pink-soft shadow-[0_20px_50px_-20px_rgba(0,0,0,0.6)]">
+        <p key={t.id} className="slide-up rounded-full bg-ink-2 px-5 py-3 text-sm text-gold-soft shadow-[0_20px_50px_-20px_rgba(0,0,0,0.6)]">
           {t.text}
         </p>
       ) : null}

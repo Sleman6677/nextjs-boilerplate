@@ -29,7 +29,7 @@ export default async function OrderLinkPage({ params, searchParams }: PageProps<
   const user = await currentUser();
   return (
     <div className="min-h-[80svh] bg-cream pb-24">
-      <div className="bg-white border-b border-mist-gray pt-32 pb-10 sm:pt-40" />
+      <div className="bg-transparent border-b border-mist-gray pt-32 pb-10 sm:pt-40" />
       <div className="mx-auto mt-10 max-w-6xl px-5 sm:px-8">
         <OrderView order={order} lang={lang} token={token} signedIn={user?.id === order.userId} flags={{ isNew: Boolean(q.new), paid: Boolean(q.paid), failed: Boolean(q.failed), payError: Boolean(q.payerror) }} />
       </div>

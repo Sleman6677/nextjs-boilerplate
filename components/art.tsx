@@ -72,10 +72,10 @@ export function Wordmark({ className, tone = "light" }: { className?: string; to
   const color = tone === "light" ? "text-white" : "text-inkwell";
   return (
     <span className={`inline-flex items-center gap-3 ${color} ${className ?? ""}`} dir="ltr">
-      <Monogram className="h-9 w-9 text-gold" />
+      <Monogram className="h-8 w-8 text-gold" />
       <span className="flex flex-col leading-none">
-        <span className="font-display text-[1.65rem] font-light">Serag</span>
-        <span className="font-display mt-1 text-[0.62rem] tracking-[0.55em] text-gold">LASHES</span>
+        <span className="text-sm font-semibold tracking-[0.35em] uppercase">Serag</span>
+        <span className="mt-1.5 text-[0.55rem] tracking-[0.5em] text-gold uppercase">Lashes</span>
       </span>
     </span>
   );

@@ -30,7 +30,7 @@ export function CouponForm({ value, products, categories }: { value: CouponFormV
   const [state, action] = useActionState<FormState, FormData>(saveCoupon, { ok: false, error: null });
   const [kind, setKind] = useState(value.kind);
   return (
-    <form action={action} className="grid max-w-3xl gap-5 rounded-3xl border border-cocoa/10 bg-ivory p-5 sm:grid-cols-2 sm:p-8">
+    <form action={action} className="grid max-w-3xl gap-5 rounded-3xl border border-cocoa/10 bg-surface p-5 sm:grid-cols-2 sm:p-8">
       {value.id ? <input type="hidden" name="id" value={value.id} /> : null}
       <div className="sm:col-span-2">
         <label htmlFor="code" className={labelClass}>

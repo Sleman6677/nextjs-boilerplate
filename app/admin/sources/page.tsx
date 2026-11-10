@@ -31,7 +31,7 @@ export default async function Sources({ searchParams }: PageProps<"/admin/source
       {rows.length === 0 ? (
         <Empty>لا طلبات في هذه الفترة.</Empty>
       ) : (
-        <div className="overflow-x-auto rounded-3xl border border-cocoa/10 bg-ivory">
+        <div className="overflow-x-auto rounded-3xl border border-cocoa/10 bg-surface">
           <table className="w-full min-w-[36rem] text-sm">
             <thead className="text-xs text-taupe">
               <tr className="border-b border-cocoa/10">

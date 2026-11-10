@@ -29,7 +29,7 @@ export default async function CartPage({ params }: PageProps<"/[lang]/cart">) {
 
   return (
     <div className="min-h-[70svh] bg-petal pb-24">
-      <div className="bg-white border-b border-mist-gray pt-36 pb-12 text-inkwell sm:pt-44">
+      <div className="bg-transparent border-b border-mist-gray pt-36 pb-12 text-inkwell sm:pt-44">
         <div className="mx-auto max-w-6xl px-5 sm:px-8">
           <SplitTitle as="h1" className="font-display text-5xl sm:text-7xl" text={dict.store.cart.title} />
         </div>
@@ -38,7 +38,7 @@ export default async function CartPage({ params }: PageProps<"/[lang]/cart">) {
         {enabled ? (
           <CartView products={products} zones={zones} addons={addons} />
         ) : (
-          <p className="rounded-[2rem] bg-ivory p-8 text-center text-plum">
+          <p className="rounded-[2rem] bg-surface p-8 text-center text-plum">
             {dict.store.setup}{" "}
             <a href={whatsappLink()} className="font-semibold text-berry underline" target="_blank" rel="noopener noreferrer">
               {dict.store.orderOnWhatsapp}

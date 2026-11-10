@@ -5,6 +5,8 @@ import { AnnouncementBar, Footer, WhatsAppFloat } from "@/components/chrome";
 import { Header } from "@/components/header";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { MotionFx } from "@/components/motion-fx";
+import { BronzeStage } from "@/components/bronze-stage";
+import { CinemaOverlay } from "@/components/cinema-overlay";
 import { SiteSpark } from "@/components/fx";
 import { StoreProvider } from "@/components/shop/store-provider";
 import { Toaster } from "@/components/shop/toast";
@@ -36,7 +38,7 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
   };
 }
 
-export const viewport: Viewport = { themeColor: "#14100e" };
+export const viewport: Viewport = { themeColor: "#000000" };
 
 // Enables scroll-reveal styles before first paint (no flash), unless the visitor prefers reduced motion.
 const motionScript = `try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.dataset.motion='on'}catch(e){}`;
@@ -61,6 +63,8 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
         <AnalyticsHead />
       </head>
       <body className="min-h-dvh">
+        <BronzeStage />
+        <CinemaOverlay />
         <I18nProvider lang={lang} dict={dict}>
           <StoreProvider lang={lang} enabled={accounts}>
           <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:start-3 focus:z-[70] focus:rounded-full focus:bg-gold focus:px-5 focus:py-3 focus:text-ink">

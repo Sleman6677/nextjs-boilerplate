@@ -26,7 +26,7 @@ export function StatusTracker({ status, dict }: { status: OrderStatus; dict: Dic
         const done = i <= reached;
         return (
           <li key={s} className="flex flex-col items-center gap-2 text-center" aria-current={i === reached ? "step" : undefined}>
-            <span className={`grid h-10 w-10 place-items-center rounded-full border-2 ${done ? "border-gold bg-gold text-ink" : "border-cocoa/15 bg-ivory text-cocoa/30"}`}>
+            <span className={`grid h-10 w-10 place-items-center rounded-full border-2 ${done ? "border-gold bg-gold text-ink" : "border-cocoa/15 bg-surface text-cocoa/30"}`}>
               {done ? <Check className="h-4 w-4" /> : <span className="h-2 w-2 rounded-full bg-current" />}
             </span>
             <span className={`text-xs leading-tight sm:text-sm ${done ? "text-cocoa" : "text-taupe"}`}>{dict.order.statuses[s]}</span>

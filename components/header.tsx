@@ -26,7 +26,7 @@ function LanguageSwitcher({ className }: { className?: string }) {
           prefetch={false}
           aria-current={l === lang ? "true" : undefined}
           aria-label={localeNames[l]}
-          className="grid h-9 min-w-9 place-items-center rounded-full px-2 text-xs font-semibold text-taupe transition-colors duration-200 hover:text-ember aria-[current=true]:bg-graphite aria-[current=true]:text-white"
+          className="grid h-9 min-w-9 place-items-center rounded-full px-2 text-xs font-semibold text-taupe transition-colors duration-200 hover:text-ember aria-[current=true]:bg-ivory aria-[current=true]:text-ink"
         >
           {localeShort[l]}
         </Link>
@@ -81,7 +81,7 @@ export function Header({ accounts = false, social }: { accounts?: boolean; socia
         <div
           className={`flex items-center justify-between gap-4 transition-all duration-500 ${
             scrolled
-              ? "rounded-full border border-mist-gray bg-white/90 px-4 py-2.5 backdrop-blur-xl sm:px-6"
+              ? "rounded-full border border-mist-gray bg-black/60 px-4 py-2.5 backdrop-blur-xl sm:px-6"
               : "px-5 py-4 sm:px-8"
           }`}
         >
@@ -90,7 +90,7 @@ export function Header({ accounts = false, social }: { accounts?: boolean; socia
           </Link>
 
           <nav aria-label={dict.nav.mainNav} className="hidden lg:block">
-            <ul className="flex items-center gap-5 text-[0.95rem] text-inkwell xl:gap-8">
+            <ul className="nav-dots flex items-center gap-6 text-[0.65rem] font-normal tracking-[0.2em] text-ivory uppercase">
               {links.map((item) => (
                 <li key={item.path}>
                   <Link
@@ -118,7 +118,7 @@ export function Header({ accounts = false, social }: { accounts?: boolean; socia
             <Link href={href(lang, "/cart")} aria-label={t(dict.cart.label, { count: num(count, lang) })} className="relative grid h-11 w-11 place-items-center rounded-full border border-graphite/15 text-inkwell transition-colors duration-200 hover:border-graphite">
               <Bag className="h-5 w-5" />
               {count > 0 ? (
-                <span key={count} className="pop absolute -top-1 -end-1 grid h-5 min-w-5 place-items-center rounded-full bg-tangerine px-1 text-[0.6rem] font-semibold text-white">
+                <span key={count} className="pop absolute -top-1 -end-1 grid h-5 min-w-5 place-items-center rounded-full bg-ember px-1 text-[0.6rem] font-semibold text-ink">
                   {num(count, lang)}
                 </span>
               ) : null}

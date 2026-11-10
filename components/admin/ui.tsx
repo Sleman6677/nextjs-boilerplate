@@ -60,7 +60,7 @@ export function PageHeader({ title, subtitle, action, back }: { title: string; s
 
 export function Card({ children, className = "", title, action }: { children: ReactNode; className?: string; title?: string; action?: ReactNode }) {
   return (
-    <section className={`rounded-3xl border border-cocoa/10 bg-ivory p-5 sm:p-6 ${className}`}>
+    <section className={`rounded-3xl border border-cocoa/10 bg-surface p-5 sm:p-6 ${className}`}>
       {title ? (
         <div className="mb-4 flex items-center justify-between gap-3">
           <h2 className="text-base font-semibold text-cocoa">{title}</h2>
@@ -85,7 +85,7 @@ export function Notice({ children, tone = "ok" }: { children: ReactNode; tone?: 
 }
 
 export const field =
-  "mt-1.5 block w-full rounded-2xl border border-cocoa/15 bg-white/70 px-4 py-3 text-base text-cocoa placeholder:text-mist focus:border-gold-deep focus:outline-none focus-visible:outline-2 focus-visible:outline-gold";
+  "mt-1.5 block w-full rounded-2xl border border-cocoa/15 bg-black/60 px-4 py-3 text-base text-cocoa placeholder:text-mist focus:border-gold-deep focus:outline-none focus-visible:outline-2 focus-visible:outline-gold";
 export const labelClass = "text-sm font-medium text-cocoa";
 export const hintClass = "mt-1 text-xs text-taupe";
 

@@ -29,7 +29,7 @@ export default async function Inventory({ searchParams }: PageProps<"/admin/inve
           </Link>
         ))}
       </div>
-      <div className="overflow-x-auto rounded-3xl border border-cocoa/10 bg-ivory">
+      <div className="overflow-x-auto rounded-3xl border border-cocoa/10 bg-surface">
         <table className="w-full min-w-[40rem] text-sm">
           <thead className="text-xs text-taupe">
             <tr className="border-b border-cocoa/10">

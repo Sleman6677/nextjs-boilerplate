@@ -11,7 +11,7 @@ export const metadata: Metadata = { title: "الكوبونات" };
 
 function state(c: AdminCoupon): { label: string; tone: string } {
   const now = Date.now();
-  if (!c.active) return { label: "موقوف", tone: "bg-cocoa/10 text-taupe" };
+  if (!c.active) return { label: "موقوف", tone: "bg-ivory/10 text-taupe" };
   if (c.endsAt && new Date(c.endsAt).getTime() < now) return { label: "منتهي", tone: "bg-rosewood/10 text-rosewood" };
   if (c.startsAt && new Date(c.startsAt).getTime() > now) return { label: "لم يبدأ", tone: "bg-gold/20 text-gold-deep" };
   if (c.maxUses !== null && c.usedCount >= c.maxUses) return { label: "نفد", tone: "bg-rosewood/10 text-rosewood" };
@@ -58,7 +58,7 @@ export default async function AdminCoupons({ searchParams }: PageProps<"/admin/c
               c.oncePerCustomer ? "مرة لكل حساب" : null,
             ].filter(Boolean);
             return (
-              <li key={c.id} className={`rounded-3xl border border-cocoa/10 bg-ivory p-5 ${c.active ? "" : "opacity-70"}`}>
+              <li key={c.id} className={`rounded-3xl border border-cocoa/10 bg-surface p-5 ${c.active ? "" : "opacity-70"}`}>
                 <div className="flex items-start justify-between gap-3">
                   <div>
                     <Link href={`/admin/coupons/${c.id}`} className="font-display text-2xl font-semibold tracking-widest text-cocoa hover:text-gold-deep" dir="ltr">

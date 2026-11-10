@@ -31,32 +31,32 @@ export function LashPair({
 
 const tones: Record<LashBox["tone"], { box: string; tray: string; lashes: string; lid: string; label: string }> = {
   petal: {
-    box: "bg-white border border-mist-gray",
-    tray: "bg-[#f6f6f6]",
-    lashes: "text-graphite",
-    lid: "bg-graphite text-white",
-    label: "text-graphite",
+    box: "bg-ink-2 border border-mist-gray",
+    tray: "bg-ink-3",
+    lashes: "text-ivory",
+    lid: "bg-ivory text-ink",
+    label: "text-ivory/80",
   },
   rose: {
-    box: "bg-[#f6f6f6]",
-    tray: "bg-white",
-    lashes: "text-graphite",
-    lid: "bg-ember text-white",
-    label: "text-graphite",
+    box: "bg-[#1a120b] border border-apricot/60",
+    tray: "bg-ink-2",
+    lashes: "text-gold-soft",
+    lid: "bg-ember text-ink",
+    label: "text-gold-soft",
   },
   blush: {
-    box: "bg-[#fff1ec]",
-    tray: "bg-white",
-    lashes: "text-graphite",
-    lid: "bg-white text-ember border-[1.5px] border-apricot",
-    label: "text-graphite",
+    box: "bg-ink-2 border border-mist-gray",
+    tray: "bg-[#1a120b]",
+    lashes: "text-ivory",
+    lid: "bg-transparent text-ember border-[1.5px] border-apricot",
+    label: "text-ivory/80",
   },
   berry: {
-    box: "bg-inkwell",
+    box: "bg-black border border-mist-gray",
     tray: "bg-ink-3",
-    lashes: "text-white",
-    lid: "bg-ember text-white",
-    label: "text-white/80",
+    lashes: "text-gold-soft",
+    lid: "bg-gold-soft text-ink",
+    label: "text-gold-soft",
   },
 };
 
@@ -138,7 +138,7 @@ export function HeroBox({ label, tag, price }: { label: string; tag: string; pri
       <div className="box-scene relative aspect-[5/4.4]" role="img" aria-label={label}>
         {/* Base */}
         <div className="absolute inset-x-0 bottom-0 h-[62%] rounded-[15px] bg-ember p-[5%]">
-          <div className="grid h-full place-items-center rounded-[10px] bg-white">
+          <div className="grid h-full place-items-center rounded-[10px] bg-ink-2">
             <LashPair style="hybrid" map="doll" seed={8} className="box-lashes w-[88%] text-graphite" />
           </div>
           <span className="font-display absolute inset-x-0 -bottom-8 text-center text-xs tracking-[0.45em] text-smoke" dir="ltr">
@@ -147,7 +147,7 @@ export function HeroBox({ label, tag, price }: { label: string; tag: string; pri
         </div>
 
         {/* Lid (on top so the box starts closed) */}
-        <div className="box-lid absolute inset-x-0 bottom-0 flex h-[62%] flex-col items-center justify-center rounded-[15px] border border-mist-gray bg-[#f6f6f6] text-inkwell">
+        <div className="box-lid absolute inset-x-0 bottom-0 flex h-[62%] flex-col items-center justify-center rounded-[15px] border border-apricot bg-ink-2 text-ivory">
           <Monogram className="h-12 w-12 text-ember" />
           <span className="font-display mt-2 text-4xl font-light" dir="ltr">
             Serag
@@ -161,7 +161,7 @@ export function HeroBox({ label, tag, price }: { label: string; tag: string; pri
       {/* Price tag */}
       <div className="price-tag absolute -end-4 -bottom-[14%] flex flex-col items-center sm:-end-10" aria-hidden="true">
         <span className="h-12 w-px bg-graphite/30" />
-        <span className="relative rounded-[10px] border border-graphite bg-white px-5 pt-5 pb-3 text-center">
+        <span className="relative rounded-[10px] border border-graphite bg-surface px-5 pt-5 pb-3 text-center">
           <span className="absolute top-2 left-1/2 h-2 w-2 -translate-x-1/2 rounded-full bg-ember" />
           <span className="block text-xs text-smoke">{tag}</span>
           <span className="font-display block text-3xl leading-tight text-inkwell">

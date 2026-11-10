@@ -62,7 +62,7 @@ export function SignatureShowcase({ products, title, eyebrow }: { products: Prod
     <section
       aria-roledescription="carousel"
       aria-label={s.label}
-      className="relative isolate overflow-hidden border-y border-mist-gray bg-white py-16 text-inkwell select-none sm:py-20"
+      className="relative isolate overflow-hidden border-y border-mist-gray bg-transparent py-16 text-inkwell select-none sm:py-20"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
@@ -114,7 +114,7 @@ export function SignatureShowcase({ products, title, eyebrow }: { products: Prod
               </>
             );
 
-            const shell = "absolute top-0 left-1/2 block w-[var(--card-w)] overflow-hidden rounded-[10px] border-[1.5px] bg-white text-inkwell transition-[transform,opacity,border-color] duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] [--card-w:15rem] sm:[--card-w:19rem]";
+            const shell = "absolute top-0 left-1/2 block w-[var(--card-w)] overflow-hidden rounded-[10px] border-[1.5px] bg-surface text-inkwell transition-[transform,opacity,border-color] duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] [--card-w:15rem] sm:[--card-w:19rem]";
             return front ? (
               <div key={p.id} className={`${shell} border-apricot`} style={style} aria-current="true">
                 <Link href={href(lang, `/p/${p.slug}`)} className="block rounded-[10px] focus-visible:outline-offset-4">
@@ -144,7 +144,7 @@ export function SignatureShowcase({ products, title, eyebrow }: { products: Prod
               { label: s.prev, onClick: prev, flip: true },
               { label: s.next, onClick: next, flip: false },
             ].map((b) => (
-              <button key={b.label} type="button" onClick={b.onClick} aria-label={b.label} className="pointer-events-auto grid h-12 w-12 place-items-center rounded-full border border-graphite/20 bg-white/90 text-graphite backdrop-blur-md transition-colors hover:border-graphite hover:bg-graphite hover:text-white">
+              <button key={b.label} type="button" onClick={b.onClick} aria-label={b.label} className="pointer-events-auto grid h-12 w-12 place-items-center rounded-full border border-graphite/20 bg-black/60 text-graphite backdrop-blur-md transition-colors hover:border-graphite hover:bg-ivory hover:text-ink">
                 <ArrowForward className={`h-4 w-4 ${b.flip ? "rotate-180" : ""}`} />
               </button>
             ))}

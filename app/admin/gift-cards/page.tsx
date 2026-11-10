@@ -10,7 +10,7 @@ import { staffUser } from "@/lib/auth";
 import { getSettings } from "@/lib/orders";
 
 export const metadata: Metadata = { title: "بطاقات الهدية" };
-const STATUS = { unused: ["غير مستعملة", "bg-emerald-700/10 text-emerald-800"], partial: ["مستعملة جزئيًا", "bg-gold/20 text-gold-deep"], used: ["مستعملة بالكامل", "bg-cocoa/10 text-taupe"], expired: ["منتهية", "bg-rosewood/10 text-rosewood"], disabled: ["موقوفة", "bg-rosewood/10 text-rosewood"] } as const;
+const STATUS = { unused: ["غير مستعملة", "bg-emerald-700/10 text-emerald-800"], partial: ["مستعملة جزئيًا", "bg-gold/20 text-gold-deep"], used: ["مستعملة بالكامل", "bg-ivory/10 text-taupe"], expired: ["منتهية", "bg-rosewood/10 text-rosewood"], disabled: ["موقوفة", "bg-rosewood/10 text-rosewood"] } as const;
 
 export default async function GiftCards({ searchParams }: PageProps<"/admin/gift-cards">) {
   const staff = await staffUser();
@@ -46,7 +46,7 @@ export default async function GiftCards({ searchParams }: PageProps<"/admin/gift
       ) : (
         <ul className="grid gap-3 lg:grid-cols-2">
           {cards.map((g) => (
-            <li key={g.id} className="rounded-3xl border border-cocoa/10 bg-ivory p-5">
+            <li key={g.id} className="rounded-3xl border border-cocoa/10 bg-surface p-5">
               <div className="flex items-start justify-between gap-3">
                 <p className="font-mono text-lg font-semibold tracking-widest text-cocoa" dir="ltr">
                   {g.code}

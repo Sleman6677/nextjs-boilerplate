@@ -40,7 +40,7 @@ async function shrink(file: File): Promise<File> {
 
 function Section({ title, hint, children }: { title: string; hint?: string; children: ReactNode }) {
   return (
-    <section className="rounded-3xl border border-cocoa/10 bg-ivory p-5 sm:p-6">
+    <section className="rounded-3xl border border-cocoa/10 bg-surface p-5 sm:p-6">
       <h2 className="text-base font-semibold text-cocoa">{title}</h2>
       {hint ? <p className={hintClass}>{hint}</p> : null}
       <div className="mt-4">{children}</div>
@@ -276,7 +276,7 @@ export function ProductForm({ value, categories, products, uploads }: { value: P
               {p.variants.map((v, i) => {
                 const upd = (patch: Partial<ProductEdit["variants"][number]>) => set({ variants: p.variants.map((x, j) => (j === i ? { ...x, ...patch } : x)) });
                 return (
-                  <li key={v.id ?? `new-${i}`} className="grid gap-2 rounded-2xl border border-cocoa/10 bg-white/50 p-3 sm:grid-cols-[1fr_1fr_1fr_6rem_6rem_auto] sm:items-end">
+                  <li key={v.id ?? `new-${i}`} className="grid gap-2 rounded-2xl border border-cocoa/10 bg-black/60 p-3 sm:grid-cols-[1fr_1fr_1fr_6rem_6rem_auto] sm:items-end">
                     {LANGS.map((l) => (
                       <div key={l.key}>
                         <label className="text-[0.7rem] text-taupe">
@@ -378,7 +378,7 @@ export function ProductForm({ value, categories, products, uploads }: { value: P
       </div>
 
       <aside className="space-y-5 lg:sticky lg:top-8 lg:self-start">
-        <section className="rounded-3xl border border-cocoa/10 bg-ivory p-5">
+        <section className="rounded-3xl border border-cocoa/10 bg-surface p-5">
           <div className="mx-auto max-w-[14rem]">
             {p.images[0] ? (
               <span className="relative block aspect-[4/5] overflow-hidden rounded-[1.6rem] bg-sand">
@@ -432,7 +432,7 @@ export function ProductForm({ value, categories, products, uploads }: { value: P
           ) : null}
           {p.id ? (
             confirmDelete ? (
-              <div className="rounded-2xl bg-ivory/10 p-3 text-sm" role="alertdialog" aria-label="تأكيد الحذف">
+              <div className="rounded-2xl bg-surface/10 p-3 text-sm" role="alertdialog" aria-label="تأكيد الحذف">
                 <p>حذف المنتج نهائيًا؟ الطلبات السابقة تحتفظ باسمه وسعره. يمكن إخفاؤه بدل حذفه.</p>
                 <div className="mt-2 flex gap-2">
                   <button

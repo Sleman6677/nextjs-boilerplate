@@ -45,7 +45,7 @@ export function ReviewForm({ productId, name }: { productId: string; name: strin
       </fieldset>
       <label className="block">
         <span className="sr-only">{r.reviewPh}</span>
-        <textarea name="body" rows={2} maxLength={1000} placeholder={r.reviewPh} className="w-full rounded-2xl border border-cocoa/15 bg-ivory px-4 py-3 text-base text-cocoa focus:border-gold-deep focus:outline-none" />
+        <textarea name="body" rows={2} maxLength={1000} placeholder={r.reviewPh} className="w-full rounded-2xl border border-cocoa/15 bg-surface px-4 py-3 text-base text-cocoa focus:border-gold-deep focus:outline-none" />
       </label>
       <label className="block text-sm text-taupe">
         {r.reviewPhoto}

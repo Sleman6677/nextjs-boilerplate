@@ -30,7 +30,7 @@ export default async function CustomerPage({ params }: PageProps<"/admin/custome
           { label: "النقاط", value: String(c.points) },
           { label: "آخر طلب", value: c.lastOrder ? day(c.lastOrder) : "—" },
         ].map((m) => (
-          <div key={m.label} className="rounded-3xl border border-cocoa/10 bg-ivory p-5">
+          <div key={m.label} className="rounded-3xl border border-cocoa/10 bg-surface p-5">
             <dt className="text-xs text-taupe">{m.label}</dt>
             <dd className="font-display mt-2 text-2xl text-cocoa">{m.value}</dd>
           </div>

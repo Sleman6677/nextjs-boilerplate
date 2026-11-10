@@ -95,7 +95,7 @@ export default async function AboutPage({ params }: PageProps<"/[lang]/about">) 
           <SectionHeading eyebrow="Our Promise" title={d.promiseTitle} lead={d.promiseLead} />
           <ul className="grid gap-4 sm:grid-cols-2">
             {d.promise.map((p, i) => (
-              <Reveal as="li" key={p} delay={i * 70} className="flex items-start gap-4 rounded-2xl border border-cocoa/10 bg-ivory p-5">
+              <Reveal as="li" key={p} delay={i * 70} className="flex items-start gap-4 rounded-2xl border border-cocoa/10 bg-surface p-5">
                 <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-ink text-gold-soft">
                   <Check className="h-4 w-4" />
                 </span>

@@ -16,7 +16,7 @@ export default async function AccountLayout({ children, params }: LayoutProps<"/
   const dict = getDictionary(lang);
   if (!accountsEnabled()) {
     return (
-      <section className="min-h-[70svh] bg-white px-5 pt-40 text-center text-inkwell">
+      <section className="min-h-[70svh] bg-transparent px-5 pt-40 text-center text-inkwell">
         <p className="mx-auto max-w-lg text-lg">{dict.auth.unavailable}</p>
       </section>
     );
@@ -29,7 +29,7 @@ export default async function AccountLayout({ children, params }: LayoutProps<"/
 
   return (
     <div className="min-h-[80svh] bg-cream pb-24">
-      <div className="relative overflow-clip bg-white border-b border-mist-gray pt-36 pb-10 text-inkwell sm:pt-44">
+      <div className="relative overflow-clip bg-transparent border-b border-mist-gray pt-36 pb-10 text-inkwell sm:pt-44">
         <div className="glow pointer-events-none absolute -top-40 left-[-10%] h-[30rem] w-[30rem] opacity-50" aria-hidden="true" />
         <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
           <div className="flex flex-wrap items-end justify-between gap-4">

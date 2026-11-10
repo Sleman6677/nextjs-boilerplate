@@ -88,7 +88,7 @@ async function LogTab({ status, configured }: { status: string; configured: bool
       {rows.length === 0 ? (
         <Empty>لا توجد رسائل.</Empty>
       ) : (
-        <ul className="divide-y divide-cocoa/10 rounded-3xl border border-cocoa/10 bg-ivory">
+        <ul className="divide-y divide-cocoa/10 rounded-3xl border border-cocoa/10 bg-surface">
           {rows.map((m) => {
             const wa = whatsappTo(m.phone, m.body);
             return (

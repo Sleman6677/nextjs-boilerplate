@@ -35,7 +35,7 @@ export default async function ShopPage({ params, searchParams }: PageProps<"/[la
 
   return (
     <div className="bg-petal">
-      <section className="relative isolate overflow-clip bg-white border-b border-mist-gray pt-36 pb-16 text-inkwell sm:pt-40">
+      <section className="relative isolate overflow-clip bg-transparent border-b border-mist-gray pt-36 pb-16 text-inkwell sm:pt-40">
         <div className="glow-pink drift pointer-events-none absolute -top-32 right-[-10%] -z-10 h-[30rem] w-[30rem] opacity-50" aria-hidden="true" />
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <p className="eyebrow flex items-center gap-3 text-smoke">
@@ -48,7 +48,7 @@ export default async function ShopPage({ params, searchParams }: PageProps<"/[la
       </section>
 
       {!accountsEnabled() ? (
-        <p className="bg-tangerine px-5 py-4 text-center text-sm text-white">
+        <p className="bg-tangerine px-5 py-4 text-center text-sm text-ink">
           {dict.store.setup}{" "}
           <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 font-semibold underline">
             <WhatsApp className="h-4 w-4" /> {dict.store.orderOnWhatsapp}
@@ -103,8 +103,8 @@ export default async function ShopPage({ params, searchParams }: PageProps<"/[la
           </div>
           <ol className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {s.steps.map((step, i) => (
-              <Reveal as="li" key={step.title} delay={i * 110} className="group relative overflow-hidden rounded-[1.75rem] border border-berry/10 bg-ivory/80 p-7 transition-transform duration-500 hover:-translate-y-1.5">
-                <span className="font-display absolute -top-4 -end-1 text-[6.5rem] leading-none text-pink-soft transition-colors duration-500 group-hover:text-pink" aria-hidden="true">
+              <Reveal as="li" key={step.title} delay={i * 110} className="group relative overflow-hidden rounded-[1.75rem] border border-berry/10 bg-surface/80 p-7 transition-transform duration-500 hover:-translate-y-1.5">
+                <span className="font-display absolute -top-4 -end-1 text-[6.5rem] leading-none text-gold-soft transition-colors duration-500 group-hover:text-pink" aria-hidden="true">
                   {num(i + 1, lang)}
                 </span>
                 <h3 className="relative mt-14 text-xl font-semibold text-plum">{step.title}</h3>

@@ -74,7 +74,7 @@ export function OrderActions({
       {next?.to === "delivered" && pointsEarned > 0 ? <p className="text-xs text-taupe">عند تأكيد التوصيل تُضاف {pointsEarned} نقطة لحساب الزبون تلقائيًا.</p> : null}
       {next?.to === "delivered" && method === "cash" && unpaid ? <p className="text-xs text-taupe">الدفع النقدي يُسجَّل كمدفوع تلقائيًا عند التوصيل.</p> : null}
 
-      <details className="group rounded-2xl border border-cocoa/10 bg-white/50 p-4">
+      <details className="group rounded-2xl border border-cocoa/10 bg-black/60 p-4">
         <summary className="min-h-8 cursor-pointer list-none text-sm font-medium text-cocoa">
           <span className="inline-block transition-transform duration-200 group-open:-rotate-90">‹</span> تغيير الحالة يدويًا أو إضافة ملاحظة
         </summary>
@@ -119,7 +119,7 @@ export function OrderActions({
               <button type="button" disabled={pending} onClick={() => run(() => changeOrderStatus(orderId, "cancelled", note))} className="min-h-11 rounded-full bg-rosewood px-5 text-ivory disabled:opacity-60">
                 نعم، إلغاء الطلب
               </button>
-              <button type="button" onClick={() => setConfirmCancel(false)} className="min-h-11 rounded-full px-5 text-cocoa hover:bg-ivory">
+              <button type="button" onClick={() => setConfirmCancel(false)} className="min-h-11 rounded-full px-5 text-cocoa hover:bg-surface">
                 تراجع
               </button>
             </div>

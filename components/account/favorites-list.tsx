@@ -15,7 +15,7 @@ export function FavoritesList({ products, offers }: { products: Product[]; offer
   const shown = favorites.map((id) => byId.get(id)).filter((p): p is Product => Boolean(p));
   if (shown.length === 0) {
     return (
-      <div className="rounded-[2rem] border border-cocoa/10 bg-ivory p-10 text-center">
+      <div className="rounded-[2rem] border border-cocoa/10 bg-surface p-10 text-center">
         <p className="text-taupe">{dict.store.account.favoritesEmpty}</p>
         <Link href={href(lang, "/shop")} className="btn btn-ink mt-6">
           {dict.store.home.cta}

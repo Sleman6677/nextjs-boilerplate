@@ -16,7 +16,7 @@ import { useStore } from "./store-provider";
 import { toast } from "./toast";
 import { useQuote } from "./use-quote";
 
-export const inputClass = "min-h-12 w-full rounded-full border border-berry/20 bg-white/70 px-5 text-base text-plum placeholder:text-berry-deep/40 focus:border-berry focus:outline-none";
+export const inputClass = "min-h-12 w-full rounded-full border border-berry/20 bg-black/60 px-5 text-base text-plum placeholder:text-berry-deep/40 focus:border-berry focus:outline-none";
 
 /** Coupon / gift card field with apply & remove. */
 export function CodeField({ id, label, placeholder, value, onApply, ok, error }: { id: string; label: string; placeholder: string; value: string; onApply: (v: string) => void; ok?: string | null; error?: string | null }) {
@@ -70,7 +70,7 @@ export function CartView({ products, zones, addons }: { products: Product[]; zon
 
   if (lines.length === 0) {
     return (
-      <div className="rounded-[2rem] border border-berry/10 bg-ivory p-10 text-center">
+      <div className="rounded-[2rem] border border-berry/10 bg-surface p-10 text-center">
         <p className="text-lg text-plum">{c.empty}</p>
         <Link href={href(lang, "/shop")} className="btn btn-berry mt-6">
           {c.continue}
@@ -98,7 +98,7 @@ export function CartView({ products, zones, addons }: { products: Product[]; zon
             const pl = priced.get(key);
             const limit = maxQty(p, line.variantId);
             return (
-              <li key={key} className="flex items-center gap-4 rounded-[1.5rem] border border-berry/10 bg-ivory p-3 sm:gap-5 sm:p-4">
+              <li key={key} className="flex items-center gap-4 rounded-[1.5rem] border border-berry/10 bg-surface p-3 sm:gap-5 sm:p-4">
                 <Link href={href(lang, `/p/${p.slug}`)} tabIndex={-1} aria-hidden="true">
                   <ProductThumb p={p} />
                 </Link>
@@ -114,7 +114,7 @@ export function CartView({ products, zones, addons }: { products: Product[]; zon
                         <Minus className="h-4 w-4" />
                       </button>
                       <span className="min-w-7 text-center font-semibold text-plum tabular-nums">{num(line.qty, lang)}</span>
-                      <button type="button" onClick={() => cart.set(key, Math.min(limit, line.qty + 1))} disabled={line.qty >= limit} aria-label={dict.store.product.inc} className="grid h-10 w-10 place-items-center rounded-full bg-berry text-ivory disabled:opacity-40">
+                      <button type="button" onClick={() => cart.set(key, Math.min(limit, line.qty + 1))} disabled={line.qty >= limit} aria-label={dict.store.product.inc} className="grid h-10 w-10 place-items-center rounded-full bg-ember text-ink disabled:opacity-40">
                         <Plus className="h-4 w-4" />
                       </button>
                     </div>
@@ -175,7 +175,7 @@ export function CartView({ products, zones, addons }: { products: Product[]; zon
           </section>
         ) : null}
 
-        <div className="grid gap-5 rounded-[1.8rem] border border-berry/10 bg-ivory p-5 sm:grid-cols-2 sm:p-6">
+        <div className="grid gap-5 rounded-[1.8rem] border border-berry/10 bg-surface p-5 sm:grid-cols-2 sm:p-6">
           <CodeField
             id="cart-coupon"
             label={c.coupon}
@@ -229,12 +229,12 @@ export function CartView({ products, zones, addons }: { products: Product[]; zon
             <label htmlFor="cart-note" className="text-sm font-semibold text-plum">
               {c.note}
             </label>
-            <textarea id="cart-note" value={extras.note} onChange={(e) => cartExtras.set({ note: e.target.value.slice(0, 500) })} placeholder={c.notePh} rows={2} className="mt-2 w-full rounded-2xl border border-berry/20 bg-white/70 px-5 py-3 text-base text-plum focus:border-berry focus:outline-none" />
+            <textarea id="cart-note" value={extras.note} onChange={(e) => cartExtras.set({ note: e.target.value.slice(0, 500) })} placeholder={c.notePh} rows={2} className="mt-2 w-full rounded-2xl border border-berry/20 bg-black/60 px-5 py-3 text-base text-plum focus:border-berry focus:outline-none" />
           </div>
         </div>
       </div>
 
-      <aside className="h-fit rounded-[2rem] bg-plum p-6 text-ivory lg:sticky lg:top-28">
+      <aside className="h-fit rounded-[2rem] bg-ink-2 p-6 text-ivory lg:sticky lg:top-28">
         <h2 className="font-display text-2xl">{dict.pay.summary}</h2>
         <div className="mt-5">
           <OrderSummary quote={quote} busy={busy} />
@@ -243,7 +243,7 @@ export function CartView({ products, zones, addons }: { products: Product[]; zon
           {c.checkout}
           <ArrowForward className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1 ltr:group-hover:translate-x-1" />
         </Link>
-        <Link href={href(lang, "/shop")} className="mt-3 block min-h-11 content-center text-center text-sm text-pink-soft/80 hover:text-ivory">
+        <Link href={href(lang, "/shop")} className="mt-3 block min-h-11 content-center text-center text-sm text-gold-soft/80 hover:text-ivory">
           {c.continue}
         </Link>
       </aside>

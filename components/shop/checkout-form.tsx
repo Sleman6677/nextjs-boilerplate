@@ -82,7 +82,7 @@ export function CheckoutForm({
 
   if (lines.length === 0) {
     return (
-      <div className="rounded-[2rem] border border-berry/10 bg-ivory p-10 text-center">
+      <div className="rounded-[2rem] border border-berry/10 bg-surface p-10 text-center">
         <p className="text-lg text-plum">{c.empty}</p>
         <Link href={href(lang, "/shop")} className="btn btn-berry mt-6">
           {c.continue}
@@ -135,8 +135,8 @@ export function CheckoutForm({
     else router.push(`${res.orderPath}&new=1${res.paymentError ? "&payerror=1" : ""}`);
   }
 
-  const field = "mt-1.5 block w-full rounded-2xl border border-berry/15 bg-ivory px-4 py-3 text-base text-plum transition-colors duration-200 focus:border-berry focus:outline-none focus-visible:outline-2 focus-visible:outline-pink-deep aria-invalid:border-rose-ink";
-  const radioCard = "flex min-h-16 items-center gap-3 rounded-2xl border-2 border-berry/15 bg-ivory px-4 py-3 transition-colors duration-200 peer-checked:border-berry peer-checked:bg-pink-soft/60 peer-disabled:opacity-55 peer-focus-visible:ring-2 peer-focus-visible:ring-pink-deep";
+  const field = "mt-1.5 block w-full rounded-2xl border border-berry/15 bg-surface px-4 py-3 text-base text-plum transition-colors duration-200 focus:border-berry focus:outline-none focus-visible:outline-2 focus-visible:outline-pink-deep aria-invalid:border-rose-ink";
+  const radioCard = "flex min-h-16 items-center gap-3 rounded-2xl border-2 border-berry/15 bg-surface px-4 py-3 transition-colors duration-200 peer-checked:border-berry peer-checked:bg-pink-soft/60 peer-disabled:opacity-55 peer-focus-visible:ring-2 peer-focus-visible:ring-pink-deep";
   const err = (id: string) =>
     errors[id] ? (
       <p id={`ck-${id}-err`} role="alert" className="mt-1.5 text-sm text-rose-ink">
@@ -162,7 +162,7 @@ export function CheckoutForm({
           </p>
         ) : null}
 
-        <fieldset className="rounded-[2rem] border border-berry/10 bg-ivory/70 p-6 sm:p-8">
+        <fieldset className="rounded-[2rem] border border-berry/10 bg-surface/70 p-6 sm:p-8">
           <legend className="font-naskh px-2 text-2xl text-plum">{ck.contact}</legend>
           <div className="mt-2 grid gap-4 sm:grid-cols-2">
             <div>
@@ -192,7 +192,7 @@ export function CheckoutForm({
           </div>
         </fieldset>
 
-        <fieldset className="rounded-[2rem] border border-berry/10 bg-ivory/70 p-6 sm:p-8">
+        <fieldset className="rounded-[2rem] border border-berry/10 bg-surface/70 p-6 sm:p-8">
           <legend className="font-naskh px-2 text-2xl text-plum">{ck.delivery}</legend>
           {!needsShipping ? (
             <p className="mt-2 text-plum">{ck.giftOnly}</p>
@@ -275,7 +275,7 @@ export function CheckoutForm({
           )}
         </fieldset>
 
-        <fieldset className="rounded-[2rem] border border-berry/10 bg-ivory/70 p-6 sm:p-8">
+        <fieldset className="rounded-[2rem] border border-berry/10 bg-surface/70 p-6 sm:p-8">
           <legend className="font-naskh px-2 text-2xl text-plum">{c.coupon}</legend>
           {quote?.discountKind === "first_order" ? (
             <p className="mb-4 flex items-center gap-2 rounded-2xl bg-pink-soft/60 px-4 py-3 text-sm text-plum">
@@ -317,7 +317,7 @@ export function CheckoutForm({
           </div>
         </fieldset>
 
-        <fieldset className="rounded-[2rem] border border-berry/10 bg-ivory/70 p-6 sm:p-8">
+        <fieldset className="rounded-[2rem] border border-berry/10 bg-surface/70 p-6 sm:p-8">
           <legend className="font-naskh px-2 text-2xl text-plum">{ck.payment}</legend>
           {paidInFull ? (
             <p className="mt-2 text-plum">{ck.paidInFull}</p>
@@ -340,7 +340,7 @@ export function CheckoutForm({
         </fieldset>
 
         {!profile?.birthday || !profile?.marketingConsent ? (
-          <fieldset className="rounded-[2rem] border border-berry/10 bg-ivory/70 p-6 sm:p-8">
+          <fieldset className="rounded-[2rem] border border-berry/10 bg-surface/70 p-6 sm:p-8">
             <legend className="sr-only">{ck.birthday}</legend>
             {!profile?.birthday ? (
               <div className="max-w-xs">
@@ -360,15 +360,15 @@ export function CheckoutForm({
         ) : null}
       </div>
 
-      <aside className="h-fit rounded-[2rem] bg-plum p-6 text-ivory lg:sticky lg:top-28">
+      <aside className="h-fit rounded-[2rem] bg-ink-2 p-6 text-ivory lg:sticky lg:top-28">
         <h2 className="font-display text-2xl">{dict.pay.summary}</h2>
         <ul className="mt-4 space-y-2 border-b border-pink-soft/15 pb-4 text-sm">
           {(quote?.items ?? []).map((it) => {
             const qty = lines.find((l) => lineKey(l) === it.key)?.qty ?? 0;
             return (
-              <li key={it.key} className="text-pink-soft/90">
+              <li key={it.key} className="text-gold-soft/90">
                 {localized(it.name, lang)}
-                {it.variantName ? ` · ${localized(it.variantName, lang)}` : ""} <span className="text-pink-soft/60">× {num(qty, lang)}</span>
+                {it.variantName ? ` · ${localized(it.variantName, lang)}` : ""} <span className="text-gold-soft/60">× {num(qty, lang)}</span>
               </li>
             );
           })}
@@ -389,7 +389,7 @@ export function CheckoutForm({
         <button type="submit" disabled={placing || !quote || !!quoteError} className="btn btn-pink mt-6 w-full disabled:opacity-60">
           {placing ? ck.placing : t(ck.place, { total: quote ? fmt(quote.total) : "" })}
         </button>
-        <p className="mt-3 text-center text-xs text-pink-soft/70">{ck.secure}</p>
+        <p className="mt-3 text-center text-xs text-gold-soft/70">{ck.secure}</p>
       </aside>
     </form>
   );

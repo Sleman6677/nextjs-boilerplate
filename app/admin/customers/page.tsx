@@ -30,7 +30,7 @@ export default async function AdminCustomers({ searchParams }: PageProps<"/admin
       {customers.length === 0 ? (
         <Empty>{q ? "لا توجد نتائج." : "لا توجد حسابات بعد."}</Empty>
       ) : (
-        <div className="overflow-x-auto rounded-3xl border border-cocoa/10 bg-ivory">
+        <div className="overflow-x-auto rounded-3xl border border-cocoa/10 bg-surface">
           <table className="w-full min-w-[46rem] text-sm">
             <thead className="text-xs text-taupe">
               <tr className="border-b border-cocoa/10">

@@ -37,7 +37,7 @@ export function AddressBook({ addresses }: { addresses: Address[] }) {
   }
 
   const field =
-    "mt-1.5 block w-full rounded-2xl border border-cocoa/15 bg-ivory px-4 py-3 text-base text-cocoa focus:border-gold-deep focus:outline-none focus-visible:outline-2 focus-visible:outline-gold";
+    "mt-1.5 block w-full rounded-2xl border border-cocoa/15 bg-surface px-4 py-3 text-base text-cocoa focus:border-gold-deep focus:outline-none focus-visible:outline-2 focus-visible:outline-gold";
   const current = editing && editing !== "new" ? editing : null;
 
   return (
@@ -45,7 +45,7 @@ export function AddressBook({ addresses }: { addresses: Address[] }) {
       {addresses.length === 0 && !editing ? <p className="text-taupe">{a.empty}</p> : null}
       <ul className="grid gap-4 sm:grid-cols-2">
         {addresses.map((ad) => (
-          <li key={ad.id} className="rounded-[1.75rem] border border-cocoa/10 bg-ivory p-6">
+          <li key={ad.id} className="rounded-[1.75rem] border border-cocoa/10 bg-surface p-6">
             <p className="font-semibold text-cocoa">
               {ad.label || ad.recipient}
               {ad.isDefault ? <span className="ms-2 rounded-full bg-gold/20 px-2 py-0.5 text-xs text-gold-deep">{a.isDefault}</span> : null}
@@ -81,7 +81,7 @@ export function AddressBook({ addresses }: { addresses: Address[] }) {
       </ul>
 
       {editing ? (
-        <form key={current?.id ?? "new"} onSubmit={onSubmit} noValidate className="grid gap-4 rounded-[2rem] border border-cocoa/10 bg-ivory p-6 sm:grid-cols-2 sm:p-8">
+        <form key={current?.id ?? "new"} onSubmit={onSubmit} noValidate className="grid gap-4 rounded-[2rem] border border-cocoa/10 bg-surface p-6 sm:grid-cols-2 sm:p-8">
           <div className="sm:col-span-2">
             <label htmlFor="ad-label" className="text-sm text-cocoa">{a.label}</label>
             <input id="ad-label" name="label" defaultValue={current?.label} className={field} />

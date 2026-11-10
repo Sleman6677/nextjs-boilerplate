@@ -34,7 +34,7 @@ export default async function Reviews({ searchParams }: PageProps<"/admin/review
       ) : (
         <ul className="grid gap-3 lg:grid-cols-2">
           {rows.map((r) => (
-            <li key={r.id} className="rounded-3xl border border-cocoa/10 bg-ivory p-5">
+            <li key={r.id} className="rounded-3xl border border-cocoa/10 bg-surface p-5">
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <p className="font-medium text-cocoa">{r.product}</p>

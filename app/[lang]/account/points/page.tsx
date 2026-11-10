@@ -31,9 +31,9 @@ export default async function PointsPage({ params }: PageProps<"/[lang]/account/
       <div>
         <h2 className="font-naskh mb-4 text-2xl text-cocoa">{pt.history}</h2>
         {history.length === 0 ? (
-          <p className="rounded-[1.75rem] border border-cocoa/10 bg-ivory p-6 text-taupe">{pt.empty}</p>
+          <p className="rounded-[1.75rem] border border-cocoa/10 bg-surface p-6 text-taupe">{pt.empty}</p>
         ) : (
-          <ul className="divide-y divide-cocoa/10 overflow-hidden rounded-[1.75rem] border border-cocoa/10 bg-ivory">
+          <ul className="divide-y divide-cocoa/10 overflow-hidden rounded-[1.75rem] border border-cocoa/10 bg-surface">
             {history.map((h, i) => (
               <li key={i} className="flex items-center justify-between gap-4 p-5">
                 <span>

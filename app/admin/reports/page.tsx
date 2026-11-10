@@ -23,7 +23,7 @@ export default async function Reports({ searchParams }: PageProps<"/admin/report
       <PageHeader title="المبيعات" subtitle="لا تشمل الطلبات الملغاة ولا طلبات البطاقة/Bit التي لم تُدفع." />
       <dl className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         {[periods.today, periods.week, periods.month, periods.all].map((p) => (
-          <div key={p.label} className="rounded-3xl border border-cocoa/10 bg-ivory p-5">
+          <div key={p.label} className="rounded-3xl border border-cocoa/10 bg-surface p-5">
             <dt className="text-xs text-taupe">{p.label}</dt>
             <dd className="font-display mt-2 text-3xl text-cocoa">{shekel(p.sales)}</dd>
             <dd className="mt-1 text-xs text-taupe">

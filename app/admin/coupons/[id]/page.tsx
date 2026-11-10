@@ -27,7 +27,7 @@ export default async function EditCoupon({ params }: PageProps<"/admin/coupons/[
           { label: "المبيعات بالكود", value: shekel(Math.round(stats.sales)) },
           { label: "إجمالي الخصومات", value: shekel(Math.round(stats.discounts)) },
         ].map((m) => (
-          <div key={m.label} className="rounded-3xl border border-cocoa/10 bg-ivory p-5">
+          <div key={m.label} className="rounded-3xl border border-cocoa/10 bg-surface p-5">
             <dt className="text-xs text-taupe">{m.label}</dt>
             <dd className="font-display mt-2 text-3xl text-cocoa">{m.value}</dd>
           </div>

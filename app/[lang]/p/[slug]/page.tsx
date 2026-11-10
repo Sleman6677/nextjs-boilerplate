@@ -65,7 +65,7 @@ export default async function ProductPage({ params }: PageProps<"/[lang]/p/[slug
   return (
     <div className="bg-petal pb-28">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
-      <div className="bg-white border-b border-mist-gray pt-32 pb-8 sm:pt-36">
+      <div className="bg-transparent border-b border-mist-gray pt-32 pb-8 sm:pt-36">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <Link href={href(lang, "/shop")} className="inline-flex min-h-11 items-center gap-2 text-sm text-taupe hover:text-ember">
             <ArrowForward className="h-4 w-4 rotate-180" /> {s.back}
@@ -91,7 +91,7 @@ export default async function ProductPage({ params }: PageProps<"/[lang]/p/[slug
             ) : (
               <ul className="mt-6 grid gap-4 md:grid-cols-2">
                 {reviews.map((r) => (
-                  <li key={r.id} className="rounded-[1.6rem] border border-berry/10 bg-ivory p-5">
+                  <li key={r.id} className="rounded-[1.6rem] border border-berry/10 bg-surface p-5">
                     <div className="flex items-center justify-between gap-3">
                       <Stars value={r.rating} />
                       <span className="text-xs text-berry-deep/60">{date(r.createdAt, lang)}</span>

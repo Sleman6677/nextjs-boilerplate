@@ -31,7 +31,7 @@ export default async function AccountPage({ params }: PageProps<"/[lang]/account
   const fmt = (n: number) => money(n, lang, shop.currency);
 
   const list = (rows: OrderSummary[]) => (
-    <ul className="divide-y divide-cocoa/10 overflow-hidden rounded-[1.75rem] border border-cocoa/10 bg-ivory">
+    <ul className="divide-y divide-cocoa/10 overflow-hidden rounded-[1.75rem] border border-cocoa/10 bg-surface">
       {rows.map((o) => (
         <li key={o.id}>
           <Link href={href(lang, `/account/orders/${o.number}`)} className="flex flex-wrap items-center justify-between gap-3 p-5 transition-colors hover:bg-sand/40">
@@ -62,7 +62,7 @@ export default async function AccountPage({ params }: PageProps<"/[lang]/account
             {a.nav.points}
           </Link>
         </div>
-        <section className="rounded-[2rem] border border-cocoa/10 bg-ivory p-6">
+        <section className="rounded-[2rem] border border-cocoa/10 bg-surface p-6">
           <h2 className="font-naskh text-xl text-cocoa">{sa.coupons}</h2>
           {coupons.length === 0 ? (
             <p className="mt-2 text-sm text-taupe">{sa.couponsEmpty}</p>
@@ -87,7 +87,7 @@ export default async function AccountPage({ params }: PageProps<"/[lang]/account
       <div className="space-y-10">
         <section>
           <h2 className="font-naskh mb-4 text-2xl text-cocoa">{a.current}</h2>
-          {current.length ? list(current) : <p className="rounded-[1.75rem] border border-cocoa/10 bg-ivory p-6 text-taupe">{a.none}</p>}
+          {current.length ? list(current) : <p className="rounded-[1.75rem] border border-cocoa/10 bg-surface p-6 text-taupe">{a.none}</p>}
         </section>
         {past.length ? (
           <section>
@@ -100,7 +100,7 @@ export default async function AccountPage({ params }: PageProps<"/[lang]/account
             <h2 className="font-naskh mb-4 text-2xl text-cocoa">{sa.reviewsTodo}</h2>
             <ul className="space-y-4">
               {toReview.slice(0, 5).map((r) => (
-                <li key={r.productId} className="rounded-[1.75rem] border border-cocoa/10 bg-ivory p-5">
+                <li key={r.productId} className="rounded-[1.75rem] border border-cocoa/10 bg-surface p-5">
                   <ReviewForm productId={r.productId} name={r.name} />
                 </li>
               ))}

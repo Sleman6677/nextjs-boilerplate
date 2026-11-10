@@ -20,7 +20,7 @@ export function SalesChart({ data }: { data: { day: string; sales: number; order
         {data.map((d, i) => (
           <div key={d.day} className="flex h-full flex-1 items-end" onMouseEnter={() => setActive(i)}>
             {d.sales > 0 ? (
-              <div className={`w-full rounded-t-[4px] transition-colors ${active === i ? "bg-berry-deep" : "bg-berry"}`} style={{ height: `${Math.max(3, (d.sales / max) * 100)}%` }} />
+              <div className={`w-full rounded-t-[4px] transition-colors ${active === i ? "bg-gold-soft" : "bg-berry"}`} style={{ height: `${Math.max(3, (d.sales / max) * 100)}%` }} />
             ) : null}
           </div>
         ))}

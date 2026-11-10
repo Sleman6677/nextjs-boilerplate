@@ -2,40 +2,42 @@
 
 /* ───────────────────────── Brand tokens ───────────────────────── */
 @theme {
-  /* Editorial beauty palette (white gallery walls + one warm orange).
-     Legacy token names are kept so every page follows the new palette. */
-  --color-ember: #f15730; /* filled actions */
-  --color-tangerine: #f7651a; /* promotional surfaces */
-  --color-apricot: #ff8562; /* hairline borders, accents */
-  --color-graphite: #111111;
-  --color-inkwell: #0d1717;
-  --color-smoke: #818181;
-  --color-mist-gray: #eeeeee;
+  /* Cinematic bronze stage: deep black, warm cream type, molten-bronze accent.
+     Legacy token names are kept so every page follows. Page surfaces are
+     transparent so the WebGL stage shows through. */
+  --color-surface: #0a0a0ab8; /* glass card on the stage */
+  --color-ember: #d6a06a; /* molten bronze: accents, small fills */
+  --color-tangerine: #e8b884;
+  --color-apricot: #7a5434; /* bronze hairlines */
+  --color-graphite: #ece6de;
+  --color-inkwell: #fff6ed;
+  --color-smoke: #8a8a8a;
+  --color-mist-gray: #ffffff1f;
 
-  --color-ink: #0d1717;
-  --color-ink-2: #142020;
-  --color-ink-3: #1d2a2a;
-  --color-ivory: #ffffff;
-  --color-cream: #ffffff;
-  --color-sand: #eeeeee;
-  --color-blush: #f6f6f6;
-  --color-rose: #818181;
-  --color-rosewood: #111111;
-  --color-gold: #f15730;
-  --color-gold-soft: #ff8562;
-  --color-gold-deep: #c2410c;
-  --color-cocoa: #111111;
-  --color-taupe: #5c5c5c; /* secondary text that still passes 4.5:1 on white */
-  --color-mist: #b5b5b5;
+  --color-ink: #000000;
+  --color-ink-2: #0b0b0b;
+  --color-ink-3: #161616;
+  --color-ivory: #fff6ed;
+  --color-cream: transparent;
+  --color-sand: #ffffff14;
+  --color-blush: #ffffff0a;
+  --color-rose: #8a8a8a;
+  --color-rosewood: #ece6de;
+  --color-gold: #d6a06a;
+  --color-gold-soft: #e8c9a0;
+  --color-gold-deep: #c08a52;
+  --color-cocoa: #e6e0d8;
+  --color-taupe: #a3a3a3;
+  --color-mist: #5f5f5f;
 
-  --color-petal: #ffffff;
-  --color-pink-soft: #f4f4f4;
-  --color-pink: #ff8562;
-  --color-pink-deep: #f7651a;
-  --color-rose-ink: #c2410c; /* orange that passes 4.5:1 on white, for sale prices */
-  --color-berry: #111111;
-  --color-berry-deep: #111111;
-  --color-plum: #0d1717;
+  --color-petal: transparent;
+  --color-pink-soft: #ffffff12;
+  --color-pink: #d6a06a;
+  --color-pink-deep: #e8b884;
+  --color-rose-ink: #e8b884;
+  --color-berry: #d6a06a;
+  --color-berry-deep: #e6e0d8;
+  --color-plum: #fff6ed;
 
   --ease-silk: cubic-bezier(0.2, 0.7, 0.1, 1);
   --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -44,28 +46,29 @@
 }
 
 @theme inline {
-  --font-display: var(--font-onest), var(--font-plex-arabic), var(--font-heebo), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-italiana), var(--font-amiri), var(--font-frank), serif;
   --font-naskh: var(--font-display);
-  --font-sans: var(--font-onest), var(--font-plex-arabic), var(--font-heebo), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-outfit), var(--font-plex-arabic), var(--font-heebo), ui-sans-serif, system-ui, sans-serif;
   --font-script: var(--font-display);
 }
 
 @layer base {
   /* ───────────────────────── Base ───────────────────────── */
   html {
-    background: #ffffff;
+    background: #000000;
     font-variant-numeric: lining-nums;
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
   }
 
   body {
-    background: #ffffff;
-    color: var(--color-graphite);
+    background: transparent; /* html paints the black; the WebGL stage sits between */
+    color: #d1d5db;
     font-family: var(--font-sans);
     font-size: 1rem;
-    line-height: 1.6;
-    letter-spacing: -0.02em;
+    font-weight: 300;
+    line-height: 1.7;
+    letter-spacing: 0.02em;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     overflow-x: clip;
@@ -73,7 +76,7 @@
 
   ::selection {
     background: var(--color-ember);
-    color: #ffffff;
+    color: #000000;
   }
 
   :focus-visible {
@@ -106,9 +109,9 @@
   /* ───────────────────────── Type helpers ───────────────────────── */
   .eyebrow {
     font-family: var(--font-sans);
-    font-size: 0.72rem;
-    font-weight: 500;
-    letter-spacing: 0.16em;
+    font-size: 0.65rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
   }
 
@@ -136,64 +139,70 @@
     align-items: center;
     justify-content: center;
     gap: 0.6rem;
-    min-height: 3rem;
-    padding: 0.95rem 2.5rem;
-    border-radius: 600px;
-    font-weight: 500;
-    font-size: 0.875rem;
-    letter-spacing: -0.01em;
+    min-height: 2.9rem;
+    padding: 0.8rem 1.9rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
     overflow: hidden;
     transition:
-      background-color 250ms var(--ease-silk),
-      color 250ms var(--ease-silk),
-      border-color 250ms var(--ease-silk);
+      transform 300ms var(--ease-silk),
+      background-color 300ms var(--ease-silk),
+      color 300ms var(--ease-silk),
+      border-color 300ms var(--ease-silk);
   }
 
   .btn:active {
     transform: scale(0.98);
   }
 
-  /* Primary: Ember fill → Tangerine on hover */
+  /* Primary: white pill, black text (with the small ring mark) */
   .btn-gold,
   .btn-pink,
   .btn-berry {
-    color: #ffffff;
-    background: var(--color-ember);
+    color: #000000;
+    background: #ffffff;
   }
 
   .btn-gold:hover,
   .btn-pink:hover,
   .btn-berry:hover {
-    background: var(--color-tangerine);
+    background: #f0f0f0;
+    transform: scale(1.05);
   }
 
-  /* Ghost on dark / imagery: white pill */
-  .btn-ghost-light {
-    color: var(--color-graphite);
-    background: #ffffff;
+  .btn-gold::before,
+  .btn-pink::before,
+  .btn-berry::before {
+    content: "";
+    order: 2;
+    width: 6px;
+    height: 6px;
+    border: 1px solid currentColor;
+    border-radius: 50%;
   }
 
-  .btn-ghost-light:hover {
-    color: var(--color-ember);
+  .btn-ghost-light,
+  .btn-ghost-dark {
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+  }
+
+  .btn-ghost-light:hover,
+  .btn-ghost-dark:hover {
+    border-color: #ffffff;
+    background: rgba(255, 255, 255, 0.06);
   }
 
   .btn-ink {
-    color: #ffffff;
-    background: var(--color-graphite);
-  }
-
-  .btn-ink:hover {
+    color: #000000;
     background: var(--color-ember);
   }
 
-  .btn-ghost-dark {
-    color: var(--color-graphite);
-    border: 1px solid var(--color-graphite);
-  }
-
-  .btn-ghost-dark:hover {
-    color: #ffffff;
-    background: var(--color-graphite);
+  .btn-ink:hover {
+    background: var(--color-tangerine);
   }
 
   /* Link with an animated underline that grows from the reading-start side */
@@ -340,13 +349,13 @@ html[data-motion="on"] [data-reveal].is-in {
 }
 
 /* ───────────────────────── Language & direction ───────────────────────── */
-/* Display type: whisper weight, tightly tracked (Latin only: tracking breaks Arabic joins) */
+/* Display type: Italiana, airy and lightly spaced (no tracking for Arabic/Hebrew joins) */
 .font-display,
 .font-naskh,
 .font-script {
-  font-weight: 200;
+  font-weight: 400;
   font-style: normal;
-  letter-spacing: -0.045em;
+  letter-spacing: 0.02em;
 }
 
 :lang(ar) .font-display,
@@ -355,8 +364,19 @@ html[data-motion="on"] [data-reveal].is-in {
 :lang(he) .font-display,
 :lang(he) .font-naskh,
 :lang(he) .font-script {
-  font-weight: 300;
   letter-spacing: 0;
+}
+
+/* Header nav: tiny uppercase links separated by dots */
+.nav-dots > li + li::before {
+  content: "";
+  display: inline-block;
+  width: 3px;
+  height: 3px;
+  margin-inline-end: 1.5rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  vertical-align: middle;
 }
 
 /* "Forward" arrows point left in RTL and right in LTR */
@@ -756,4 +776,36 @@ details[open] .faq-icon {
 ::after {
   --tw-shadow: 0 0 #0000 !important;
   --tw-inset-shadow: 0 0 #0000 !important;
+}
+
+/* ───────────────────────── Cinematic chrome ───────────────────────── */
+/* Custom cursor only on mouse/trackpad devices; text fields keep their caret. */
+html.cinema-cursor,
+html.cinema-cursor * {
+  cursor: none !important;
+}
+
+html.cinema-cursor input:not([type="checkbox"]):not([type="radio"]),
+html.cinema-cursor textarea {
+  cursor: text !important;
+}
+
+html.cinema-cursor .cinema-cursor-inner,
+html.cinema-cursor .cinema-cursor-outer {
+  display: block;
+}
+
+.cinema-cursor-outer.is-hot {
+  width: 64px;
+  height: 64px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Hide scrollbars like the reference (page still scrolls) */
+html {
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar {
+  display: none;
 }

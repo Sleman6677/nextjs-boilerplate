@@ -31,7 +31,7 @@ export default async function Staff() {
         </Card>
       </div>
       <h2 className="font-naskh mt-12 mb-4 text-2xl text-cocoa">سجل التعديلات</h2>
-      <ul className="divide-y divide-cocoa/10 rounded-3xl border border-cocoa/10 bg-ivory text-sm">
+      <ul className="divide-y divide-cocoa/10 rounded-3xl border border-cocoa/10 bg-surface text-sm">
         {log.map((a) => (
           <li key={a.id} className="flex flex-wrap justify-between gap-2 p-4">
             <span className="text-cocoa">

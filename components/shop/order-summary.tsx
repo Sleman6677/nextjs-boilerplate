@@ -29,7 +29,7 @@ export function OrderSummary({ quote, busy }: { quote: QuoteResult | null; busy?
     <div aria-busy={busy} className={busy ? "opacity-70 transition-opacity" : "transition-opacity"}>
       <dl className="space-y-2.5 text-sm">
         {rows.map((r) => (
-          <div key={r.label} className={`flex justify-between gap-4 ${r.tone ?? "text-pink-soft/85"}`}>
+          <div key={r.label} className={`flex justify-between gap-4 ${r.tone ?? "text-gold-soft/85"}`}>
             <dt>{r.label}</dt>
             <dd dir={r.dir}>{r.value}</dd>
           </div>
@@ -39,8 +39,8 @@ export function OrderSummary({ quote, busy }: { quote: QuoteResult | null; busy?
           <dd className="font-display text-4xl">{fmt(quote.total)}</dd>
         </div>
       </dl>
-      {quote.freeShippingRemaining !== null && quote.freeShippingRemaining > 0 ? <p className="mt-4 rounded-xl bg-pink-soft/10 px-3 py-2 text-xs text-pink-soft">{t(c.freeLeft, { amount: fmt(quote.freeShippingRemaining) })}</p> : null}
-      {quote.pointsEarned > 0 ? <p className="mt-3 text-xs text-pink-soft/80">{t(c.earn, { points: pointsLabel(quote.pointsEarned, lang) })}</p> : null}
+      {quote.freeShippingRemaining !== null && quote.freeShippingRemaining > 0 ? <p className="mt-4 rounded-xl bg-pink-soft/10 px-3 py-2 text-xs text-gold-soft">{t(c.freeLeft, { amount: fmt(quote.freeShippingRemaining) })}</p> : null}
+      {quote.pointsEarned > 0 ? <p className="mt-3 text-xs text-gold-soft/80">{t(c.earn, { points: pointsLabel(quote.pointsEarned, lang) })}</p> : null}
     </div>
   );
 }

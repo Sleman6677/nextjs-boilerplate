@@ -41,7 +41,7 @@ export function IssueGiftCardForm() {
 export function TemplateForm({ id, label, kind, vars, value }: { id: string; label: string; kind: string; vars: readonly string[]; value: { ar: string; he: string; en: string; enabled: boolean } }) {
   const [state, action] = useActionState(saveTemplate, initial);
   return (
-    <details className="group rounded-3xl border border-cocoa/10 bg-ivory p-5">
+    <details className="group rounded-3xl border border-cocoa/10 bg-surface p-5">
       <summary className="flex min-h-8 cursor-pointer list-none items-center justify-between gap-3">
         <span className="font-semibold text-cocoa">{label}</span>
         <span className="text-xs text-taupe">

@@ -9,7 +9,7 @@ import { field, hintClass, labelClass } from "./ui";
 
 function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <section className="grid gap-5 rounded-3xl border border-cocoa/10 bg-ivory p-5 sm:grid-cols-2 sm:p-8">
+    <section className="grid gap-5 rounded-3xl border border-cocoa/10 bg-surface p-5 sm:grid-cols-2 sm:p-8">
       <h2 className="text-base font-semibold text-cocoa sm:col-span-2">{title}</h2>
       {children}
     </section>

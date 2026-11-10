@@ -40,7 +40,7 @@ export function SplitTitle({
         textAlign="inherit"
         className="align-bottom pt-[0.08em] pb-[0.22em] -mt-[0.08em] -mb-[0.22em]"
         splitType="words"
-        effect="rise"
+        from={{ opacity: 0, y: 50, filter: "blur(12px)" }} to={{ opacity: 1, y: 0, filter: "blur(0px)" }} ease="power3.out"
         trigger="view"
         duration={reduce ? 0.01 : 0.9}
         delay={reduce ? 0 : delay}

@@ -68,9 +68,9 @@ function CategoryTile({ c, lang, index }: { c: Category; lang: Locale; index: nu
         <span className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-6 text-ivory">
           <span>
             <span className="font-display block text-3xl">{localized(c.name, lang)}</span>
-            {localized(c.description, lang) ? <span className="mt-1 block text-sm text-pink-soft/90">{localized(c.description, lang)}</span> : null}
+            {localized(c.description, lang) ? <span className="mt-1 block text-sm text-gold-soft/90">{localized(c.description, lang)}</span> : null}
           </span>
-          <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-ivory text-plum transition-transform duration-300 group-hover:-translate-x-1 ltr:group-hover:translate-x-1">
+          <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-surface text-plum transition-transform duration-300 group-hover:-translate-x-1 ltr:group-hover:translate-x-1">
             <ArrowForward className="h-4 w-4" />
           </span>
         </span>
@@ -101,7 +101,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
   return (
     <div className="bg-petal">
       {/* ───────────── Hero ───────────── */}
-      <section className="relative isolate overflow-clip bg-white text-inkwell">
+      <section className="relative isolate overflow-clip bg-transparent text-inkwell">
         <div className="glow-pink drift pointer-events-none absolute -top-32 right-[-10%] -z-10 h-[34rem] w-[34rem] opacity-60" aria-hidden="true" />
         <div className="glow-pink drift pointer-events-none absolute bottom-[-20%] left-[-12%] -z-10 h-[30rem] w-[30rem] opacity-40" style={v({ "--d": "-6s" })} aria-hidden="true" />
         <p className="font-display pointer-events-none absolute -bottom-[0.2em] right-0 -z-10 text-[30vw] leading-none text-transparent select-none [-webkit-text-stroke:1px_rgba(17,17,17,0.07)] lg:text-[22rem]" dir="ltr" data-drift="-30" aria-hidden="true">
@@ -117,7 +117,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
               {/* Words (not letters) are split so Arabic letters keep joining. */}
               {heroWords.slice(0, -1).map((w, i) => (
                 <span key={i}>
-                  <SplitText tag="span" text={w} textAlign="start" className="align-bottom pt-[0.08em] pb-[0.22em] -mt-[0.08em] -mb-[0.22em]" splitType="words" effect="rise" trigger="load" duration={0.9} delay={250 + i * 90} />{" "}
+                  <SplitText tag="span" text={w} textAlign="start" className="align-bottom pt-[0.08em] pb-[0.22em] -mt-[0.08em] -mb-[0.22em]" splitType="words" from={{ opacity: 0, y: 50, filter: "blur(12px)" }} to={{ opacity: 1, y: 0, filter: "blur(0px)" }} ease="power3.out" trigger="load" duration={0.9} delay={250 + i * 90} />{" "}
                 </span>
               ))}
               <span className="rise">
@@ -162,7 +162,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
       </section>
 
       {/* ───────────── Perks ───────────── */}
-      <section aria-label={h.eyebrow} className="border-b border-berry/10 bg-ivory">
+      <section aria-label={h.eyebrow} className="border-b border-berry/10 bg-surface">
         <ul data-stagger className="mx-auto grid max-w-7xl gap-px px-5 sm:grid-cols-3 sm:px-8">
           {h.perks.map((perk, i) => (
             <li key={perk.title} className="flex items-center gap-4 py-6">
@@ -177,7 +177,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
       </section>
 
       {/* ───────────── Marquee (speeds up with scroll) ───────────── */}
-      <VelocityMarquee items={[...h.eyebrow.split(" · "), ...h.perks.map((p) => p.title)]} className="font-display bg-graphite py-5 text-3xl text-white sm:py-7 sm:text-5xl" />
+      <VelocityMarquee items={[...h.eyebrow.split(" · "), ...h.perks.map((p) => p.title)]} className="font-display border-y border-mist-gray py-5 text-3xl text-ivory sm:py-7 sm:text-5xl" />
 
       {/* ───────────── Categories ───────────── */}
       {home.categories.length > 1 ? (
@@ -208,21 +208,21 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
       {/* ───────────── Gift card ───────────── */}
       {gift ? (
         <section className="px-5 py-16 sm:px-8 sm:py-20">
-          <Reveal className="relative mx-auto grid max-w-6xl items-center gap-10 overflow-hidden rounded-[10px] bg-tangerine p-8 text-white sm:p-14 lg:grid-cols-[1.2fr_1fr]">
+          <Reveal className="relative mx-auto grid max-w-6xl items-center gap-10 overflow-hidden rounded-[10px] border border-apricot bg-surface p-8 text-ivory backdrop-blur-sm sm:p-14 lg:grid-cols-[1.2fr_1fr]">
             <div className="glow-pink pointer-events-none absolute -top-20 -left-20 h-80 w-80 opacity-50" aria-hidden="true" />
             <div className="relative">
-              <Gift className="h-10 w-10 text-white" />
+              <Gift className="h-10 w-10 text-ember" />
               <SplitTitle className="font-display mt-6 text-4xl sm:text-5xl" text={h.giftTitle} />
-              <p className="mt-4 max-w-md text-base leading-7 text-white/90">{t(h.giftText, { paid: money(giftPaid, lang), value: money(round2(giftPaid * (1 + info.giftCardBonusPct / 100)), lang) })}</p>
+              <p className="mt-4 max-w-md text-base leading-7 text-taupe">{t(h.giftText, { paid: money(giftPaid, lang), value: money(round2(giftPaid * (1 + info.giftCardBonusPct / 100)), lang) })}</p>
               <div className="mt-8">
                 <MagnetLink>
-                  <Link href={href(lang, `/p/${gift.slug}`)} className="btn btn-ghost-light">
+                  <Link href={href(lang, `/p/${gift.slug}`)} className="btn btn-gold">
                     {h.giftCta}
                   </Link>
                 </MagnetLink>
               </div>
             </div>
-            <div data-scroll-tilt className="relative mx-auto w-full max-w-xs rotate-[-6deg] rounded-[10px] border-2 border-white bg-white p-6 text-inkwell">
+            <div data-scroll-tilt className="relative mx-auto w-full max-w-xs rotate-[-6deg] rounded-[10px] border border-apricot bg-ink-2 p-6 text-ivory">
               <p className="font-display text-2xl text-ember" dir="ltr">
                 Serag Lashes
               </p>

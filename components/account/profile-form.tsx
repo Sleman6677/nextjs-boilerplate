@@ -39,10 +39,10 @@ export function ProfileForm({ profile }: { profile: Profile }) {
     router.refresh();
   }
 
-  const field = "mt-1.5 block w-full rounded-2xl border border-cocoa/15 bg-ivory px-4 py-3 text-base text-cocoa focus:border-gold-deep focus:outline-none focus-visible:outline-2 focus-visible:outline-gold";
+  const field = "mt-1.5 block w-full rounded-2xl border border-cocoa/15 bg-surface px-4 py-3 text-base text-cocoa focus:border-gold-deep focus:outline-none focus-visible:outline-2 focus-visible:outline-gold";
 
   return (
-    <form onSubmit={onSubmit} className="grid max-w-2xl gap-5 rounded-[2rem] border border-cocoa/10 bg-ivory p-6 sm:p-8">
+    <form onSubmit={onSubmit} className="grid max-w-2xl gap-5 rounded-[2rem] border border-cocoa/10 bg-surface p-6 sm:p-8">
       <div>
         <label htmlFor="pf-name" className="text-sm text-cocoa">
           {f.name}
