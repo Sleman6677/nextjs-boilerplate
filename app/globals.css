@@ -11,7 +11,7 @@
   --color-kohl-2: #28292b;
   --color-copper: #c2501b;
   --color-copper-deep: #a8441a;
-  --color-muted: #5c5e62;
+  --color-muted: #46474b;
   --color-line: #1c1d1f2e;
 
   --color-surface: #e1e1dd;
@@ -20,7 +20,7 @@
   --color-apricot: #1c1d1f2e;
   --color-graphite: #1c1d1f;
   --color-inkwell: #1c1d1f;
-  --color-smoke: #5c5e62;
+  --color-smoke: #46474b;
   --color-mist-gray: #1c1d1f2e;
 
   --color-ink: #1c1d1f;
@@ -30,13 +30,13 @@
   --color-cream: #eeeeeb;
   --color-sand: #e1e1dd;
   --color-blush: #e7e7e3;
-  --color-rose: #5c5e62;
+  --color-rose: #46474b;
   --color-rosewood: #1c1d1f;
   --color-gold: #c2501b;
   --color-gold-soft: #d9d9d4;
   --color-gold-deep: #a8441a;
   --color-cocoa: #1c1d1f;
-  --color-taupe: #5c5e62;
+  --color-taupe: #46474b;
   --color-mist: #969796;
 
   --color-petal: #eeeeeb;
@@ -171,24 +171,6 @@
 
   .btn:active {
     transform: scale(0.97);
-  }
-
-  /* Shine sweep on hover */
-  .btn::after {
-    content: "";
-    position: absolute;
-    inset: 0 auto 0 0;
-    width: 60%;
-    background: linear-gradient(100deg, transparent, rgb(255 255 255 / 0.26) 50%, transparent);
-    transform: translateX(-140%) skewX(-18deg);
-    pointer-events: none;
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    .btn:hover::after {
-      transform: translateX(260%) skewX(-18deg);
-      transition: transform 0.9s var(--ease-expo);
-    }
   }
 
   .btn-gold,
@@ -390,38 +372,6 @@ html[data-motion="on"] [data-reveal].is-in {
 
 [dir="ltr"] .link-line {
   background-position: left bottom;
-}
-
-/* Scroll-driven extras: progressive enhancement, no JavaScript */
-.scroll-progress {
-  transform: scaleX(0);
-  transform-origin: right;
-}
-
-[dir="ltr"] .scroll-progress {
-  transform-origin: left;
-}
-
-@supports (animation-timeline: scroll()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .scroll-progress {
-      animation: grow-x linear both;
-      animation-timeline: scroll(root);
-    }
-
-    .parallax {
-      animation: parallax linear both;
-      animation-timeline: view();
-      animation-range: cover;
-    }
-
-    .draw-y {
-      transform-origin: top;
-      animation: grow-y linear both;
-      animation-timeline: view();
-      animation-range: entry 10% cover 55%;
-    }
-  }
 }
 
 @keyframes rise {
@@ -899,7 +849,7 @@ details[open] .faq-icon {
 
 .kohl-callout-label {
   font-size: 0.75rem;
-  color: #5c5e62;
+  color: #46474b;
 }
 
 .kohl-callout-value {

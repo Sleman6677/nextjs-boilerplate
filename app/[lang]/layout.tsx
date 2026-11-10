@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import { Analytics, AnalyticsHead } from "@/components/analytics";
 import { AnnouncementBar, Footer, WhatsAppFloat } from "@/components/chrome";
 import { Header } from "@/components/header";
-import { SmoothScroll } from "@/components/smooth-scroll";
 import { StoreProvider } from "@/components/shop/store-provider";
 import { Toaster } from "@/components/shop/toast";
 import { I18nProvider } from "@/components/i18n-provider";
@@ -64,14 +63,12 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
           <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:start-3 focus:z-[70] focus:rounded-full focus:bg-gold focus:px-5 focus:py-3 focus:text-ink">
             {dict.nav.skip}
           </a>
-          <div className="scroll-progress fixed inset-x-0 top-0 z-[70] h-[2px] bg-gradient-to-l from-gold-soft via-gold to-gold-deep" aria-hidden="true" />
           <AnnouncementBar lang={lang} info={info} />
           <Header accounts={accounts} social={{ instagram: info.instagram, tiktok: info.tiktok, whatsapp: info.whatsapp }} />
           <main id="main">{children}</main>
           <Footer lang={lang} info={info} />
           <WhatsAppFloat lang={lang} info={info} />
           <Toaster />
-          <SmoothScroll />
           <Analytics />
           </StoreProvider>
         </I18nProvider>

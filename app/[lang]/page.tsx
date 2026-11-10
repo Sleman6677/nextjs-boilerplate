@@ -64,11 +64,11 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
   const perkIcons = [<Truck key="t" className="h-5 w-5" />, <Coin key="c" className="h-5 w-5" />, <Shield key="s" className="h-5 w-5" />];
 
   return (
-    <div className="bg-stone">
+    <>
       {/* ───────────── First screen: the lash on the eye, and the way to buy it ───────────── */}
       <section className="relative overflow-clip">
-        <div className="mx-auto grid min-h-[92svh] max-w-7xl items-center gap-12 px-5 pt-32 pb-16 sm:px-8 lg:grid-cols-[1fr_1.15fr] lg:gap-16">
-          <div>
+        <div className="mx-auto grid max-w-7xl items-start gap-12 px-5 pt-36 pb-16 sm:px-8 lg:min-h-svh lg:grid-cols-12 lg:gap-x-6 lg:pb-10">
+          <div className="lg:col-span-6">
             <h1 className="font-display text-[3.25rem] leading-[1.02] sm:text-7xl lg:text-[5.5rem]">{h.title}</h1>
             <KohlStroke on="load" delay={500} className="mt-4 h-4 w-48 sm:w-64" />
             <p className="mt-6 max-w-md text-lg leading-8 text-taupe">{h.text}</p>
@@ -106,7 +106,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
           </div>
 
           {hero ? (
-            <div className="relative">
+            <div className="relative lg:col-span-6">
               <div className="relative rounded-[20px] bg-stone-2 px-[8%] pt-[10%] pb-[14%]">
                 <Link href={href(lang, `/p/${hero.slug}`)} aria-label={localized(hero.name, lang)} className="block text-kohl">
                   <LashEye style={hero.art.style} map={hero.art.map} seed={11} draw baseDelay={200} lidWidth={3} className="w-full" />
@@ -129,11 +129,11 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
       {/* ───────────── Kohl band: the four lash maps the designs come from ───────────── */}
       <section className="bg-kohl py-20 text-stone sm:py-28" aria-labelledby="maps-title">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
-          <div className="grid gap-6 lg:grid-cols-[1fr_1.4fr] lg:items-end">
-            <h2 id="maps-title" className="font-display text-4xl sm:text-6xl">
+          <div className="grid items-start gap-6 lg:grid-cols-12 lg:gap-x-6">
+            <h2 id="maps-title" className="font-display text-4xl sm:text-6xl lg:col-span-6">
               {k.mapsTitle}
             </h2>
-            <p className="max-w-xl text-lg leading-8 text-[#c4c4bf]">{dict.shop.lead}</p>
+            <p className="max-w-xl text-lg leading-8 text-[#c4c4bf] lg:col-span-6">{dict.shop.lead}</p>
           </div>
           <ul className="mt-14 grid gap-px overflow-hidden rounded-[20px] bg-[#3a3b3d] sm:grid-cols-2 lg:grid-cols-4">
             {MAPS.map((m, i) => (
@@ -180,6 +180,9 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
               {h.socialTitle}
             </h2>
             <p className="mt-4 text-lg leading-8 text-taupe">{h.socialText}</p>
+            <Link href={href(lang, "/shop")} className="btn btn-gold mt-8">
+              {h.cta}
+            </Link>
           </div>
           <ul className="flex flex-wrap gap-3">
             {socialLinks(info, lang).map((s) => (
@@ -192,6 +195,6 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
           </ul>
         </div>
       </section>
-    </div>
+    </>
   );
 }
