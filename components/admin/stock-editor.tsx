@@ -38,7 +38,7 @@ export function StockEditor({ productId, variantId, stock, label }: { productId:
         onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), save())}
         disabled={pending}
         dir="ltr"
-        className="min-h-11 w-24 rounded-xl border border-cocoa/15 bg-black/60 px-3 text-right text-cocoa focus:border-gold-deep focus:outline-none"
+        className="min-h-11 w-24 rounded-xl border border-cocoa/15 bg-white px-3 text-right text-cocoa focus:border-gold-deep focus:outline-none"
       />
       {saved ? <span className="text-xs text-emerald-800">{saved}</span> : null}
     </span>

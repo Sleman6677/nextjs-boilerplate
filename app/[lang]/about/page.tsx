@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Statement } from "@/components/fx";
 import { notFound } from "next/navigation";
 import { LashDivider, LashEye, RotatingBadge } from "@/components/art";
 import { Check } from "@/components/icons";
@@ -24,7 +23,6 @@ export default async function AboutPage({ params }: PageProps<"/[lang]/about">) 
   return (
     <>
       <PageHero
-        eyebrow="Our Story"
         title={d.title}
         lead={d.lead}
         art={
@@ -42,7 +40,7 @@ export default async function AboutPage({ params }: PageProps<"/[lang]/about">) 
       <section className="py-24 sm:py-32">
         <div className="mx-auto grid max-w-7xl gap-16 px-5 sm:px-8 lg:grid-cols-[1fr_1.1fr] lg:items-center">
           <Reveal variant="mask" className="relative">
-            <div data-parallax="0.25" className="arch relative mx-auto aspect-[4/5] max-w-md overflow-hidden bg-blush">
+            <div className="arch relative mx-auto aspect-[4/5] max-w-md overflow-hidden bg-blush">
               <div className="glow-rose absolute inset-x-0 top-10 mx-auto aspect-square w-4/5 opacity-80" aria-hidden="true" />
               <div className="absolute inset-0 grid place-items-center px-10 text-rosewood">
                 <LashEye style="hybrid" map="squirrel" seed={31} className="w-full" />
@@ -53,8 +51,8 @@ export default async function AboutPage({ params }: PageProps<"/[lang]/about">) 
             </div>
           </Reveal>
           <div>
-            <SectionHeading eyebrow="Why We Exist" title={d.storyTitle} />
-            <Statement className="mt-8 text-lg leading-9 text-taupe">{d.story1}</Statement>
+            <SectionHeading title={d.storyTitle} />
+            <p className="mt-8 text-lg leading-9 text-taupe">{d.story1}</p>
             <Reveal as="p" delay={260} className="mt-5 text-lg leading-9 text-taupe">
               {d.story2}
             </Reveal>
@@ -69,8 +67,8 @@ export default async function AboutPage({ params }: PageProps<"/[lang]/about">) 
       <section className="relative overflow-clip bg-ink py-24 text-ivory sm:py-32">
         <div className="glow pointer-events-none absolute top-0 left-1/2 h-[28rem] w-[50rem] -translate-x-1/2 opacity-30" aria-hidden="true" />
         <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
-          <SectionHeading tone="light" align="center" eyebrow="What We Believe" title={d.valuesTitle} />
-          <ul data-stagger className="mt-16 grid gap-6 md:grid-cols-3">
+          <SectionHeading tone="light" align="center" title={d.valuesTitle} />
+          <ul className="mt-16 grid gap-6 md:grid-cols-3">
             {d.values.map((v, i) => (
               <li key={v.latin} className="arch relative overflow-hidden border border-gold/20 bg-ink-2 px-8 pt-16 pb-10 text-center">
                 <span className="font-display absolute inset-x-0 top-6 text-sm tracking-[0.3em] text-gold/60" aria-hidden="true">
@@ -92,7 +90,7 @@ export default async function AboutPage({ params }: PageProps<"/[lang]/about">) 
       {/* Promise */}
       <section className="py-24 sm:py-32">
         <div className="mx-auto grid max-w-7xl gap-14 px-5 sm:px-8 lg:grid-cols-[1fr_1.3fr]">
-          <SectionHeading eyebrow="Our Promise" title={d.promiseTitle} lead={d.promiseLead} />
+          <SectionHeading title={d.promiseTitle} lead={d.promiseLead} />
           <ul className="grid gap-4 sm:grid-cols-2">
             {d.promise.map((p, i) => (
               <Reveal as="li" key={p} delay={i * 70} className="flex items-start gap-4 rounded-2xl border border-cocoa/10 bg-surface p-5">

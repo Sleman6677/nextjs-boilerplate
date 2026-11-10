@@ -17,7 +17,7 @@ export function AnnouncementBar({ lang, info }: { lang: Locale; info: StoreInfo 
       : dict.store.home.eyebrow;
   return (
     <div className="relative z-[51] flex h-9 items-center justify-center gap-3 overflow-hidden bg-ink px-4 text-[0.8rem] text-gold-soft sm:h-10 sm:text-sm">
-      <Sparkle className="h-3 w-3 shrink-0 text-gold" />
+      <Sparkle className="h-3 w-3 shrink-0 text-white/70" />
       <p className="truncate">{text}</p>
       <Link href={href(lang, "/shop")} className="link-line hidden shrink-0 text-ivory md:inline">
         {dict.store.home.cta}
@@ -34,7 +34,7 @@ export function WhatsAppFloat({ lang, info }: { lang: Locale; info: StoreInfo })
       target="_blank"
       rel="noopener noreferrer"
       aria-label={dict.common.waLabel}
-      className="pulse-ring fixed end-5 bottom-5 z-40 grid h-14 w-14 place-items-center rounded-full bg-ink text-gold-soft shadow-[0_15px_40px_-10px_rgba(0,0,0,0.5)] ring-1 ring-gold/40 transition-transform duration-300 hover:-translate-y-1 hover:text-ivory sm:end-8 sm:bottom-8"
+      className="pulse-ring fixed end-5 bottom-5 z-40 grid h-14 w-14 place-items-center rounded-full bg-ink text-gold-soft shadow-[0_15px_40px_-10px_rgba(0,0,0,0.5)] ring-1 ring-white/20 transition-transform duration-300 hover:-translate-y-1 hover:text-ivory sm:end-8 sm:bottom-8"
     >
       <WhatsApp className="h-6 w-6" />
     </a>
@@ -68,7 +68,7 @@ export function Footer({ lang, info }: { lang: Locale; info: StoreInfo }) {
       <div className="relative mx-auto max-w-7xl px-5 pt-24 sm:px-8">
         <div className="grid gap-14 border-b border-gold/15 pb-16 lg:grid-cols-[1.4fr_1fr_1fr]">
           <div>
-            <Monogram className="h-14 w-14 text-gold" />
+            <Monogram className="h-14 w-14 text-white/70" />
             <p className="font-display mt-6 max-w-xs text-2xl leading-relaxed text-ivory/90">{dict.footer.tagline}</p>
             <div className="mt-8 flex gap-3">
               {socialLinks(info, lang).map((s) => (
@@ -78,7 +78,7 @@ export function Footer({ lang, info }: { lang: Locale; info: StoreInfo }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={s.label}
-                  className="grid h-11 w-11 place-items-center rounded-full border border-gold/25 text-gold-soft transition-colors duration-200 hover:border-gold hover:bg-gold hover:text-ink"
+                  className="grid h-11 w-11 place-items-center rounded-full border border-white/25 text-gold-soft transition-colors duration-200 hover:border-white hover:bg-white hover:text-ink"
                 >
                   {s.icon}
                 </a>
@@ -87,13 +87,13 @@ export function Footer({ lang, info }: { lang: Locale; info: StoreInfo }) {
           </div>
 
           <nav aria-label={dict.footer.links}>
-            <h2 className="eyebrow text-gold" dir="ltr">
+            <h2 className="eyebrow text-white/70" dir="ltr">
               Explore
             </h2>
             <ul className="mt-6 space-y-3 text-ivory/75">
               {links.map((item) => (
                 <li key={item.path}>
-                  <Link href={href(lang, item.path)} className="link-line transition-colors duration-200 hover:text-gold-soft">
+                  <Link href={href(lang, item.path)} className="link-line transition-colors duration-200 hover:text-white">
                     {item.label}
                   </Link>
                 </li>
@@ -102,25 +102,25 @@ export function Footer({ lang, info }: { lang: Locale; info: StoreInfo }) {
           </nav>
 
           <div>
-            <h2 className="eyebrow text-gold" dir="ltr">
+            <h2 className="eyebrow text-white/70" dir="ltr">
               Contact
             </h2>
             <ul className="mt-6 space-y-4 text-ivory/75">
               <li className="flex gap-3">
-                <WhatsApp className="mt-1 h-5 w-5 shrink-0 text-gold" />
-                <a href={whatsappLink(undefined, info.whatsapp)} target="_blank" rel="noopener noreferrer" className="link-line hover:text-gold-soft">
+                <WhatsApp className="mt-1 h-5 w-5 shrink-0 text-white/70" />
+                <a href={whatsappLink(undefined, info.whatsapp)} target="_blank" rel="noopener noreferrer" className="link-line hover:text-white">
                   {dict.store.social.chat}
                 </a>
               </li>
               <li className="flex gap-3">
-                <Phone className="mt-1 shrink-0 text-gold" />
-                <a href={`tel:+${info.whatsapp}`} dir="ltr" className="link-line hover:text-gold-soft">
+                <Phone className="mt-1 shrink-0 text-white/70" />
+                <a href={`tel:+${info.whatsapp}`} dir="ltr" className="link-line hover:text-white">
                   {phone}
                 </a>
               </li>
               <li className="flex gap-3">
-                <Instagram className="mt-1 shrink-0 text-gold" />
-                <a href={`https://instagram.com/${info.instagram}`} target="_blank" rel="noopener noreferrer" dir="ltr" className="link-line hover:text-gold-soft">
+                <Instagram className="mt-1 shrink-0 text-white/70" />
+                <a href={`https://instagram.com/${info.instagram}`} target="_blank" rel="noopener noreferrer" dir="ltr" className="link-line hover:text-white">
                   @{info.instagram}
                 </a>
               </li>
@@ -136,7 +136,7 @@ export function Footer({ lang, info }: { lang: Locale; info: StoreInfo }) {
           >
             Serag
           </p>
-          <LashDivider className="mx-auto -mt-2 w-56 text-gold/70" />
+          <LashDivider className="mx-auto -mt-2 w-56 text-white/70/70" />
         </div>
 
         <div className="flex flex-col items-center justify-between gap-3 border-t border-gold/15 py-8 text-sm text-ivory/60 sm:flex-row">

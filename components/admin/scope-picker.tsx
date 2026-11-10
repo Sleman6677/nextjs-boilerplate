@@ -25,7 +25,7 @@ export function ScopePicker({ scope, productIds, categoryIds, products, categori
         ))}
       </div>
       {list.length ? (
-        <div className="mt-3 grid max-h-56 gap-1 overflow-y-auto rounded-2xl border border-cocoa/10 bg-black/60 p-3 sm:grid-cols-2">
+        <div className="mt-3 grid max-h-56 gap-1 overflow-y-auto rounded-2xl border border-cocoa/10 bg-white p-3 sm:grid-cols-2">
           {list.map((x) => (
             <label key={x.id} className="flex min-h-10 items-center gap-2 text-sm text-cocoa">
               <input type="checkbox" name={s === "products" ? "product_ids" : "category_ids"} value={x.id} defaultChecked={chosen.includes(x.id)} className="h-4 w-4 accent-[#7d5e27]" />

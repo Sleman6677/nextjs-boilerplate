@@ -77,9 +77,9 @@ export function Header({ accounts = false, social }: { accounts?: boolean; socia
 
   return (
     <header className={`fixed inset-x-0 z-50 transition-[top] duration-500 ease-[var(--ease-silk)] ${scrolled ? "top-3" : "top-9 sm:top-10"}`}>
-      <div className={`mx-auto transition-all duration-500 ease-[var(--ease-silk)] ${scrolled ? "max-w-6xl px-3 sm:px-6" : "max-w-7xl px-0"}`}>
+      <div className={`mx-auto transition-[max-width,padding] duration-300 ease-[var(--ease-expo)] ${scrolled ? "max-w-6xl px-3 sm:px-6" : "max-w-7xl px-0"}`}>
         <div
-          className={`flex items-center justify-between gap-4 transition-all duration-500 ${
+          className={`flex items-center justify-between gap-4 transition-[padding,background-color,border-color] duration-300 ${
             scrolled
               ? "rounded-none border border-mist-gray bg-white/95 px-4 py-2.5 backdrop-blur-xl sm:px-6"
               : "px-5 py-4 sm:px-8"
@@ -160,7 +160,7 @@ export function Header({ accounts = false, social }: { accounts?: boolean; socia
             {[...links, { path: "/account/favorites", label: dict.store.nav.favorites }, ...(accounts ? [{ path: "/account", label: dict.nav.account }] : [])].map((item, i) => (
               <li
                 key={item.path}
-                className={`transition-all duration-700 ease-[var(--ease-expo)] ${open ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}
+                className={`transition-[transform,opacity] duration-300 ease-[var(--ease-expo)] ${open ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}
                 style={{ transitionDelay: open ? `${120 + i * 70}ms` : "0ms" } as CSSProperties}
               >
                 <Link

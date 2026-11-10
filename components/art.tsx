@@ -107,7 +107,7 @@ export function RotatingBadge({ className, text = "SERAG LASHES • LUXURY LASH 
   const pathId = `badge-${useId().replace(/[^a-zA-Z0-9_-]/g, "")}`;
   return (
     <div className={className ?? "relative"} aria-hidden="true">
-      <svg viewBox="0 0 120 120" direction="ltr" className="spin-slow absolute inset-0 h-full w-full text-gold-soft [direction:ltr]">
+      <svg viewBox="0 0 120 120" direction="ltr" className="spin-slow absolute inset-0 h-full w-full text-taupe [direction:ltr]">
         <defs>
           <path id={pathId} d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1 -92 0" />
         </defs>

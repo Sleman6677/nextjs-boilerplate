@@ -276,7 +276,7 @@ export function ProductForm({ value, categories, products, uploads }: { value: P
               {p.variants.map((v, i) => {
                 const upd = (patch: Partial<ProductEdit["variants"][number]>) => set({ variants: p.variants.map((x, j) => (j === i ? { ...x, ...patch } : x)) });
                 return (
-                  <li key={v.id ?? `new-${i}`} className="grid gap-2 rounded-2xl border border-cocoa/10 bg-black/60 p-3 sm:grid-cols-[1fr_1fr_1fr_6rem_6rem_auto] sm:items-end">
+                  <li key={v.id ?? `new-${i}`} className="grid gap-2 rounded-2xl border border-cocoa/10 bg-white p-3 sm:grid-cols-[1fr_1fr_1fr_6rem_6rem_auto] sm:items-end">
                     {LANGS.map((l) => (
                       <div key={l.key}>
                         <label className="text-[0.7rem] text-taupe">

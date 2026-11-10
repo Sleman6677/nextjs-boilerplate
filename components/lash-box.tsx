@@ -87,7 +87,7 @@ export function BoxVisual({
         />
       ))}
 
-      <div data-lash-draw={imageUrl ? undefined : ""} className={`absolute inset-x-6 top-[32%] bottom-[17%] grid place-items-center rounded-none ${t.tray}`}>
+      <div className={`absolute inset-x-6 top-[32%] bottom-[17%] grid place-items-center rounded-none ${t.tray}`}>
         {imageUrl ? (
           <span className="card-lashes absolute inset-2 overflow-hidden rounded-none">
             <Image src={imageUrl} alt="" fill unoptimized sizes="(min-width:1024px) 30vw, 90vw" className="object-cover" />

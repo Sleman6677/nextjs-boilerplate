@@ -9,7 +9,7 @@ import { ArrowForward, Coin, Gift, Shield, Truck } from "@/components/icons";
 import { BoxVisual } from "@/components/lash-box";
 import { Reveal } from "@/components/reveal";
 import SplitText from "@/components/SplitText";
-import { MagnetLink, Shiny, Statement } from "@/components/fx";
+import { MagnetLink } from "@/components/fx";
 import { VelocityMarquee } from "@/components/velocity-marquee";
 import { HeroBoxPlayer } from "@/components/shop/hero-box";
 import { ProductCard } from "@/components/shop/product-card";
@@ -37,7 +37,7 @@ function Row({ title, products, offers, lang, seeAll, bestIds = [] }: { title: s
             <ArrowForward className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1 ltr:group-hover:translate-x-1" />
           </Link>
         </div>
-        <ul data-stagger className="-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-4 [scrollbar-width:none] sm:mx-0 sm:grid sm:grid-cols-3 sm:gap-6 sm:overflow-visible sm:px-0 lg:grid-cols-4">
+        <ul className="-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-4 [scrollbar-width:none] sm:mx-0 sm:grid sm:grid-cols-3 sm:gap-6 sm:overflow-visible sm:px-0 lg:grid-cols-4">
           {products.slice(0, 8).map((p, i) => (
             <li key={p.id} className="w-[46%] shrink-0 snap-start sm:w-auto">
               <ProductCard p={p} offers={offers} index={i} isNew={isNewProduct(p)} best={bestIds.includes(p.id)} />
@@ -55,7 +55,7 @@ function CategoryTile({ c, lang, index }: { c: Category; lang: Locale; index: nu
   return (
     <Reveal as="li" delay={index * 120}>
       <Link href={href(lang, `/shop?c=${c.slug}#collection`)} className="group relative block overflow-hidden rounded-none bg-pink-soft">
-        <span data-zoom-in className="relative block aspect-[4/5]">
+        <span className="relative block aspect-[4/5]">
           {cover ? (
             <Image src={cover} alt="" fill sizes="(min-width:640px) 33vw, 100vw" unoptimized={!optimizable(cover)} className="object-cover transition-transform duration-700 ease-[var(--ease-silk)] group-hover:scale-105" />
           ) : first ? (
@@ -104,15 +104,11 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
       <section className="relative isolate overflow-clip bg-transparent text-inkwell">
         <div className="glow-pink drift pointer-events-none absolute -top-32 right-[-10%] -z-10 h-[34rem] w-[34rem] opacity-60" aria-hidden="true" />
         <div className="glow-pink drift pointer-events-none absolute bottom-[-20%] left-[-12%] -z-10 h-[30rem] w-[30rem] opacity-40" style={v({ "--d": "-6s" })} aria-hidden="true" />
-        <p className="font-display pointer-events-none absolute -bottom-[0.2em] right-0 -z-10 text-[30vw] leading-none text-transparent select-none [-webkit-text-stroke:1px_rgba(17,17,17,0.07)] lg:text-[22rem]" dir="ltr" data-drift="-30" aria-hidden="true">
+        <p className="font-display pointer-events-none absolute -bottom-[0.2em] right-0 -z-10 text-[30vw] leading-none text-transparent select-none [-webkit-text-stroke:1px_rgba(17,17,17,0.07)] lg:text-[22rem]" dir="ltr" aria-hidden="true">
           Serag
         </p>
-        <div data-hero-out className="mx-auto grid min-h-[92svh] max-w-7xl items-center gap-16 px-5 pt-36 pb-20 sm:px-8 lg:grid-cols-[1.1fr_1fr] lg:gap-12">
+        <div className="mx-auto grid min-h-[92svh] max-w-7xl items-center gap-16 px-5 pt-36 pb-20 sm:px-8 lg:grid-cols-[1.1fr_1fr] lg:gap-12">
           <div>
-            <p className="eyebrow fade-in flex items-center gap-3 text-smoke">
-              <span className="h-px w-10 bg-current opacity-60" aria-hidden="true" />
-              <Shiny>{h.eyebrow}</Shiny>
-            </p>
             <h1 className="font-display mt-8 text-[3.6rem] leading-[1] sm:text-8xl lg:text-[7.2rem] lg:leading-[0.92]">
               {/* Words (not letters) are split so Arabic letters keep joining. */}
               {heroWords.slice(0, -1).map((w, i) => (
@@ -163,7 +159,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
 
       {/* ───────────── Perks ───────────── */}
       <section aria-label={h.eyebrow} className="border-b border-berry/10 bg-surface">
-        <ul data-stagger className="mx-auto grid max-w-7xl gap-px px-5 sm:grid-cols-3 sm:px-8">
+        <ul className="mx-auto grid max-w-7xl gap-px px-5 sm:grid-cols-3 sm:px-8">
           {h.perks.map((perk, i) => (
             <li key={perk.title} className="flex items-center gap-4 py-6">
               <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full border-[1.5px] border-apricot text-graphite">{perkIcons[i]}</span>
@@ -222,7 +218,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
                 </MagnetLink>
               </div>
             </div>
-            <div data-scroll-tilt className="relative mx-auto w-full max-w-xs rotate-[-6deg] rounded-none border border-apricot bg-ink-2 p-6 text-ivory">
+            <div className="relative mx-auto w-full max-w-xs rotate-[-6deg] rounded-none border border-apricot bg-ink-2 p-6 text-ivory">
               <p className="font-display text-2xl text-ember" dir="ltr">
                 Serag Lashes
               </p>
@@ -239,7 +235,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
       <section className="py-20 text-center sm:py-24">
         <div className="mx-auto max-w-3xl px-5 sm:px-8">
           <SplitTitle className="font-display text-4xl text-plum sm:text-5xl" text={h.socialTitle} />
-          <Statement className="mx-auto mt-4 max-w-lg text-lg text-berry-deep/80">{h.socialText}</Statement>
+          <p className="mx-auto mt-4 max-w-lg text-lg text-berry-deep/80">{h.socialText}</p>
           <Reveal delay={160} className="mt-10 flex flex-wrap justify-center gap-3">
             {socialLinks(info, lang).map((s, i) => (
               <a key={s.key} href={s.href} target="_blank" rel="noopener noreferrer" className={`btn min-h-14 px-7 ${i === 0 ? "btn-berry" : "btn-ghost-dark"}`}>

@@ -34,7 +34,6 @@ export default async function AccountLayout({ children, params }: LayoutProps<"/
         <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <p className="eyebrow text-smoke" dir="ltr">My Account</p>
               <SplitTitle as="h1" className="font-display mt-3 text-4xl sm:text-5xl" text={t(dict.account.hello, { name })} />
               <p className="mt-2 text-sm text-taupe" dir="ltr">{user.phone ? displayPhone(user.phone) : user.email}</p>
             </div>

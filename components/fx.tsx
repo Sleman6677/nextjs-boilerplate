@@ -1,11 +1,8 @@
 "use client";
 
 import { useSyncExternalStore, type ReactNode } from "react";
-import ClickSpark from "./ClickSpark";
 import GlareHover from "./GlareHover";
 import Magnet from "./Magnet";
-import ScrollReveal from "./ScrollReveal";
-import ShinyText from "./ShinyText";
 
 /* Site-tuned wrappers around the React Bits components, so pages (server
    components) can use them without repeating brand colours or motion checks. */
@@ -18,22 +15,6 @@ function subscribe(cb: () => void) {
 }
 export function useReducedMotion() {
   return useSyncExternalStore(subscribe, () => window.matchMedia(QUERY).matches, () => false);
-}
-
-/** A fan of lash strokes flicks up wherever the visitor clicks inside the page content. */
-export function SiteSpark({ children }: { children: ReactNode }) {
-  const reduce = useReducedMotion();
-  return (
-    <ClickSpark shape="line" sparkColor={["#111111", "#f15730", "#ff8562"]} sparkSize={11} sparkRadius={24} sparkCount={11} sparkWidth={1.6} direction={0} spread={150} gravity={0} randomness={0.15} duration={560} disabled={reduce} className="!h-auto">
-      {children}
-    </ClickSpark>
-  );
-}
-
-/** A light band that sweeps across the text now and then. */
-export function Shiny({ children, color = "#818181", shine = "#f15730" }: { children: string; color?: string; shine?: string }) {
-  const reduce = useReducedMotion();
-  return <ShinyText text={children} color={color} shineColor={shine} speed={3} delay={2} disabled={reduce} />;
 }
 
 /** Pulls its child towards the pointer when it comes near. */
@@ -54,14 +35,5 @@ export function Glare({ children }: { children: ReactNode }) {
     <GlareHover width="100%" height="auto" background="transparent" borderRadius="15px" glareColor="#ffffff" glareOpacity={0.5} glareSize={220} variant="sheen" className="!block !border-0 ![place-items:normal]">
       {children}
     </GlareHover>
-  );
-}
-
-/** A paragraph whose words light up as it scrolls through the viewport. */
-export function Statement({ children, className = "" }: { children: string; className?: string }) {
-  return (
-    <ScrollReveal as="p" wordAnimationEnd="bottom 55%" baseOpacity={0.15} enableBlur blurStrength={3} baseRotation={0} containerClassName={`!my-0 ${className}`} textClassName="!text-[length:inherit] !leading-[inherit] !font-[inherit]">
-      {children}
-    </ScrollReveal>
   );
 }

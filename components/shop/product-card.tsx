@@ -22,7 +22,7 @@ export function ProductImage({ p, index = 0, sizes = "(min-width:1024px) 25vw, 5
   if (p.imageUrl) {
     return (
       <span className="relative block aspect-[4/5] overflow-hidden rounded-none bg-pink-soft">
-        <Image src={p.imageUrl} alt="" fill sizes={sizes} quality={85} priority={priority} unoptimized={!optimizable(p.imageUrl)} className="object-cover transition-transform duration-700 ease-[var(--ease-silk)] group-hover:scale-[1.04]" />
+        <Image src={p.imageUrl} alt="" fill sizes={sizes} quality={85} priority={priority} unoptimized={!optimizable(p.imageUrl)} className="object-cover transition-transform duration-700 ease-[var(--ease-silk)] group-hover:scale-[1.03]" />
       </span>
     );
   }

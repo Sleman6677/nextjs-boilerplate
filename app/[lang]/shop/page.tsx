@@ -38,10 +38,6 @@ export default async function ShopPage({ params, searchParams }: PageProps<"/[la
       <section className="relative isolate overflow-clip bg-transparent border-b border-mist-gray pt-36 pb-16 text-inkwell sm:pt-40">
         <div className="glow-pink drift pointer-events-none absolute -top-32 right-[-10%] -z-10 h-[30rem] w-[30rem] opacity-50" aria-hidden="true" />
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
-          <p className="eyebrow flex items-center gap-3 text-smoke">
-            <span className="h-px w-10 bg-current opacity-60" aria-hidden="true" />
-            <span>{dict.store.home.eyebrow}</span>
-          </p>
           <SplitTitle as="h1" className="font-display mt-6 text-6xl leading-[0.95] sm:text-[8rem]" text={dict.store.nav.shop} />
           <p className="mt-6 max-w-xl text-base leading-7 text-taupe">{s.collLead}</p>
         </div>
@@ -89,10 +85,6 @@ export default async function ShopPage({ params, searchParams }: PageProps<"/[la
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <div className="grid items-end gap-10 lg:grid-cols-[1fr_1.2fr]">
             <div>
-              <Reveal as="p" className="eyebrow flex items-center gap-3 text-berry">
-                <span className="h-px w-10 bg-current opacity-60" aria-hidden="true" />
-                <span dir="ltr">How To Wear</span>
-              </Reveal>
               <Reveal as="h2" delay={80} className="font-display mt-5 text-[2.2rem] leading-[1.3] text-plum sm:text-5xl sm:leading-[1.25]">
                 {s.howTitle}
               </Reveal>
@@ -104,7 +96,7 @@ export default async function ShopPage({ params, searchParams }: PageProps<"/[la
           <ol className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {s.steps.map((step, i) => (
               <Reveal as="li" key={step.title} delay={i * 110} className="group relative overflow-hidden rounded-[1.75rem] border border-berry/10 bg-surface/80 p-7 transition-transform duration-500 hover:-translate-y-1.5">
-                <span className="font-display absolute -top-4 -end-1 text-[6.5rem] leading-none text-gold-soft transition-colors duration-500 group-hover:text-pink" aria-hidden="true">
+                <span className="font-display absolute -top-4 -end-1 text-[6.5rem] leading-none text-[#8a8a8a] transition-colors duration-500 group-hover:text-ink" aria-hidden="true">
                   {num(i + 1, lang)}
                 </span>
                 <h3 className="relative mt-14 text-xl font-semibold text-plum">{step.title}</h3>

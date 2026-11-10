@@ -85,7 +85,7 @@ export function Notice({ children, tone = "ok" }: { children: ReactNode; tone?: 
 }
 
 export const field =
-  "mt-1.5 block w-full rounded-2xl border border-cocoa/15 bg-black/60 px-4 py-3 text-base text-cocoa placeholder:text-mist focus:border-gold-deep focus:outline-none focus-visible:outline-2 focus-visible:outline-gold";
+  "mt-1.5 block w-full rounded-2xl border border-cocoa/15 bg-white px-4 py-3 text-base text-cocoa placeholder:text-mist focus:border-gold-deep focus:outline-none focus-visible:outline-2 focus-visible:outline-gold";
 export const labelClass = "text-sm font-medium text-cocoa";
 export const hintClass = "mt-1 text-xs text-taupe";
 

@@ -287,20 +287,13 @@ export function Runway({ products }: { products: Product[] }) {
       if (s.visible) kick();
     });
     if (root.current) io.observe(root.current);
-    const reveal = new IntersectionObserver(
-      ([e]) => {
-        if (!e.isIntersecting) return;
-        reveal.disconnect();
-        requestAnimationFrame(() =>
-          requestAnimationFrame(() => {
-            setRevealed(true);
-            if (!s.reduce) setPlaying(true);
-          }),
-        );
-      },
-      { rootMargin: "0px 0px -22% 0px" },
+    // Enters once on load (not when scrolled into view).
+    const revealRaf = requestAnimationFrame(() =>
+      requestAnimationFrame(() => {
+        setRevealed(true);
+        if (!s.reduce) setPlaying(true);
+      }),
     );
-    if (root.current) reveal.observe(root.current);
     let timer = 0;
     const onResize = () => {
       clearTimeout(timer);
@@ -316,7 +309,7 @@ export function Runway({ products }: { products: Product[] }) {
       cancelAnimationFrame(s.raf);
       s.raf = 0;
       io.disconnect();
-      reveal.disconnect();
+      cancelAnimationFrame(revealRaf);
       ro.disconnect();
       clearTimeout(timer);
       window.removeEventListener("resize", onResize);

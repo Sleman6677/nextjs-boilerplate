@@ -27,10 +27,6 @@ export default async function LoginPage({ params, searchParams }: PageProps<"/[l
       <div className="glow pointer-events-none absolute -top-40 left-[-10%] h-[36rem] w-[36rem] opacity-60" aria-hidden="true" />
       <div className="relative mx-auto grid max-w-5xl items-center gap-12 px-5 sm:px-8 lg:grid-cols-[1fr_1.1fr]">
         <div className="text-inkwell">
-          <p className="eyebrow flex items-center gap-3 text-smoke">
-            <span className="h-px w-10 bg-current opacity-60" aria-hidden="true" />
-            <span dir="ltr">My Account</span>
-          </p>
           <SplitTitle as="h1" className="font-display mt-6 text-5xl leading-tight" text={a.title} />
           <p className="mt-5 text-lg leading-8 text-taupe">{getDictionary(lang).store.login.text}</p>
           <ul className="mt-8 space-y-3 text-taupe">

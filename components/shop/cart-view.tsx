@@ -16,7 +16,7 @@ import { useStore } from "./store-provider";
 import { toast } from "./toast";
 import { useQuote } from "./use-quote";
 
-export const inputClass = "min-h-12 w-full rounded-full border border-berry/20 bg-black/60 px-5 text-base text-plum placeholder:text-berry-deep/40 focus:border-berry focus:outline-none";
+export const inputClass = "min-h-12 w-full rounded-full border border-berry/20 bg-white px-5 text-base text-plum placeholder:text-berry-deep/40 focus:border-berry focus:outline-none";
 
 /** Coupon / gift card field with apply & remove. */
 export function CodeField({ id, label, placeholder, value, onApply, ok, error }: { id: string; label: string; placeholder: string; value: string; onApply: (v: string) => void; ok?: string | null; error?: string | null }) {
@@ -229,7 +229,7 @@ export function CartView({ products, zones, addons }: { products: Product[]; zon
             <label htmlFor="cart-note" className="text-sm font-semibold text-plum">
               {c.note}
             </label>
-            <textarea id="cart-note" value={extras.note} onChange={(e) => cartExtras.set({ note: e.target.value.slice(0, 500) })} placeholder={c.notePh} rows={2} className="mt-2 w-full rounded-2xl border border-berry/20 bg-black/60 px-5 py-3 text-base text-plum focus:border-berry focus:outline-none" />
+            <textarea id="cart-note" value={extras.note} onChange={(e) => cartExtras.set({ note: e.target.value.slice(0, 500) })} placeholder={c.notePh} rows={2} className="mt-2 w-full rounded-2xl border border-berry/20 bg-white px-5 py-3 text-base text-plum focus:border-berry focus:outline-none" />
           </div>
         </div>
       </div>

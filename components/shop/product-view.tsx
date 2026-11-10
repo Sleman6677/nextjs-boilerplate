@@ -75,7 +75,7 @@ function NotifyForm({ p, variantId }: { p: Product; variantId: string | null }) 
         <label htmlFor="notify-phone" className="sr-only">
           {s.notifyPhone}
         </label>
-        <input id="notify-phone" name="phone" type="tel" inputMode="tel" autoComplete="tel" dir="ltr" required placeholder="05X-XXX-XXXX" aria-invalid={error} aria-describedby={error ? "notify-err" : undefined} className="min-h-12 w-full rounded-full border border-berry/20 bg-black/60 px-5 text-base text-plum focus:border-berry focus:outline-none rtl:text-right" />
+        <input id="notify-phone" name="phone" type="tel" inputMode="tel" autoComplete="tel" dir="ltr" required placeholder="05X-XXX-XXXX" aria-invalid={error} aria-describedby={error ? "notify-err" : undefined} className="min-h-12 w-full rounded-full border border-berry/20 bg-white px-5 text-base text-plum focus:border-berry focus:outline-none rtl:text-right" />
         <button type="submit" disabled={busy} className="btn btn-berry min-h-12 shrink-0 px-6 text-sm disabled:opacity-60">
           {s.notifySubmit}
         </button>

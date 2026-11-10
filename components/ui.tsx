@@ -41,14 +41,12 @@ export function Marquee({ items, className }: { items: string[]; className?: str
 }
 
 export function SectionHeading({
-  eyebrow,
   title,
   lead,
   tone = "dark",
   align = "start",
   className,
 }: {
-  eyebrow: string;
   title: ReactNode;
   lead?: ReactNode;
   tone?: "dark" | "light";
@@ -58,10 +56,6 @@ export function SectionHeading({
   const light = tone === "light";
   return (
     <header className={`${align === "center" ? "mx-auto text-center" : ""} max-w-2xl ${className ?? ""}`}>
-      <Reveal as="p" className={`eyebrow ${light ? "text-gold" : "text-gold-deep"} ${align === "center" ? "justify-center" : ""} flex items-center gap-3`}>
-        <span className="h-px w-10 bg-current opacity-60" aria-hidden="true" />
-        <span dir="ltr">{eyebrow}</span>
-      </Reveal>
       <Reveal as="h2" delay={80} className={`font-display mt-5 text-[2.1rem] leading-[1.3] sm:text-5xl sm:leading-[1.25] ${light ? "text-ivory" : "text-cocoa"}`}>
         {title}
       </Reveal>
@@ -118,12 +112,10 @@ export function ButtonLink({
 
 /** Small page hero used by inner pages. */
 export function PageHero({
-  eyebrow,
   title,
   lead,
   art,
 }: {
-  eyebrow: string;
   title: string;
   lead: string;
   art?: ReactNode;
@@ -133,10 +125,6 @@ export function PageHero({
       <div className="glow pointer-events-none absolute -top-40 left-[-10%] h-[36rem] w-[36rem] opacity-60" aria-hidden="true" />
       <div className="relative mx-auto grid max-w-7xl items-end gap-12 px-5 sm:px-8 lg:grid-cols-[1.2fr_1fr]">
         <div>
-          <p className="eyebrow fade-in flex items-center gap-3 text-gold">
-            <span className="h-px w-10 bg-current opacity-60" aria-hidden="true" />
-            <span dir="ltr">{eyebrow}</span>
-          </p>
           <h1 className="font-display mt-6 text-5xl leading-[1] sm:text-[6.5rem] sm:leading-[0.95]">
             <Rise text={title} />
           </h1>
@@ -145,7 +133,7 @@ export function PageHero({
           </p>
         </div>
         {art ? (
-          <div className="relative hidden lg:block" data-parallax="0.35">
+          <div className="relative hidden lg:block">
             {art}
           </div>
         ) : null}
