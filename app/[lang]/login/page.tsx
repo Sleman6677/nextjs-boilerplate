@@ -36,7 +36,7 @@ export default async function LoginPage({ params, searchParams }: PageProps<"/[l
           <ul className="mt-8 space-y-3 text-taupe">
             {a.perks.map((p) => (
               <li key={p} className="flex items-center gap-3">
-                <span className="grid h-6 w-6 place-items-center rounded-full bg-ember text-ink">
+                <span className="grid h-6 w-6 place-items-center rounded-full bg-ember text-white">
                   <Check className="h-3.5 w-3.5" />
                 </span>
                 {p}
@@ -44,7 +44,7 @@ export default async function LoginPage({ params, searchParams }: PageProps<"/[l
             ))}
           </ul>
         </div>
-        {accountsEnabled() ? <LoginForm next={next} /> : <p className="rounded-[10px] border border-mist-gray bg-surface p-8 text-graphite">{a.unavailable}</p>}
+        {accountsEnabled() ? <LoginForm next={next} /> : <p className="rounded-none border border-mist-gray bg-surface p-8 text-graphite">{a.unavailable}</p>}
       </div>
     </section>
   );

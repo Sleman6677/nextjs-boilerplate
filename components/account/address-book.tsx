@@ -81,7 +81,7 @@ export function AddressBook({ addresses }: { addresses: Address[] }) {
       </ul>
 
       {editing ? (
-        <form key={current?.id ?? "new"} onSubmit={onSubmit} noValidate className="grid gap-4 rounded-[2rem] border border-cocoa/10 bg-surface p-6 sm:grid-cols-2 sm:p-8">
+        <form key={current?.id ?? "new"} onSubmit={onSubmit} noValidate className="grid gap-4 rounded-none border border-cocoa/10 bg-surface p-6 sm:grid-cols-2 sm:p-8">
           <div className="sm:col-span-2">
             <label htmlFor="ad-label" className="text-sm text-cocoa">{a.label}</label>
             <input id="ad-label" name="label" defaultValue={current?.label} className={field} />

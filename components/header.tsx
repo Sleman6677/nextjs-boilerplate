@@ -26,7 +26,7 @@ function LanguageSwitcher({ className }: { className?: string }) {
           prefetch={false}
           aria-current={l === lang ? "true" : undefined}
           aria-label={localeNames[l]}
-          className="grid h-9 min-w-9 place-items-center rounded-full px-2 text-xs font-semibold text-taupe transition-colors duration-200 hover:text-ember aria-[current=true]:bg-ivory aria-[current=true]:text-ink"
+          className="grid h-9 min-w-9 place-items-center rounded-full px-2 text-xs font-semibold text-taupe transition-colors duration-200 hover:text-ember aria-[current=true]:bg-ink aria-[current=true]:text-white"
         >
           {localeShort[l]}
         </Link>
@@ -81,7 +81,7 @@ export function Header({ accounts = false, social }: { accounts?: boolean; socia
         <div
           className={`flex items-center justify-between gap-4 transition-all duration-500 ${
             scrolled
-              ? "rounded-full border border-mist-gray bg-black/60 px-4 py-2.5 backdrop-blur-xl sm:px-6"
+              ? "rounded-none border border-mist-gray bg-white/95 px-4 py-2.5 backdrop-blur-xl sm:px-6"
               : "px-5 py-4 sm:px-8"
           }`}
         >
@@ -90,13 +90,13 @@ export function Header({ accounts = false, social }: { accounts?: boolean; socia
           </Link>
 
           <nav aria-label={dict.nav.mainNav} className="hidden lg:block">
-            <ul className="nav-dots flex items-center gap-6 text-[0.65rem] font-normal tracking-[0.2em] text-ivory uppercase">
+            <ul className="flex items-center gap-7 text-sm font-semibold text-inkwell">
               {links.map((item) => (
                 <li key={item.path}>
                   <Link
                     href={href(lang, item.path)}
                     aria-current={isActive(item.path) ? "page" : undefined}
-                    className="link-line transition-colors duration-200 hover:text-ember aria-[current=page]:text-ember"
+                    className="py-3 underline-offset-4 hover:underline aria-[current=page]:underline"
                   >
                     {item.label}
                   </Link>

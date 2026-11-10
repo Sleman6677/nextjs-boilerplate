@@ -54,7 +54,7 @@ export default async function AccountPage({ params }: PageProps<"/[lang]/account
   return (
     <div className="grid gap-10 lg:grid-cols-[1fr_2fr]">
       <aside className="space-y-6">
-        <div className="rounded-[2rem] bg-gradient-to-br from-gold-soft via-gold to-gold-deep p-7 text-ink">
+        <div className="rounded-none bg-gradient-to-br from-gold-soft via-gold to-gold-deep p-7 text-ink">
           <p className="text-sm font-semibold">{a.pointsBalance}</p>
           <p className="font-display mt-2 text-6xl">{num(balance, lang)}</p>
           <p className="mt-2 text-sm">{t(a.pointsWorth, { value: fmt(balance * settings.pointValue) })}</p>
@@ -62,7 +62,7 @@ export default async function AccountPage({ params }: PageProps<"/[lang]/account
             {a.nav.points}
           </Link>
         </div>
-        <section className="rounded-[2rem] border border-cocoa/10 bg-surface p-6">
+        <section className="rounded-none border border-cocoa/10 bg-surface p-6">
           <h2 className="font-naskh text-xl text-cocoa">{sa.coupons}</h2>
           {coupons.length === 0 ? (
             <p className="mt-2 text-sm text-taupe">{sa.couponsEmpty}</p>

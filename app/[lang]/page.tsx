@@ -13,7 +13,7 @@ import { MagnetLink, Shiny, Statement } from "@/components/fx";
 import { VelocityMarquee } from "@/components/velocity-marquee";
 import { HeroBoxPlayer } from "@/components/shop/hero-box";
 import { ProductCard } from "@/components/shop/product-card";
-import { SignatureShowcase } from "@/components/shop/signature-showcase";
+import { Runway } from "@/components/shop/runway";
 import { getHome, isNewProduct, type Category, type OfferInfo, type Product } from "@/lib/catalog";
 import { href, isLocale, type Locale } from "@/lib/i18n/config";
 import { localized, money, t } from "@/lib/i18n/format";
@@ -54,7 +54,7 @@ function CategoryTile({ c, lang, index }: { c: Category; lang: Locale; index: nu
   const first = c.products[0];
   return (
     <Reveal as="li" delay={index * 120}>
-      <Link href={href(lang, `/shop?c=${c.slug}#collection`)} className="group relative block overflow-hidden rounded-[2rem] bg-pink-soft">
+      <Link href={href(lang, `/shop?c=${c.slug}#collection`)} className="group relative block overflow-hidden rounded-none bg-pink-soft">
         <span data-zoom-in className="relative block aspect-[4/5]">
           {cover ? (
             <Image src={cover} alt="" fill sizes="(min-width:640px) 33vw, 100vw" unoptimized={!optimizable(cover)} className="object-cover transition-transform duration-700 ease-[var(--ease-silk)] group-hover:scale-105" />
@@ -177,7 +177,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
       </section>
 
       {/* ───────────── Marquee (speeds up with scroll) ───────────── */}
-      <VelocityMarquee items={[...h.eyebrow.split(" · "), ...h.perks.map((p) => p.title)]} className="font-display border-y border-mist-gray py-5 text-3xl text-ivory sm:py-7 sm:text-5xl" />
+      <VelocityMarquee items={[...h.eyebrow.split(" · "), ...h.perks.map((p) => p.title)]} className="font-display bg-ink py-5 text-3xl text-white sm:py-7 sm:text-5xl" />
 
       {/* ───────────── Categories ───────────── */}
       {home.categories.length > 1 ? (
@@ -200,7 +200,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
         </div>
       ) : null}
       {signature.length >= 3 ? (
-        <SignatureShowcase products={signature.slice(0, 7)} title={hasBest ? h.bestSellers : h.showcase.label} eyebrow={hasBest ? h.showcase.label : "Serag · Daily Lashes"} />
+        <Runway products={signature.slice(0, 6)} />
       ) : (
         <Row title={h.bestSellers} products={home.bestSellers} offers={home.offers} lang={lang} seeAll={h.seeAll} bestIds={home.bestSellers.map((p) => p.id)} />
       )}
@@ -208,7 +208,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
       {/* ───────────── Gift card ───────────── */}
       {gift ? (
         <section className="px-5 py-16 sm:px-8 sm:py-20">
-          <Reveal className="relative mx-auto grid max-w-6xl items-center gap-10 overflow-hidden rounded-[10px] border border-apricot bg-surface p-8 text-ivory backdrop-blur-sm sm:p-14 lg:grid-cols-[1.2fr_1fr]">
+          <Reveal className="relative mx-auto grid max-w-6xl items-center gap-10 overflow-hidden rounded-none border border-apricot bg-surface p-8 text-inkwell sm:p-14 lg:grid-cols-[1.2fr_1fr]">
             <div className="glow-pink pointer-events-none absolute -top-20 -left-20 h-80 w-80 opacity-50" aria-hidden="true" />
             <div className="relative">
               <Gift className="h-10 w-10 text-ember" />
@@ -222,7 +222,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
                 </MagnetLink>
               </div>
             </div>
-            <div data-scroll-tilt className="relative mx-auto w-full max-w-xs rotate-[-6deg] rounded-[10px] border border-apricot bg-ink-2 p-6 text-ivory">
+            <div data-scroll-tilt className="relative mx-auto w-full max-w-xs rotate-[-6deg] rounded-none border border-apricot bg-ink-2 p-6 text-ivory">
               <p className="font-display text-2xl text-ember" dir="ltr">
                 Serag Lashes
               </p>

@@ -16,7 +16,7 @@ const store: StoreDictionary = {
     bestSellers: "הנמכרים ביותר",
     onSale: "מבצעים והנחות",
     seeAll: "לכל המוצרים",
-    showcase: { label: "הקולקציה המיוחדת של Serag", prev: "הקודם", next: "הבא", go: "הציגי את {name}", cta: "לגלות" },
+    runway: { title: "נסי את הלוק.", sub: "שישה לוקים, כל אחד עם הפריטים שלו. גררי כדי לדפדף, הקישי כדי לראות.", inLook: "בלוק הזה", pieces: "{n} פריטים", look: "לוק", vendor: "Serag Lashes", complete: "השלימי את הלוק", completeNote: "כל הפריטים בלחיצה אחת", addAll: "הוסיפי את כל הלוק לסל", addAllShort: "כל הלוק — {price}", done: "כל הלוק בסל שלך", choose: "בחרי אפשרות עבור: {items}", drag: "גררי", view: "צפי", viewLook: "צפי בלוק", hint: "הקישי על פריט כדי לראות אותו", prev: "הלוק הקודם", next: "הלוק הבא", autoplay: "ניגון אוטומטי", close: "סגירה", add: "הוסיפי לסל", addTo: "הוסיפי לסל: {name}", added: "נוסף לסל: {name}", region: "נסי את הלוק — השתמשי בחצים או החליקי כדי להחליף לוק", option: "אפשרות" },
     perks: [
       { title: "משלוח חינם", text: "בהזמנה מעל {amount}" },
       { title: "נקודות על כל הזמנה", text: "מנוצלות כהנחה בהזמנה הבאה" },

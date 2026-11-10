@@ -91,7 +91,7 @@ export default async function ProductPage({ params }: PageProps<"/[lang]/p/[slug
             ) : (
               <ul className="mt-6 grid gap-4 md:grid-cols-2">
                 {reviews.map((r) => (
-                  <li key={r.id} className="rounded-[1.6rem] border border-berry/10 bg-surface p-5">
+                  <li key={r.id} className="rounded-none border border-berry/10 bg-surface p-5">
                     <div className="flex items-center justify-between gap-3">
                       <Stars value={r.rating} />
                       <span className="text-xs text-berry-deep/60">{date(r.createdAt, lang)}</span>

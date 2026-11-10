@@ -70,7 +70,7 @@ export function CartView({ products, zones, addons }: { products: Product[]; zon
 
   if (lines.length === 0) {
     return (
-      <div className="rounded-[2rem] border border-berry/10 bg-surface p-10 text-center">
+      <div className="rounded-none border border-berry/10 bg-surface p-10 text-center">
         <p className="text-lg text-plum">{c.empty}</p>
         <Link href={href(lang, "/shop")} className="btn btn-berry mt-6">
           {c.continue}
@@ -114,7 +114,7 @@ export function CartView({ products, zones, addons }: { products: Product[]; zon
                         <Minus className="h-4 w-4" />
                       </button>
                       <span className="min-w-7 text-center font-semibold text-plum tabular-nums">{num(line.qty, lang)}</span>
-                      <button type="button" onClick={() => cart.set(key, Math.min(limit, line.qty + 1))} disabled={line.qty >= limit} aria-label={dict.store.product.inc} className="grid h-10 w-10 place-items-center rounded-full bg-ember text-ink disabled:opacity-40">
+                      <button type="button" onClick={() => cart.set(key, Math.min(limit, line.qty + 1))} disabled={line.qty >= limit} aria-label={dict.store.product.inc} className="grid h-10 w-10 place-items-center rounded-full bg-ember text-white disabled:opacity-40">
                         <Plus className="h-4 w-4" />
                       </button>
                     </div>
@@ -137,7 +137,7 @@ export function CartView({ products, zones, addons }: { products: Product[]; zon
         </ul>
 
         {suggestions.length > 0 ? (
-          <section className="rounded-[1.8rem] border border-dashed border-berry/25 bg-pink-soft/30 p-5" aria-labelledby="cart-addons">
+          <section className="rounded-none border border-dashed border-berry/25 bg-pink-soft/30 p-5" aria-labelledby="cart-addons">
             <h2 id="cart-addons" className="font-semibold text-plum">
               {c.addons}
             </h2>
@@ -175,7 +175,7 @@ export function CartView({ products, zones, addons }: { products: Product[]; zon
           </section>
         ) : null}
 
-        <div className="grid gap-5 rounded-[1.8rem] border border-berry/10 bg-surface p-5 sm:grid-cols-2 sm:p-6">
+        <div className="grid gap-5 rounded-none border border-berry/10 bg-surface p-5 sm:grid-cols-2 sm:p-6">
           <CodeField
             id="cart-coupon"
             label={c.coupon}
@@ -234,7 +234,7 @@ export function CartView({ products, zones, addons }: { products: Product[]; zon
         </div>
       </div>
 
-      <aside className="h-fit rounded-[2rem] bg-ink-2 p-6 text-ivory lg:sticky lg:top-28">
+      <aside className="h-fit rounded-none bg-ink-2 p-6 text-ivory lg:sticky lg:top-28">
         <h2 className="font-display text-2xl">{dict.pay.summary}</h2>
         <div className="mt-5">
           <OrderSummary quote={quote} busy={busy} />

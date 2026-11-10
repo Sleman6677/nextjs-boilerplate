@@ -25,7 +25,7 @@ export function CatalogGrid({ categories, offers, newIds, bestIds, initial = "al
                 type="button"
                 onClick={() => setFilter(c.slug)}
                 aria-pressed={filter === c.slug}
-                className="min-h-11 rounded-full border border-berry/20 px-5 text-sm whitespace-nowrap text-plum transition-colors duration-200 hover:border-berry/60 aria-pressed:border-berry aria-pressed:bg-berry aria-pressed:text-ink"
+                className="min-h-11 rounded-full border border-berry/20 px-5 text-sm whitespace-nowrap text-plum transition-colors duration-200 hover:border-berry/60 aria-pressed:border-berry aria-pressed:bg-berry aria-pressed:text-white"
               >
                 {c.label}
               </button>

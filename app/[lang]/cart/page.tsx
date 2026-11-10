@@ -38,7 +38,7 @@ export default async function CartPage({ params }: PageProps<"/[lang]/cart">) {
         {enabled ? (
           <CartView products={products} zones={zones} addons={addons} />
         ) : (
-          <p className="rounded-[2rem] bg-surface p-8 text-center text-plum">
+          <p className="rounded-none bg-surface p-8 text-center text-plum">
             {dict.store.setup}{" "}
             <a href={whatsappLink()} className="font-semibold text-berry underline" target="_blank" rel="noopener noreferrer">
               {dict.store.orderOnWhatsapp}

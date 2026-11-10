@@ -21,7 +21,7 @@ import { toast } from "./toast";
 export function ProductImage({ p, index = 0, sizes = "(min-width:1024px) 25vw, 50vw", priority = false }: { p: Product; index?: number; sizes?: string; priority?: boolean }) {
   if (p.imageUrl) {
     return (
-      <span className="relative block aspect-[4/5] overflow-hidden rounded-[15px] bg-pink-soft">
+      <span className="relative block aspect-[4/5] overflow-hidden rounded-none bg-pink-soft">
         <Image src={p.imageUrl} alt="" fill sizes={sizes} quality={85} priority={priority} unoptimized={!optimizable(p.imageUrl)} className="object-cover transition-transform duration-700 ease-[var(--ease-silk)] group-hover:scale-[1.04]" />
       </span>
     );
@@ -29,7 +29,7 @@ export function ProductImage({ p, index = 0, sizes = "(min-width:1024px) 25vw, 5
   return <BoxVisual art={p.art} label={p.name.en || "Serag"} index={index} />;
 }
 
-const SWATCH: Record<Product["art"]["tone"], string> = { petal: "bg-pink-soft text-berry", rose: "bg-pink text-berry-deep", blush: "bg-blush text-cocoa", berry: "bg-ink-3 text-gold-soft" };
+const SWATCH: Record<Product["art"]["tone"], string> = { petal: "bg-pink-soft text-berry", rose: "bg-pink text-berry-deep", blush: "bg-blush text-cocoa", berry: "bg-ink text-white" };
 
 /** Small square for lists (cart, add-ons): the photo, or a tinted tile with the lash drawing. */
 export function ProductThumb({ p, className = "h-24 w-20 sm:h-28 sm:w-24" }: { p: Product; className?: string }) {
@@ -101,14 +101,14 @@ export function ProductCard({ p, offers, isNew = false, best = false, index = 0 
   const badges = [
     pct > 0 ? { text: `−${num(pct, lang)}${lang === "ar" ? "٪" : "%"}`, tone: "bg-rose-ink text-ivory" } : null,
     status === "out" ? { text: s.badges.out, tone: "bg-ink-2 text-ivory" } : status === "low" ? { text: s.badges.low, tone: "bg-surface text-graphite border border-graphite" } : null,
-    isNew ? { text: s.badges.new, tone: "bg-ember text-ink" } : null,
-    best ? { text: s.badges.best, tone: "bg-ember text-ink" } : null,
+    isNew ? { text: s.badges.new, tone: "bg-ember text-white" } : null,
+    best ? { text: s.badges.best, tone: "bg-ember text-white" } : null,
   ].filter((b): b is { text: string; tone: string } => b !== null);
 
   return (
-    <article className="box-card group relative flex h-full flex-col rounded-[10px] border-[1.5px] border-apricot bg-surface p-4 sm:p-5">
+    <article className="box-card group relative flex h-full flex-col rounded-none border-[1.5px] border-apricot bg-surface p-4 sm:p-5">
       <div className="relative">
-        <Link href={link} aria-label={name} className="block rounded-[15px] focus-visible:outline-offset-4">
+        <Link href={link} aria-label={name} className="block rounded-none focus-visible:outline-offset-4">
           <Glare>
             <ProductImage p={p} index={index} />
           </Glare>
@@ -145,7 +145,7 @@ export function ProductCard({ p, offers, isNew = false, best = false, index = 0 
               {s.product.notifySubmit}
             </Link>
           ) : hasOptions || p.kind === "gift_card" ? (
-            <Link href={link} aria-label={`${t(s.product.choose, { label: localized(p.optionsLabel, lang) || s.product.optionLabel })}: ${name}`} className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-berry/30 text-berry transition-colors hover:bg-berry hover:text-ink">
+            <Link href={link} aria-label={`${t(s.product.choose, { label: localized(p.optionsLabel, lang) || s.product.optionLabel })}: ${name}`} className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-berry/30 text-berry transition-colors hover:bg-berry hover:text-white">
               <Plus className="h-4 w-4" />
             </Link>
           ) : (
@@ -157,7 +157,7 @@ export function ProductCard({ p, offers, isNew = false, best = false, index = 0 
                 toast(t(s.product.added, { name }));
               }}
               aria-label={`${s.product.add}: ${name}`}
-              className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-ember text-ink transition-[transform,background-color] duration-200 hover:bg-tangerine active:scale-90"
+              className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-ember text-white transition-[transform,background-color] duration-200 hover:bg-tangerine active:scale-90"
             >
               <Plus className="h-4 w-4" />
             </button>

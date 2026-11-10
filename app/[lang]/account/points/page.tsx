@@ -19,7 +19,7 @@ export default async function PointsPage({ params }: PageProps<"/[lang]/account/
 
   return (
     <section className="grid gap-8 lg:grid-cols-[1fr_2fr]">
-      <aside className="h-fit rounded-[2rem] bg-gradient-to-br from-gold-soft via-gold to-gold-deep p-7 text-ink">
+      <aside className="h-fit rounded-none bg-gradient-to-br from-gold-soft via-gold to-gold-deep p-7 text-ink">
         <p className="text-sm font-semibold">{dict.account.pointsBalance}</p>
         <p className="font-display mt-2 text-6xl">{num(balance, lang)}</p>
         <p className="mt-2 text-sm">{t(dict.account.pointsWorth, { value: fmt(balance * settings.pointValue) })}</p>

@@ -48,7 +48,7 @@ export default async function ShopPage({ params, searchParams }: PageProps<"/[la
       </section>
 
       {!accountsEnabled() ? (
-        <p className="bg-tangerine px-5 py-4 text-center text-sm text-ink">
+        <p className="bg-ink px-5 py-4 text-center text-sm text-white">
           {dict.store.setup}{" "}
           <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 font-semibold underline">
             <WhatsApp className="h-4 w-4" /> {dict.store.orderOnWhatsapp}

@@ -56,7 +56,7 @@ export function OrderView({ order, lang, token = null, flags = {}, signedIn = fa
       </div>
 
       {order.needsShipping ? (
-        <section className="rounded-[2rem] border border-cocoa/10 bg-surface p-5 sm:p-8">
+        <section className="rounded-none border border-cocoa/10 bg-surface p-5 sm:p-8">
           <StatusTracker status={order.status} dict={dict} />
           {order.trackingNumber ? (
             <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-cocoa/10 pt-5">
@@ -78,13 +78,13 @@ export function OrderView({ order, lang, token = null, flags = {}, signedIn = fa
       ) : null}
 
       {onlinePay ? (
-        <section className="rounded-[2rem] border border-gold/40 bg-surface p-6 sm:p-8">
+        <section className="rounded-none border border-gold/40 bg-surface p-6 sm:p-8">
           <PayButton number={order.number} token={token} />
         </section>
       ) : null}
 
       {manualBit ? (
-        <section className="rounded-[2rem] border border-dashed border-rosewood/40 bg-surface p-6 sm:p-8">
+        <section className="rounded-none border border-dashed border-rosewood/40 bg-surface p-6 sm:p-8">
           <p className="leading-8 text-cocoa">{t(a.bitPending, { total: fmt(order.total), phone: payments.bit.display })}</p>
           <a href={whatsappLink(t(a.proofMsg, { brand: dict.brand, number: order.number, total: fmt(order.total) }))} target="_blank" rel="noopener noreferrer" className="btn btn-ink mt-5">
             <WhatsApp className="h-5 w-5" /> {a.sendProof}
@@ -93,7 +93,7 @@ export function OrderView({ order, lang, token = null, flags = {}, signedIn = fa
       ) : null}
 
       {order.items.some((i) => i.isGiftCard) ? (
-        <section className="rounded-[2rem] bg-ink-2 p-6 text-ivory sm:p-8">
+        <section className="rounded-none bg-ink-2 p-6 text-ivory sm:p-8">
           <h3 className="flex items-center gap-2 font-semibold">
             <Gift className="h-5 w-5 text-pink" /> {so.giftCards}
           </h3>
@@ -117,7 +117,7 @@ export function OrderView({ order, lang, token = null, flags = {}, signedIn = fa
       ) : null}
 
       <div className="grid gap-8 lg:grid-cols-[1.5fr_1fr]">
-        <section className="rounded-[2rem] border border-cocoa/10 bg-surface p-6 sm:p-8">
+        <section className="rounded-none border border-cocoa/10 bg-surface p-6 sm:p-8">
           <h3 className="font-naskh text-2xl text-cocoa">{a.items}</h3>
           <ul className="mt-4 divide-y divide-cocoa/10">
             {order.items.map((i, idx) => (
@@ -186,7 +186,7 @@ export function OrderView({ order, lang, token = null, flags = {}, signedIn = fa
         </section>
 
         <aside className="space-y-6">
-          <section className="rounded-[2rem] border border-cocoa/10 bg-surface p-6">
+          <section className="rounded-none border border-cocoa/10 bg-surface p-6">
             <h3 className="font-naskh text-xl text-cocoa">{a.shipTo}</h3>
             <p className="mt-3 leading-7 text-taupe">
               {order.ship.name}
@@ -217,13 +217,13 @@ export function OrderView({ order, lang, token = null, flags = {}, signedIn = fa
               </p>
             ) : null}
           </section>
-          <section className="rounded-[2rem] border border-cocoa/10 bg-surface p-6">
+          <section className="rounded-none border border-cocoa/10 bg-surface p-6">
             <h3 className="font-naskh text-xl text-cocoa">{a.payment}</h3>
             <p className="mt-3 text-taupe">
               {o.methods[order.paymentMethod]} · {o.payment[order.paymentStatus as keyof typeof o.payment] ?? order.paymentStatus}
             </p>
           </section>
-          <section className="rounded-[2rem] border border-cocoa/10 bg-surface p-6">
+          <section className="rounded-none border border-cocoa/10 bg-surface p-6">
             <h3 className="font-naskh text-xl text-cocoa">{a.timeline}</h3>
             <ol className="mt-3 space-y-2 text-sm text-taupe">
               {order.events.map((e, i) => (

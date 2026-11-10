@@ -25,9 +25,9 @@ function Gallery({ p }: { p: Product }) {
   if (p.images.length === 0) return <BoxVisual art={p.art} label={p.name.en || "Serag"} />;
   return (
     <div>
-      <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto rounded-[2rem] [scrollbar-width:none] lg:overflow-hidden" onScroll={(e) => setActive(Math.round(Math.abs(e.currentTarget.scrollLeft) / e.currentTarget.clientWidth))}>
+      <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto rounded-none [scrollbar-width:none] lg:overflow-hidden" onScroll={(e) => setActive(Math.round(Math.abs(e.currentTarget.scrollLeft) / e.currentTarget.clientWidth))}>
         {p.images.map((src, i) => (
-          <div key={src} className={`relative aspect-[4/5] w-full shrink-0 snap-center overflow-hidden rounded-[2rem] bg-pink-soft ${i === active ? "" : "lg:hidden"}`}>
+          <div key={src} className={`relative aspect-[4/5] w-full shrink-0 snap-center overflow-hidden rounded-none bg-pink-soft ${i === active ? "" : "lg:hidden"}`}>
             <Image src={src} alt={t(dict.store.product.photo, { n: num(i + 1, lang), total: num(p.images.length, lang) })} fill priority={i === 0} sizes="(min-width:1024px) 45vw, 100vw" quality={85} unoptimized={!optimizable(src)} className="object-cover" />
           </div>
         ))}
@@ -68,7 +68,7 @@ function NotifyForm({ p, variantId }: { p: Product; variantId: string | null }) 
     );
   }
   return (
-    <form onSubmit={onSubmit} className="rounded-[1.6rem] border border-berry/15 bg-surface p-5">
+    <form onSubmit={onSubmit} className="rounded-none border border-berry/15 bg-surface p-5">
       <p className="font-semibold text-plum">{s.notifyTitle}</p>
       <p className="mt-1 text-sm text-berry-deep/75">{s.notifyText}</p>
       <div className="mt-4 flex gap-2">
@@ -151,7 +151,7 @@ export function ProductView({ p, offers, addons, gift }: { p: Product; offers: O
         ))}
 
         {p.kind === "gift_card" && gift ? (
-          <div className="mt-6 rounded-[1.6rem] bg-ink-2 p-5 text-ivory">
+          <div className="mt-6 rounded-none bg-ink-2 p-5 text-ivory">
             <p className="font-display text-3xl text-gold-soft">{t(s.giftValue, { value: money(round2(listPrice * (1 + gift.bonusPct / 100)), lang) })}</p>
             <p className="mt-2 text-sm leading-7 text-ivory/80">{s.giftHow}</p>
             {gift.validMonths ? <p className="mt-2 text-xs text-gold-soft/80">{t(s.giftValid, { months: num(gift.validMonths, lang) })}</p> : null}
@@ -167,7 +167,7 @@ export function ProductView({ p, offers, addons, gift }: { p: Product; offers: O
               {options.map((v) => {
                 const out = stockStatus(p, v.id) === "out";
                 return (
-                  <label key={v.id} className={`relative flex min-h-12 cursor-pointer items-center rounded-full border px-5 text-sm transition-colors has-checked:border-berry has-checked:bg-berry has-checked:text-ink has-focus-visible:outline-2 has-focus-visible:outline-berry ${out ? "border-dashed border-berry/25 text-berry-deep/45" : "border-berry/25 text-plum hover:border-berry"}`}>
+                  <label key={v.id} className={`relative flex min-h-12 cursor-pointer items-center rounded-full border px-5 text-sm transition-colors has-checked:border-berry has-checked:bg-berry has-checked:text-white has-focus-visible:outline-2 has-focus-visible:outline-berry ${out ? "border-dashed border-berry/25 text-berry-deep/45" : "border-berry/25 text-plum hover:border-berry"}`}>
                     <input type="radio" name="variant" value={v.id} checked={variantId === v.id} onChange={() => setVariantId(v.id)} className="sr-only" />
                     {localized(v.name, lang)}
                     {out ? <span className="sr-only"> · {dict.store.stock.out}</span> : null}
@@ -195,7 +195,7 @@ export function ProductView({ p, offers, addons, gift }: { p: Product; offers: O
               <span className="min-w-8 text-center font-semibold text-plum tabular-nums" aria-live="polite">
                 {num(qty, lang)}
               </span>
-              <button type="button" onClick={() => setQty((q) => Math.min(Math.max(1, limit), q + 1))} aria-label={s.inc} className="grid h-11 w-11 place-items-center rounded-full bg-ember text-ink">
+              <button type="button" onClick={() => setQty((q) => Math.min(Math.max(1, limit), q + 1))} aria-label={s.inc} className="grid h-11 w-11 place-items-center rounded-full bg-ember text-white">
                 <Plus className="h-4 w-4" />
               </button>
             </div>
@@ -206,7 +206,7 @@ export function ProductView({ p, offers, addons, gift }: { p: Product; offers: O
         )}
 
         {addons.length > 0 ? (
-          <section className="mt-10 rounded-[1.8rem] border border-berry/15 bg-pink-soft/40 p-5" aria-labelledby="addons-title">
+          <section className="mt-10 rounded-none border border-berry/15 bg-pink-soft/40 p-5" aria-labelledby="addons-title">
             <h2 id="addons-title" className="font-semibold text-plum">
               {s.addons}
             </h2>

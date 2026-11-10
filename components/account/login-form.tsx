@@ -54,7 +54,7 @@ export function LoginForm({ next }: { next: string }) {
     "mt-2 block w-full rounded-2xl border border-cocoa/15 bg-surface px-4 py-3.5 text-base text-cocoa transition-colors duration-200 focus:border-gold-deep focus:outline-none focus-visible:outline-2 focus-visible:outline-gold";
 
   return (
-    <div className="rounded-[2rem] border border-cocoa/10 bg-surface/80 p-6 shadow-[0_30px_80px_-50px_rgba(43,33,28,0.5)] sm:p-10">
+    <div className="rounded-none border border-cocoa/10 bg-surface/80 p-6 shadow-[0_30px_80px_-50px_rgba(43,33,28,0.5)] sm:p-10">
       {step === "target" ? (
         <form onSubmit={onTarget} noValidate>
           <p className="text-sm text-taupe">{l.text}</p>

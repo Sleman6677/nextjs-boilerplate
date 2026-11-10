@@ -82,7 +82,7 @@ export function CheckoutForm({
 
   if (lines.length === 0) {
     return (
-      <div className="rounded-[2rem] border border-berry/10 bg-surface p-10 text-center">
+      <div className="rounded-none border border-berry/10 bg-surface p-10 text-center">
         <p className="text-lg text-plum">{c.empty}</p>
         <Link href={href(lang, "/shop")} className="btn btn-berry mt-6">
           {c.continue}
@@ -162,7 +162,7 @@ export function CheckoutForm({
           </p>
         ) : null}
 
-        <fieldset className="rounded-[2rem] border border-berry/10 bg-surface/70 p-6 sm:p-8">
+        <fieldset className="rounded-none border border-berry/10 bg-surface/70 p-6 sm:p-8">
           <legend className="font-naskh px-2 text-2xl text-plum">{ck.contact}</legend>
           <div className="mt-2 grid gap-4 sm:grid-cols-2">
             <div>
@@ -192,7 +192,7 @@ export function CheckoutForm({
           </div>
         </fieldset>
 
-        <fieldset className="rounded-[2rem] border border-berry/10 bg-surface/70 p-6 sm:p-8">
+        <fieldset className="rounded-none border border-berry/10 bg-surface/70 p-6 sm:p-8">
           <legend className="font-naskh px-2 text-2xl text-plum">{ck.delivery}</legend>
           {!needsShipping ? (
             <p className="mt-2 text-plum">{ck.giftOnly}</p>
@@ -275,7 +275,7 @@ export function CheckoutForm({
           )}
         </fieldset>
 
-        <fieldset className="rounded-[2rem] border border-berry/10 bg-surface/70 p-6 sm:p-8">
+        <fieldset className="rounded-none border border-berry/10 bg-surface/70 p-6 sm:p-8">
           <legend className="font-naskh px-2 text-2xl text-plum">{c.coupon}</legend>
           {quote?.discountKind === "first_order" ? (
             <p className="mb-4 flex items-center gap-2 rounded-2xl bg-pink-soft/60 px-4 py-3 text-sm text-plum">
@@ -317,7 +317,7 @@ export function CheckoutForm({
           </div>
         </fieldset>
 
-        <fieldset className="rounded-[2rem] border border-berry/10 bg-surface/70 p-6 sm:p-8">
+        <fieldset className="rounded-none border border-berry/10 bg-surface/70 p-6 sm:p-8">
           <legend className="font-naskh px-2 text-2xl text-plum">{ck.payment}</legend>
           {paidInFull ? (
             <p className="mt-2 text-plum">{ck.paidInFull}</p>
@@ -340,7 +340,7 @@ export function CheckoutForm({
         </fieldset>
 
         {!profile?.birthday || !profile?.marketingConsent ? (
-          <fieldset className="rounded-[2rem] border border-berry/10 bg-surface/70 p-6 sm:p-8">
+          <fieldset className="rounded-none border border-berry/10 bg-surface/70 p-6 sm:p-8">
             <legend className="sr-only">{ck.birthday}</legend>
             {!profile?.birthday ? (
               <div className="max-w-xs">
@@ -360,7 +360,7 @@ export function CheckoutForm({
         ) : null}
       </div>
 
-      <aside className="h-fit rounded-[2rem] bg-ink-2 p-6 text-ivory lg:sticky lg:top-28">
+      <aside className="h-fit rounded-none bg-ink-2 p-6 text-ivory lg:sticky lg:top-28">
         <h2 className="font-display text-2xl">{dict.pay.summary}</h2>
         <ul className="mt-4 space-y-2 border-b border-pink-soft/15 pb-4 text-sm">
           {(quote?.items ?? []).map((it) => {
