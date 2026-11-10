@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { connection } from "next/server";
-import Image from "next/image";
 import { LashEye } from "@/components/art";
 import { socialLinks } from "@/components/chrome";
 import { ArrowForward, Coin, Gift, Shield, Truck } from "@/components/icons";
 import { KohlStroke } from "@/components/kohl";
+import { BoxScene } from "@/components/shop/box-scene";
 import { HeroAdd } from "@/components/shop/hero-add";
 import { ProductCard, PriceTag } from "@/components/shop/product-card";
 import { getHome, isNewProduct, type OfferInfo, type Product } from "@/lib/catalog";
@@ -67,8 +67,8 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
   return (
     <>
       {/* ───────────── First screen: the real box, its facts, and the way to buy it ───────────── */}
-      <section className="relative overflow-clip">
-        <div className="mx-auto grid max-w-7xl items-start gap-8 px-5 pt-32 pb-16 lg:gap-12 lg:pt-36 sm:px-8 lg:min-h-svh lg:grid-cols-12 lg:gap-x-6 lg:pb-10">
+      <section data-box-scene className="relative lg:h-[220svh]">
+        <div className="mx-auto grid max-w-7xl items-start gap-8 px-5 pt-32 pb-16 sm:px-8 lg:sticky lg:top-0 lg:h-svh lg:grid-cols-12 lg:gap-x-6 lg:pt-36 lg:pb-10">
           <div className="lg:col-span-6">
             <h1 className="font-display text-[3.25rem] leading-[1.02] sm:text-7xl lg:text-[5.5rem]">{h.title}</h1>
             <KohlStroke on="load" delay={500} className="mt-4 h-4 w-48 sm:w-64" />
@@ -103,16 +103,8 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
             </ul>
           </div>
 
-          <div className="relative order-first -mx-2 lg:order-none lg:col-span-6 lg:mx-0">
-            <Image
-              src="/images/serag-lashes-box.jpg"
-              alt={k.boxAlt}
-              width={1344}
-              height={960}
-              priority
-              sizes="(min-width: 1024px) 50vw, 100vw"
-              className="h-auto w-full"
-            />
+          <div className="sticky top-[4.75rem] z-10 order-first -mx-2 bg-stone pb-2 lg:static lg:order-none lg:col-span-6 lg:mx-0 lg:bg-transparent lg:pb-0">
+            <BoxScene alt={k.boxAlt} />
           </div>
         </div>
       </section>

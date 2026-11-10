@@ -870,3 +870,28 @@ details[open] .faq-icon {
     animation: none;
   }
 }
+
+/* The box drops in from above once, lands and settles. */
+@media (prefers-reduced-motion: no-preference) {
+  .box-fall {
+    animation: box-fall 1100ms both;
+  }
+}
+
+@keyframes box-fall {
+  0% {
+    transform: translateY(-120vh) rotate(-16deg);
+    animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); /* gravity */
+  }
+  62% {
+    transform: translateY(0) rotate(2deg);
+    animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  78% {
+    transform: translateY(-3.5%) rotate(-1deg);
+    animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45);
+  }
+  100% {
+    transform: none;
+  }
+}
